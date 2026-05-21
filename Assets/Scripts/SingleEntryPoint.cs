@@ -8,12 +8,17 @@ namespace SimpleDependencyManagement
         [field: SerializeField] public CameraController CameraController { get; private set; }
         [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
         [field: SerializeField] public InputManager InputManager { get; private set; }
+        [field: SerializeField] public GroundDetector GroundDetector { get; private set; }
+        [field: SerializeField] public NormalComparer NormalComparer { get; private set; }
+        [field: SerializeField] public DebugPanel DebugPanel { get; private set; }
         private void Awake()
         {
             InputManager.CreateSingleton();
 
             CameraController.Initialize(Player.transform);
-            PlayerMovement.Initialize(Camera.main);
+            PlayerMovement.Initialize(Camera.main, GroundDetector, NormalComparer);
+            GroundDetector.Initialize(PlayerMovement);
+            DebugPanel.Initialize(GroundDetector);
         }
     }
 }

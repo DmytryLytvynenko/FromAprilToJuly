@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _positionLerpRate;
     [SerializeField] private float _cameraObstacleOffset;
+    [SerializeField] private float _checkObstaclesTime = .2f;
     [SerializeField] private LayerMask _cameraRayIgnoreObjectsMask;
 
     private Quaternion _targetControllerRotation;
@@ -20,6 +21,7 @@ public class CameraController : MonoBehaviour
     private Transform _currentCameraAnchor;
     private RaycastHit _hit;
     private float _debugHitSphereRadius = .2f;
+    private float _checkObstaclesTimer = 0f;
 
 
     public void Initialize(Transform player)
@@ -76,6 +78,15 @@ public class CameraController : MonoBehaviour
     }
     private void CheckObstacles()
     {
+        if (_checkObstaclesTimer < _checkObstaclesTime)
+        {
+            _checkObstaclesTimer += Time.deltaTime;
+            return;
+        }
+        else
+        {
+            _checkObstaclesTimer = 0;
+        }
         Vector3 dir = _cameraAnchor.transform.position - _focusPoint.transform.position;
         Debug.DrawRay(_focusPoint.transform.position, dir, Color.red, .1f);
         if (Physics.Raycast(_focusPoint.transform.position, dir, out _hit, dir.magnitude, ~_cameraRayIgnoreObjectsMask))

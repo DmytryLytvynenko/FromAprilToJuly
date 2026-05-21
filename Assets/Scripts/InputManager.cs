@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System;
 
 public class InputManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public InputEvent OnJump = new InputEvent();
     [HideInInspector] public InputEvent OnInteract = new InputEvent();
     [HideInInspector] public InputEvent OnLook = new InputEvent();
+    [HideInInspector] public event Action OnDebug;
 
     public Vector2 CurrentMoveInput => _currentMoveInput;
     public bool JumpPressed => _jumpPressed;
@@ -44,6 +46,7 @@ public class InputManager : MonoBehaviour
         var jumpAction = _mainInput.Player.Jump;
         var interactAction = _mainInput.Player.Interact;
         var lookAction = _mainInput.Player.Look;
+        var debugAction = _mainInput.Player.Debug;
 
 
         moveAction.performed += OnMoveInput;
@@ -58,6 +61,7 @@ public class InputManager : MonoBehaviour
         lookAction.performed += OnLookInput;
         lookAction.canceled += OnLookInput;
 
+        debugAction.performed += OnDebugInput;
     }
     private void DisableInputActions()
     {
@@ -65,7 +69,7 @@ public class InputManager : MonoBehaviour
         var jumpAction = _mainInput.Player.Jump;
         var interactAction = _mainInput.Player.Interact;
         var lookAction = _mainInput.Player.Look;
-
+        var debugAction = _mainInput.Player.Debug;
 
         moveAction.performed -= OnMoveInput;
         moveAction.canceled -= OnMoveInput;
@@ -78,6 +82,8 @@ public class InputManager : MonoBehaviour
 
         lookAction.performed -= OnLookInput;
         lookAction.canceled -= OnLookInput;
+
+        debugAction.performed -= OnDebugInput;
 
         _mainInput.Player.Disable();
     }
@@ -115,6 +121,10 @@ public class InputManager : MonoBehaviour
         _currentLookInput = ctx.ReadValue<Vector2>();
         if (ctx.canceled) _currentLookInput = Vector2.zero;
         OnLook.Invoke(ctx);
+    }
+    private void OnDebugInput(InputAction.CallbackContext ctx)
+    {
+        OnDebug?.Invoke();
     }
 }
 
