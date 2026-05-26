@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Events;
 using System;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class InputManager : MonoBehaviour
 {
@@ -28,11 +29,11 @@ public class InputManager : MonoBehaviour
     private bool _interactPressed = false;
     private Vector2 _currentLookInput = Vector2.zero;
 
-    private void OnEnable()
+    public void Initialize()
     {
         InitializeInputActions();
     }
-    private void OnDisable()
+    public void HandleDisable()
     {
         DisableInputActions();
     }

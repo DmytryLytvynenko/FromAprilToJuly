@@ -13,12 +13,9 @@ public class GroundDetector : MonoBehaviour
     {
         _playerMovement = playerMovement;
         gameObject.SetActive(true);
-    }
-    private void OnEnable()
-    {
         _playerMovement.PlayerJumped += OnJump;
     }
-    private void OnDisable()
+    public void HandleDisable()
     {
         _playerMovement.PlayerJumped -= OnJump;
     }
@@ -51,10 +48,15 @@ public class GroundDetector : MonoBehaviour
     }
     private bool CheckGround()
     {
-        Debug.DrawRay(_playerMovement.transform.position, Vector3.down * _jumpRayCheckDistance, Color.blue, 0.5f);
-        if (Physics.Raycast(_playerMovement.transform.position, Vector3.down, _jumpRayCheckDistance, _groundedLayers))
+        Debug.DrawRay(_playerMovement.transform.position, Vector3.down * _jumpRayCheckDistance, Color.blue, 5f);
+        if (Physics.Raycast(_playerMovement.transform.position, Vector3.down, out RaycastHit hit, _jumpRayCheckDistance, _groundedLayers))
+        {
             return true;
+
+        }
         else
+        {
             return false;
+        }
     }
 }

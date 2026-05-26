@@ -30,6 +30,11 @@ public class CameraController : MonoBehaviour
         _currentCameraAnchor = _cameraAnchor;
         _player = player;
         gameObject.SetActive(true);
+        InputManager.Instance.OnLook.AddListener(HandleLook);
+    }
+    public void HandleDisable()
+    {
+        InputManager.Instance.OnLook.RemoveListener(HandleLook);
     }
     private void LateUpdate()
     {
@@ -38,16 +43,6 @@ public class CameraController : MonoBehaviour
         CheckObstacles();
         MoveCameraToAnchor();
         RotateCamera();
-    }
-    private void OnEnable()
-    {
-        if (!InputManager.Instance) return;
-        InputManager.Instance.OnLook.AddListener(HandleLook);
-    }
-    private void OnDisable()
-    {
-        if (!InputManager.Instance) return;
-        InputManager.Instance.OnLook.RemoveListener(HandleLook);
     }
     private void HandleLook(InputAction.CallbackContext context)
     {

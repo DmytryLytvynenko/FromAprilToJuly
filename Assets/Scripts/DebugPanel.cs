@@ -5,21 +5,26 @@ public class DebugPanel : MonoBehaviour
 {
     [SerializeField] private GameObject _debugPanel;
     [SerializeField] private TextMeshProUGUI GroundedTB;
+    [SerializeField] private TextMeshProUGUI LinearVelocityTB;
     private GroundDetector _groundDetector;
+    private Rigidbody _playerRigidbody;
     
-    public void Initialize(GroundDetector groundDetector)
+    public void Initialize(GroundDetector groundDetector, Rigidbody playerRigidbody)
     {
+        _playerRigidbody = playerRigidbody;
         _groundDetector = groundDetector;
         gameObject.SetActive(true);
-        
+        InputManager.Instance.OnDebug += OnDebug;
+    }
+    public void HandleDisable()
+    {
+        InputManager.Instance.OnDebug -= OnDebug;
     }
     private void OnEnable()
     {
-        InputManager.Instance.OnDebug += OnDebug;
     }
     private void OnDisable()
     {
-        InputManager.Instance.OnDebug -= OnDebug;
     }
     private void Update()
     {
@@ -33,6 +38,12 @@ public class DebugPanel : MonoBehaviour
 
     private void UpdateText()
     {
+        UpdateGroundedText();
+        UpdateLinearVelocityTBText();
+    }
+
+    private void UpdateGroundedText()
+    {
         if (_groundDetector.Grounded)
         {
             GroundedTB.color = Color.green;
@@ -43,5 +54,9 @@ public class DebugPanel : MonoBehaviour
             GroundedTB.color = Color.red;
             GroundedTB.text = "False";
         }
+    }
+    private void UpdateLinearVelocityTBText()
+    {
+        LinearVelocityTB.text = _playerRigidbody.linearVelocity.ToString();
     }
 }

@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(Rigidbody), typeof(NormalComparer))] 
 public class PlayerMovement : MonoBehaviour
 {
     [field: SerializeField] public float Speed { get; set; }
@@ -12,35 +11,42 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _gravity;
-    [SerializeField] private float _maxElevationAngle;
+    [SerializeField] private float _maxVelocity = 5f;
     [SerializeField] private LayerMask _groundedLayers;
     
     private GroundDetector _groundedDetector;
-    private NormalComparer _normalComparer;
-    private Rigidbody _rigidbody;
+    private NormalProjector _normalProjector;
     private Camera _camera;
-    public void Initialize(Camera camera, GroundDetector groundDetector, NormalComparer normalComparer)
+    private Rigidbody _rigidbody;
+    private Vector3 _moveDirection;
+    public void Initialize(Camera camera, GroundDetector groundDetector, NormalProjector normalProjector, Rigidbody rigidbody)
     {
         _camera = camera;
-        _rigidbody = GetComponent<Rigidbody>();
         _groundedDetector = groundDetector;
-        _normalComparer = normalComparer;
+        _normalProjector = normalProjector;
+        _rigidbody = rigidbody;
         InputManager.Instance.OnJump.AddListener(HandleJump);
+        InputManager.Instance.OnMove.AddListener(HandleMoveInput);
+    }
+    public void HandleDisable()
+    {
+        InputManager.Instance.OnJump.RemoveListener(HandleJump);
+        InputManager.Instance.OnMove.RemoveListener(HandleMoveInput);
     }
     private void FixedUpdate()
     {
         HandleMove();
     }
-
-    private void RotateTowardsMoveDirection(Vector3 moveDirection)
+    private void RotateTowardsMoveDirection()
     {
-        if (moveDirection.magnitude < 0.01f) return; 
+        if (_moveDirection.magnitude < 0.01f) return; 
 
         float currentAngle = transform.eulerAngles.y;
-        float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
+        float targetAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
         float smoothedAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.fixedDeltaTime);
 
-        transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
+        _rigidbody.MoveRotation(Quaternion.Euler(0f, smoothedAngle, 0f));
+        //transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
     }
     private void HandleMove()
     {
@@ -56,15 +62,47 @@ public class PlayerMovement : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        Vector3 moveDirection = (forward * input.y + right * input.x).normalized;
-        moveDirection = _normalComparer.Project(moveDirection);
+        _moveDirection = (forward * input.y + right * input.x).normalized;
+        RotateTowardsMoveDirection();
+        _moveDirection = _normalProjector.Project(_moveDirection);
 
         Vector3 currentVelocity = _rigidbody.linearVelocity;
-        Vector3 desiredVelocity = moveDirection * Speed;
+        Vector3 desiredVelocity = _moveDirection * Speed;
         desiredVelocity.y = currentVelocity.y;
         _rigidbody.linearVelocity = desiredVelocity;
         HandleGravity();
-        RotateTowardsMoveDirection(moveDirection);
+    }
+    private void HandleMoveAddForce()
+    {
+        if (_camera == null) { Debug.LogWarning("PlayerMovement camera ref is null"); return; };
+
+        Vector2 input = InputManager.Instance.CurrentMoveInput;
+
+        Vector3 forward = _camera.transform.forward;
+        Vector3 right = _camera.transform.right;
+
+        forward.y = 0;
+        right.y = 0;
+        forward.Normalize();
+        right.Normalize();
+
+        _moveDirection = (forward * input.y + right * input.x).normalized;
+        RotateTowardsMoveDirection();
+        _moveDirection = _normalProjector.Project(_moveDirection);
+
+        if (Mathf.Sqrt(Mathf.Pow(_rigidbody.linearVelocity.x, 2) + Mathf.Pow(_rigidbody.linearVelocity.z, 2))  < _maxVelocity)
+        {
+            _rigidbody.AddForce(_moveDirection * Speed);
+        }
+        HandleGravity();
+    }
+    private void HandleMoveInput(InputAction.CallbackContext ctx)
+    {
+        if (ctx.canceled && _groundedDetector.Grounded)
+        {
+            _rigidbody.linearVelocity = new Vector3();
+            _rigidbody.angularVelocity = Vector3.zero;
+        }
     }
     private void HandleJump(InputAction.CallbackContext ctx)
     {

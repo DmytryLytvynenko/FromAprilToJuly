@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
 
-public class NormalComparer : MonoBehaviour
+public class NormalProjector : MonoBehaviour
 {
-    [SerializeField] float acceptableVerticalAngle = 40f; 
+    [SerializeField] float _acceptableVerticalAngle = 40f; 
+    [SerializeField] float _collisionHightThreshold = .8f; 
 
     private Vector3 normal = Vector3.up;
 
@@ -14,26 +15,18 @@ public class NormalComparer : MonoBehaviour
         if (moveVector.magnitude < 0.01f)
             return moveVector;
 
-        // Проверяем угол наклона между нормалью и вертикалью (up)
-        // Угол 0° = горизонтальная поверхность, 90° = вертикальная стена
         float slopeAngle = Vector3.Angle(normal, Vector3.up);
 
-        // Ограничиваем движение, если угол больше допустимого
-        if (slopeAngle > acceptableVerticalAngle)
+        if (slopeAngle > _acceptableVerticalAngle)
         {
-            // Если склон слишком крутой, не позволяем двигаться вверх по нему
-            // но позволяем двигаться вниз
             Vector3 projectedMove = moveVector - Vector3.Dot(moveVector, normal) * normal;
 
-            // Проверяем, движемся ли мы вверх по склону
-            if (Vector3.Dot(moveVector, -normal) > 0) // движемся против нормали (вверх по склону)
+            if (Vector3.Dot(moveVector, -normal) > 0) 
             {
-                return Vector3.zero; // Блокируем движение вверх по крутому склону
+                //return Vector3.zero; 
+                return new Vector3 (projectedMove.x * .15f, moveVector.y, projectedMove.z * .15f); 
             }
         }
-
-        // Проецируем вектор движения на поверхность
-        // Вычитаем компоненту движения вдоль нормали
         Vector3 projectedMovement = moveVector - Vector3.Dot(moveVector, normal) * normal;
 
         return projectedMovement.normalized * moveVector.magnitude;
@@ -48,18 +41,28 @@ public class NormalComparer : MonoBehaviour
     {
         UpdateNormal(collision);
     }
+/*    private void OnCollisionExit(Collision collision)
+    {
+        UpdateNormal(collision);
+    }*/
 
     private void UpdateNormal(Collision collision)
     {
+
         if (collision.contactCount > 0)
         {
+            if (transform.position.y - collision.contacts[0].point.y < _collisionHightThreshold)
+                return;
             Vector3 newNormal = collision.contacts[0].normal;
 
-            // Проверяем, смотрит ли нормаль вверх (от поверхности к персонажу)
             if (Vector3.Dot(newNormal, Vector3.up) > -0.1f)
             {
                 normal = newNormal;
             }
+        }
+        else
+        {
+            normal = Vector3.up;
         }
     }
 
@@ -81,7 +84,7 @@ public class NormalComparer : MonoBehaviour
 
         // Рисуем информацию о склоне
         float slopeAngle = Vector3.Angle(normal, Vector3.up);
-        Gizmos.color = slopeAngle > acceptableVerticalAngle ? Color.red : Color.cyan;
+        Gizmos.color = slopeAngle > _acceptableVerticalAngle ? Color.red : Color.cyan;
         Gizmos.DrawWireCube(transform.position + Vector3.up * 1.5f, Vector3.one * 0.3f);
     }
 }
