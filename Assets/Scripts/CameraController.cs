@@ -18,17 +18,19 @@ public class CameraController : MonoBehaviour
     private Quaternion _targetControllerRotation;
     private Quaternion _currentControllerRotation;
     private Transform _player;
+    private PlayerMovement _playerMovement;
     private Transform _currentCameraAnchor;
     private RaycastHit _hit;
     private float _debugHitSphereRadius = .2f;
     private float _checkObstaclesTimer = 0f;
 
 
-    public void Initialize(Transform player)
+    public void Initialize(Transform player, PlayerMovement playerMovement)
     {
         _currentControllerRotation = transform.rotation;
         _currentCameraAnchor = _cameraAnchor;
         _player = player;
+        _playerMovement = playerMovement;
         gameObject.SetActive(true);
         InputManager.Instance.OnLook.AddListener(HandleLook);
     }
@@ -43,6 +45,7 @@ public class CameraController : MonoBehaviour
         CheckObstacles();
         MoveCameraToAnchor();
         RotateCamera();
+        _playerMovement.RotateTowardsMoveDirection();
     }
     private void HandleLook(InputAction.CallbackContext context)
     {

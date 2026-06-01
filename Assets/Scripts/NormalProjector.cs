@@ -48,7 +48,10 @@ public class NormalProjector : MonoBehaviour
 
     private void UpdateNormal(Collision collision)
     {
-
+        if (collision.thisCollider.gameObject.CompareTag("ItemMover"))
+        {
+            return;
+        }
         if (collision.contactCount > 0)
         {
             if (transform.position.y - collision.contacts[0].point.y < _collisionHightThreshold)
