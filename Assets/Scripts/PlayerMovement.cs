@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _gravity;
-    [SerializeField] private float _maxVelocity = 5f;
+    [SerializeField] private float _horizontalDamping = 0.9f;
     [SerializeField] private LayerMask _groundedLayers;
     [SerializeField] private Transform _visual;
     
@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
         float targetAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
         float smoothedAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.deltaTime);
 
-        //_rigidbody.MoveRotation(Quaternion.Euler(0f, smoothedAngle, 0f));
         _visual.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
     }
     private void HandleMove()
@@ -64,13 +63,21 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
 
         _moveDirection = (forward * input.y + right * input.x).normalized;
-        //RotateTowardsMoveDirection();
-        _moveDirection = _normalProjector.Project(_moveDirection);
+        _moveDirection = _normalProjector.Project(_moveDirection, out bool canMove);
 
-        Vector3 currentVelocity = _rigidbody.linearVelocity;
-        Vector3 desiredVelocity = _moveDirection * Speed;
-        desiredVelocity.y = currentVelocity.y;
-        _rigidbody.linearVelocity = desiredVelocity;
+        if (canMove)
+        {
+            Vector3 currentVelocity = _rigidbody.linearVelocity;
+            Vector3 desiredVelocity = _moveDirection * Speed;
+            desiredVelocity.y = currentVelocity.y;
+            _rigidbody.linearVelocity = desiredVelocity;
+        }
+        else
+        {
+            Vector3 desiredVelocity = _rigidbody.linearVelocity * _horizontalDamping;
+            desiredVelocity.y = _rigidbody.linearVelocity.y;
+            _rigidbody.linearVelocity = desiredVelocity;
+        }
         HandleGravity();
     }
     private void HandleMoveInput(InputAction.CallbackContext ctx)
@@ -85,7 +92,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_groundedDetector.Grounded)
         {
+            _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            Debug.Log("Jumped");
             PlayerJumped?.Invoke();
         }
     }

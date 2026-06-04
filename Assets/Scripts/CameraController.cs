@@ -81,10 +81,8 @@ public class CameraController : MonoBehaviour
             _checkObstaclesTimer += Time.deltaTime;
             return;
         }
-        else
-        {
-            _checkObstaclesTimer = 0;
-        }
+
+        _checkObstaclesTimer = 0;
         Vector3 dir = _cameraAnchor.transform.position - _focusPoint.transform.position;
         Debug.DrawRay(_focusPoint.transform.position, dir, Color.red, .1f);
         if (Physics.Raycast(_focusPoint.transform.position, dir, out _hit, dir.magnitude, ~_cameraRayIgnoreObjectsMask))
