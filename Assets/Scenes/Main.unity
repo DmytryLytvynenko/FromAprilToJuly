@@ -2223,8 +2223,8 @@ MonoBehaviour:
   _camera: {fileID: 330585545}
   _cameraAnchor: {fileID: 1786094390}
   _moveableCameraAnchor: {fileID: 1399305693}
-  _focusPoint: {fileID: 2076177112}
   _moveableAnchorFocusPoint: {fileID: 1803594435}
+  _focusPoint: {fileID: 2076177112}
   _obstacleChecker: {fileID: 802066754}
   _minXAngle: -30
   _maxXAngle: 45
@@ -2232,6 +2232,8 @@ MonoBehaviour:
   _positionLerpRate: 4
   _positionLerpRateAimMode: 20
   _cameraObstacleOffset: 0.1
+  _aimFocusPointDistance: 10
+  _aimFocusPointDistanceChangeDuration: 0.5
   _checkObstaclesTime: 0.1
   _cameraRayIgnoreObjectsMask:
     serializedVersion: 2
@@ -2253,6 +2255,7 @@ Transform:
   - {fileID: 1786094390}
   - {fileID: 2076177112}
   - {fileID: 802066754}
+  - {fileID: 1803594435}
   - {fileID: 1399305693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3226,8 +3229,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1803594435}
+  m_Children: []
   m_Father: {fileID: 867825257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489675941
@@ -4071,12 +4073,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1803594434}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1, y: 0.5, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1399305693}
+  m_Father: {fileID: 867825257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1807505189
 GameObject:
@@ -4740,7 +4742,7 @@ GameObject:
   m_Layer: 0
   m_Name: FocusPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7422848464349959988, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

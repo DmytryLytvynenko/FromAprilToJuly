@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,8 +10,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private Transform _cameraAnchor;
     [SerializeField] private Transform _moveableCameraAnchor;
-    [SerializeField] private Transform _focusPoint;
     [SerializeField] private Transform _moveableAnchorFocusPoint;
+    [SerializeField] private Transform _focusPoint;
     [SerializeField] private Transform _obstacleChecker;
     [SerializeField] private float _minXAngle;
     [SerializeField] private float _maxXAngle;
@@ -17,6 +19,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _positionLerpRate;
     [SerializeField] private float _positionLerpRateAimMode;
     [SerializeField] private float _cameraObstacleOffset;
+    [SerializeField] private float _aimFocusPointDistance;
+    [SerializeField] private float _aimFocusPointDistanceChangeDuration = .5f;
     [SerializeField] private float _checkObstaclesTime = .2f;
     [SerializeField] private LayerMask _cameraRayIgnoreObjectsMask;
     [SerializeField] private Vector3 AimAnchorPos;
@@ -32,6 +36,7 @@ public class CameraController : MonoBehaviour
     private float _checkObstaclesTimer = 0f;
     private float _defaultPositionLerpRate;
     private bool _invertCameraRotation = false;
+    private CancellationTokenSource _cancellationTokenSource;
     
 
     public void Initialize(Transform player)
@@ -75,20 +80,26 @@ public class CameraController : MonoBehaviour
     {
         if (context.performed)
         {
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
             CameraMode = CameraMode.Aim;
-            //_invertCameraRotation = true;
             _moveableCameraAnchor.localPosition = AimAnchorPos;
             _currentCameraAnchor = _moveableCameraAnchor;
             _currentFucusPoint = _moveableAnchorFocusPoint;
+            _moveableAnchorFocusPoint.parent = _moveableCameraAnchor;
+            _moveableAnchorFocusPoint.localPosition = new Vector3(0f, 0f, 10);
             _positionLerpRate = _positionLerpRateAimMode;
         }
         if (context.canceled)
         {
             CameraMode = CameraMode.Default;
-            //_invertCameraRotation = false;
             _currentCameraAnchor = _cameraAnchor;
-            _currentFucusPoint = _focusPoint;
+            _moveableAnchorFocusPoint.parent = transform;
+            _moveableAnchorFocusPoint.position = new Vector3(1f,0.5f, 10);
+            //_currentFucusPoint = _focusPoint;
             _positionLerpRate = _defaultPositionLerpRate;
+            _cancellationTokenSource = new CancellationTokenSource();
+            FocusPointToDefault(_cancellationTokenSource.Token);
         }
     }
     private void FollowPlayer()
@@ -140,6 +151,23 @@ public class CameraController : MonoBehaviour
             _currentCameraAnchor = _cameraAnchor;
         }
         
+    }
+    private async void FocusPointToDefault(CancellationToken ct)
+    {
+        float expiredTime = 0f;
+        float progress = 1;
+        Vector3 newFocusPosition = _focusPoint.localPosition;
+        while (progress > 0f)
+        {
+            if (ct.IsCancellationRequested) return;
+            expiredTime += Time.deltaTime;
+            progress = 1 - expiredTime / _aimFocusPointDistanceChangeDuration;
+            _moveableAnchorFocusPoint.localPosition = new Vector3(newFocusPosition.x,
+                                                    newFocusPosition.y,
+                                                    (newFocusPosition.z + _aimFocusPointDistance) * progress);
+            await Task.Yield();
+        }
+        _currentFucusPoint = _focusPoint;
     }
     private void OnDrawGizmos()
     {
