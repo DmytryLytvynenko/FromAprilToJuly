@@ -395,6 +395,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpiralStairs (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8ae06cc8e8ba6e74c8efa36e8da22326, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328865297070192482, guid: 8ae06cc8e8ba6e74c8efa36e8da22326, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -506,7 +514,6 @@ GameObject:
   - component: {fileID: 117284024}
   - component: {fileID: 117284027}
   - component: {fileID: 117284026}
-  - component: {fileID: 117284025}
   m_Layer: 6
   m_Name: Capsule
   m_TagString: Untagged
@@ -529,29 +536,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 544081336}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &117284025
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117284023}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &117284026
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1650,7 +1634,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1, y: 0.6, z: 1.1}
+  m_LocalScale: {x: 1, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1063381932}
@@ -1874,6 +1858,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732657411}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &802066753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 802066754}
+  m_Layer: 0
+  m_Name: ObstacleChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &802066754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802066753}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 867825257}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827425055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,15 +2224,19 @@ MonoBehaviour:
   _cameraAnchor: {fileID: 1786094390}
   _moveableCameraAnchor: {fileID: 1399305693}
   _focusPoint: {fileID: 2076177112}
+  _moveableAnchorFocusPoint: {fileID: 1803594435}
+  _obstacleChecker: {fileID: 802066754}
   _minXAngle: -30
   _maxXAngle: 45
   _rotationSpeed: 0.1
   _positionLerpRate: 4
+  _positionLerpRateAimMode: 20
   _cameraObstacleOffset: 0.1
   _checkObstaclesTime: 0.1
   _cameraRayIgnoreObjectsMask:
     serializedVersion: 2
     m_Bits: 64
+  AimAnchorPos: {x: 1, y: 0.5, z: -1}
 --- !u!4 &867825257
 Transform:
   m_ObjectHideFlags: 0
@@ -2233,6 +2252,7 @@ Transform:
   m_Children:
   - {fileID: 1786094390}
   - {fileID: 2076177112}
+  - {fileID: 802066754}
   - {fileID: 1399305693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2986,7 +3006,7 @@ CapsuleCollider:
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.45
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -3056,7 +3076,7 @@ Transform:
   m_GameObject: {fileID: 1063381927}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 1, z: 0.21}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3118,8 +3138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 5
   _rotationSpeed: 15
-  _jumpForce: 5
-  _gravity: 9.8
+  _jumpForce: 10
+  _gravity: 25
   _horizontalDamping: 0.97
   _groundedLayers:
     serializedVersion: 2
@@ -3138,7 +3158,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceptableVerticalAngle: 40
+  _ignoreSlopeHigherThan: 85
   _collisionHightThreshold: 0.6
+  _visual: {fileID: 544081336}
 --- !u!1 &1173746017
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,7 +3210,7 @@ GameObject:
   m_Layer: 0
   m_Name: MoveableCameraAnchor
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3204,7 +3226,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1803594435}
   m_Father: {fileID: 867825257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489675941
@@ -3246,6 +3269,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnLook:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAim:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1489675943
@@ -3672,6 +3698,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpiralStairs
       objectReference: {fileID: 0}
+    - target: {fileID: 7328865297070192482, guid: 8ae06cc8e8ba6e74c8efa36e8da22326, type: 3}
+      propertyPath: m_TagString
+      value: Stairs
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3797,7 +3827,7 @@ Transform:
   m_GameObject: {fileID: 1786094389}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -5}
+  m_LocalPosition: {x: 1, y: 0.5, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4017,6 +4047,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795702904}
   m_CullTransparentMesh: 1
+--- !u!1 &1803594434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803594435}
+  m_Layer: 0
+  m_Name: MoveableAnchorFocusPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1803594435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803594434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1399305693}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1807505189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4692,7 +4753,7 @@ Transform:
   m_GameObject: {fileID: 2076177111}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 1, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

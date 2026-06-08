@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class NormalProjector : MonoBehaviour
 {
-    [SerializeField] float _acceptableVerticalAngle = 40f; 
-    [SerializeField] int _ignoreSlopeHigherThan = 85; 
-    [SerializeField] float _collisionHightThreshold = .8f; 
+    [SerializeField] private float _acceptableVerticalAngle = 40f; 
+    [SerializeField] private int _ignoreSlopeHigherThan = 85; 
+    [SerializeField] private float _collisionHightThreshold = .8f; 
+    [SerializeField] private Transform _visual; 
 
     private Vector3 normal = Vector3.up;
 
@@ -74,6 +75,7 @@ public class NormalProjector : MonoBehaviour
 
     private void UpdateNormal(Collision collision)
     {
+        if (collision.gameObject.CompareTag("Stairs")) return;
         if (collision.contactCount > 0)
         {
             if (transform.position.y - collision.contacts[0].point.y < _collisionHightThreshold)
@@ -94,12 +96,13 @@ public class NormalProjector : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
+        if (!_visual) return;
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, transform.position + normal * 2);
 
         Gizmos.color = Color.green;
-        Vector3 projected = Project(transform.forward);
+        Vector3 projected = Project(_visual.forward);
         if (projected.magnitude > 0.01f)
         {
             Gizmos.DrawLine(transform.position, transform.position + projected * 2);

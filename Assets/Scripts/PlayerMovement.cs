@@ -38,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
     {
         HandleMove();
     }
+    private void LateUpdate()
+    {
+        RotateTowardsMoveDirection();
+    }
     public void RotateTowardsMoveDirection()
     {
         if (_moveDirection.magnitude < 0.01f) return; 
