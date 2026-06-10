@@ -17,9 +17,9 @@ namespace SimpleDependencyManagement
             InputManager.CreateSingleton();
             InputManager.Initialize();
 
-            CameraController.Initialize(Player.transform);
+            CameraController.Initialize(Player.transform, GroundDetector);
             PlayerMovement.Initialize(Camera.main, GroundDetector, NormalProjector, PlayerRigidbody);
-            GroundDetector.Initialize(PlayerMovement);
+            GroundDetector.Initialize(PlayerMovement, NormalProjector);
             DebugPanel.Initialize(GroundDetector, PlayerRigidbody);
         }
         private void OnDisable()

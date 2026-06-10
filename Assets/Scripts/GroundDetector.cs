@@ -9,8 +9,10 @@ public class GroundDetector : MonoBehaviour
     [SerializeField] private float _jumpRayCheckDistance = 1.05f;
 
     private PlayerMovement _playerMovement;
-    public void Initialize(PlayerMovement playerMovement)
+    private NormalProjector _normalProjector;
+    public void Initialize(PlayerMovement playerMovement, NormalProjector normalProjector)
     {
+        _normalProjector = normalProjector;
         _playerMovement = playerMovement;
         gameObject.SetActive(true);
         _playerMovement.PlayerJumped += OnJump;
@@ -25,9 +27,15 @@ public class GroundDetector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (IsGroundLayer(other.gameObject))
+        if (!IsGroundLayer(other.gameObject)) return;
+        
+        if(_normalProjector.SlopeIsWalkable)
         {
             Grounded = true;
+        }
+        else
+        {
+            Grounded = CheckGround();
         }
     }
     private void OnTriggerExit(Collider other)

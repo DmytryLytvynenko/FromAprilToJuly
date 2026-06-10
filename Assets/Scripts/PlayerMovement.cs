@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera _camera;
     private Rigidbody _rigidbody;
     private Vector3 _moveDirection;
+    private Vector3 _lastMoveDirection;
     public void Initialize(Camera camera, GroundDetector groundDetector, NormalProjector normalProjector, Rigidbody rigidbody)
     {
         _camera = camera;
@@ -44,10 +45,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public void RotateTowardsMoveDirection()
     {
-        if (_moveDirection.magnitude < 0.01f) return; 
+        if (_lastMoveDirection.magnitude < 0.01f) return; 
 
         float currentAngle = _visual.eulerAngles.y;
-        float targetAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
+        float targetAngle = Mathf.Atan2(_lastMoveDirection.x, _lastMoveDirection.z) * Mathf.Rad2Deg;
         float smoothedAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.deltaTime);
 
         _visual.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
@@ -67,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
 
         _moveDirection = (forward * input.y + right * input.x).normalized;
+        _lastMoveDirection = _moveDirection;
         _moveDirection = _normalProjector.Project(_moveDirection, out bool canMove);
 
         if (canMove)
@@ -78,7 +80,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Vector3 desiredVelocity = _rigidbody.linearVelocity * _horizontalDamping;
+            float speed = new Vector2(_rigidbody.linearVelocity.x, _rigidbody.linearVelocity.z).magnitude;
+            Vector3 desiredVelocity = new Vector3(_lastMoveDirection.x,0,_lastMoveDirection.z) * speed * _horizontalDamping;
             desiredVelocity.y = _rigidbody.linearVelocity.y;
             _rigidbody.linearVelocity = desiredVelocity;
         }
@@ -98,7 +101,6 @@ public class PlayerMovement : MonoBehaviour
         {
             _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, 0, _rigidbody.linearVelocity.z);
             _rigidbody.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
-            Debug.Log("Jumped");
             PlayerJumped?.Invoke();
         }
     }

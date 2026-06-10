@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _cameraObstacleOffset;
     [SerializeField] private float _aimFocusPointDistance;
     [SerializeField] private float _aimFocusPointDistanceChangeDuration = .5f;
+    [SerializeField] private float _cameraYDamping = .5f;
     [SerializeField] private float _checkObstaclesTime = .2f;
     [SerializeField] private LayerMask _cameraRayIgnoreObjectsMask;
     [SerializeField] private Vector3 AimAnchorPos;
@@ -31,21 +32,26 @@ public class CameraController : MonoBehaviour
     private Transform _player;
     private Transform _currentCameraAnchor;
     private Transform _currentFucusPoint;
+    private GroundDetector _groundDetector;
     private RaycastHit _hit;
     private float _debugHitSphereRadius = .2f;
+    private float _aimModeLerpRateMultiplier = 2f;
     private float _checkObstaclesTimer = 0f;
     private float _defaultPositionLerpRate;
+    private float _currentCameraY;
     private bool _invertCameraRotation = false;
-    private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource _aimRoutineCTS;
     
 
-    public void Initialize(Transform player)
+    public void Initialize(Transform player, GroundDetector groundDetector)
     {
+        _currentCameraY = _camera.transform.position.y;
         _defaultPositionLerpRate = _positionLerpRate;
         _currentFucusPoint = _focusPoint;
         _currentControllerRotation = transform.rotation;
         _currentCameraAnchor = _cameraAnchor;
         _player = player;
+        _groundDetector = groundDetector;
         gameObject.SetActive(true);
         InputManager.Instance.OnLook.AddListener(HandleLook);
         InputManager.Instance.OnAim.AddListener(HandleAim);
@@ -80,26 +86,28 @@ public class CameraController : MonoBehaviour
     {
         if (context.performed)
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
+            _aimRoutineCTS?.Cancel();
+            _aimRoutineCTS?.Dispose();
+
             CameraMode = CameraMode.Aim;
             _moveableCameraAnchor.localPosition = AimAnchorPos;
             _currentCameraAnchor = _moveableCameraAnchor;
-            _currentFucusPoint = _moveableAnchorFocusPoint;
-            _moveableAnchorFocusPoint.parent = _moveableCameraAnchor;
-            _moveableAnchorFocusPoint.localPosition = new Vector3(0f, 0f, 10);
             _positionLerpRate = _positionLerpRateAimMode;
+
+            _aimRoutineCTS = new CancellationTokenSource();
+            FocusPointToAim(_aimRoutineCTS.Token);
         }
         if (context.canceled)
         {
+            _aimRoutineCTS?.Cancel();
+            _aimRoutineCTS?.Dispose();
+
             CameraMode = CameraMode.Default;
             _currentCameraAnchor = _cameraAnchor;
-            _moveableAnchorFocusPoint.parent = transform;
-            _moveableAnchorFocusPoint.position = new Vector3(1f,0.5f, 10);
-            //_currentFucusPoint = _focusPoint;
             _positionLerpRate = _defaultPositionLerpRate;
-            _cancellationTokenSource = new CancellationTokenSource();
-            FocusPointToDefault(_cancellationTokenSource.Token);
+
+            _aimRoutineCTS = new CancellationTokenSource();
+            FocusPointToDefault(_aimRoutineCTS.Token);
         }
     }
     private void FollowPlayer()
@@ -126,7 +134,31 @@ public class CameraController : MonoBehaviour
     }
     private void MoveCameraToAnchor()
     {
-        _camera.transform.position = Vector3.Lerp(_camera.transform.position, _currentCameraAnchor.position, Time.deltaTime * _positionLerpRate);
+        /*        if (!_groundDetector.Grounded && (transform.position.y - _camera.transform.position.y) < _cameraYDamping)
+                {
+                    Vector3 newPosition = new Vector3(_currentCameraAnchor.position.x, _camera.transform.position.y, _currentCameraAnchor.position.z);
+                    _camera.transform.position = Vector3.Lerp(_camera.transform.position, newPosition, Time.deltaTime * _positionLerpRate);
+                    return;
+                }
+                _camera.transform.position = Vector3.Lerp(_camera.transform.position, _currentCameraAnchor.position, Time.deltaTime * _positionLerpRate);*/
+
+        float anchorY = _currentCameraAnchor.position.y;
+
+        // Dead zone: если игрок недалеко ушёл по Y — не двигаем камеру вертикально
+        if (_groundDetector.Grounded || Mathf.Abs(transform.position.y - _currentCameraY) > _cameraYDamping)
+        {
+            _currentCameraY = _currentCameraAnchor.position.y;
+        }
+        //_currentCameraY = Mathf.Lerp(_currentCameraY, _currentCameraAnchor.position.y, Time.deltaTime * _positionLerpRate);
+
+        Vector3 target = new Vector3(
+            _currentCameraAnchor.position.x,
+            _currentCameraY,
+            _currentCameraAnchor.position.z
+        );
+
+        _camera.transform.position = Vector3.Lerp(_camera.transform.position, target, Time.deltaTime * _positionLerpRate);
+
     }
     private void CheckObstacles()
     {
@@ -154,6 +186,8 @@ public class CameraController : MonoBehaviour
     }
     private async void FocusPointToDefault(CancellationToken ct)
     {
+        _moveableAnchorFocusPoint.parent = transform;
+        _moveableAnchorFocusPoint.position = new Vector3(AimAnchorPos.x, AimAnchorPos.y, _aimFocusPointDistance);
         float expiredTime = 0f;
         float progress = 1;
         Vector3 newFocusPosition = _focusPoint.localPosition;
@@ -168,6 +202,27 @@ public class CameraController : MonoBehaviour
             await Task.Yield();
         }
         _currentFucusPoint = _focusPoint;
+    }
+    private async void FocusPointToAim(CancellationToken ct)
+    {
+        _currentFucusPoint = _moveableAnchorFocusPoint;
+        _moveableAnchorFocusPoint.parent = _moveableCameraAnchor;
+        _moveableAnchorFocusPoint.localPosition = Vector3.zero;
+        float expiredTime = 0f;
+        float progress = 0;
+        float middlePoint = _aimFocusPointDistance / 2;
+        Vector3 newFocusPosition = new Vector3(0, 0, _aimFocusPointDistance);
+        while (progress < 1f)
+        {
+            if (ct.IsCancellationRequested) return;
+            expiredTime += Time.deltaTime;
+            progress = expiredTime / _aimFocusPointDistanceChangeDuration;
+            _moveableAnchorFocusPoint.localPosition = new Vector3(newFocusPosition.x,
+                                                    newFocusPosition.y,
+                                                    middlePoint + middlePoint * progress);
+            await Task.Yield();
+        }
+        _positionLerpRate *= _aimModeLerpRateMultiplier;
     }
     private void OnDrawGizmos()
     {

@@ -10,6 +10,7 @@ public class NormalProjector : MonoBehaviour
     private Vector3 normal = Vector3.up;
 
     public Vector3 CurrentNormal => normal;
+    public bool SlopeIsWalkable { get { return Vector3.Angle(normal, Vector3.up) < _acceptableVerticalAngle; } }
 
     public Vector3 Project(Vector3 moveVector, out bool CanMove)
     {
