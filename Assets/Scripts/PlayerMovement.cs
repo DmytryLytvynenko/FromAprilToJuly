@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _gravity;
-    [SerializeField] private float _horizontalDamping = 0.9f;
+    [SerializeField] private float _horizontalDamping = 0.3f;
+    [SerializeField] private float _slopeHorizontalDamping = 0.9f;
     [SerializeField] private LayerMask _groundedLayers;
     [SerializeField] private Transform _visual;
     
@@ -59,6 +60,12 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 input = InputManager.Instance.CurrentMoveInput;
 
+        if (input.magnitude == 0f)
+        {
+            _rigidbody.linearVelocity *= _horizontalDamping;
+            return;
+        }
+
         Vector3 forward = _camera.transform.forward;
         Vector3 right = _camera.transform.right;
 
@@ -81,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             float speed = new Vector2(_rigidbody.linearVelocity.x, _rigidbody.linearVelocity.z).magnitude;
-            Vector3 desiredVelocity = new Vector3(_lastMoveDirection.x,0,_lastMoveDirection.z) * speed * _horizontalDamping;
+            Vector3 desiredVelocity = new Vector3(_lastMoveDirection.x,0,_lastMoveDirection.z) * speed * _slopeHorizontalDamping;
             desiredVelocity.y = _rigidbody.linearVelocity.y;
             _rigidbody.linearVelocity = desiredVelocity;
         }
@@ -89,11 +96,11 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HandleMoveInput(InputAction.CallbackContext ctx)
     {
-        if (ctx.canceled && _groundedDetector.Grounded)
+/*        if (ctx.canceled && _groundedDetector.Grounded)
         {
             _rigidbody.linearVelocity = new Vector3();
             _rigidbody.angularVelocity = Vector3.zero;
-        }
+        }*/
     }
     private void HandleJump(InputAction.CallbackContext ctx)
     {

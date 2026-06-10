@@ -3875,7 +3875,8 @@ MonoBehaviour:
   _rotationSpeed: 15
   _jumpForce: 8
   _gravity: 25
-  _horizontalDamping: 0.97
+  _horizontalDamping: 0.85
+  _slopeHorizontalDamping: 0.97
   _groundedLayers:
     serializedVersion: 2
     m_Bits: 129
