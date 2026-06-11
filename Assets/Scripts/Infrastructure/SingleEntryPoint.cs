@@ -12,8 +12,11 @@ namespace SimpleDependencyManagement
         [field: SerializeField] public GroundDetector GroundDetector { get; private set; }
         [field: SerializeField] public NormalProjector NormalProjector { get; private set; }
         [field: SerializeField] public DebugPanel DebugPanel { get; private set; }
+        [field: SerializeField] public Interact Interact { get; private set; }
         private void Awake()
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             InputManager.CreateSingleton();
             InputManager.Initialize();
 
@@ -21,6 +24,7 @@ namespace SimpleDependencyManagement
             PlayerMovement.Initialize(Camera.main, GroundDetector, NormalProjector, PlayerRigidbody);
             GroundDetector.Initialize(PlayerMovement, NormalProjector);
             DebugPanel.Initialize(GroundDetector, PlayerRigidbody);
+            Interact.Initialize(Camera.main);
         }
         private void OnDisable()
         {
@@ -28,6 +32,7 @@ namespace SimpleDependencyManagement
             PlayerMovement.HandleDisable();
             GroundDetector.HandleDisable();
             DebugPanel.HandleDisable();
+            Interact.HandleDisable();
 
             InputManager.HandleDisable();
         }

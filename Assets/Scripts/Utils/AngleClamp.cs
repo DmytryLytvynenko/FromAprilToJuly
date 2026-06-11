@@ -19,4 +19,9 @@ public class AngleClamp
             current = Mathf.MoveTowardsAngle(current, midAngle, offset);
         return current;
     }
+    static public float MinAngleBetween(float a, float b)
+    {
+        float diff = Mathf.Abs(a - b) % 360;
+        return diff > 180 ? 360 - diff : diff;
+    }
 }

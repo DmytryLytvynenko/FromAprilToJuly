@@ -46,11 +46,22 @@ public class PlayerMovement : MonoBehaviour
     }
     public void RotateTowardsMoveDirection()
     {
-        if (_lastMoveDirection.magnitude < 0.01f) return; 
 
         float currentAngle = _visual.eulerAngles.y;
-        float targetAngle = Mathf.Atan2(_lastMoveDirection.x, _lastMoveDirection.z) * Mathf.Rad2Deg;
-        float smoothedAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.deltaTime);
+        float targetAngle;
+        float smoothedAngle;
+
+        if (CameraController.CameraMode == CameraMode.Aim)
+        {
+             targetAngle = _camera.transform.eulerAngles.y;
+             smoothedAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (_lastMoveDirection.magnitude < 0.01f) return;
+            targetAngle = Mathf.Atan2(_lastMoveDirection.x, _lastMoveDirection.z) * Mathf.Rad2Deg;
+            smoothedAngle = Mathf.LerpAngle(currentAngle, targetAngle, _rotationSpeed * Time.deltaTime);
+        }
 
         _visual.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
     }
@@ -62,7 +73,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (input.magnitude == 0f)
         {
-            _rigidbody.linearVelocity *= _horizontalDamping;
+            Vector3 desiredVelocity = _rigidbody.linearVelocity * _horizontalDamping;
+            desiredVelocity.y = _rigidbody.linearVelocity.y;
+            _rigidbody.linearVelocity = desiredVelocity;
+            HandleGravity();
             return;
         }
 

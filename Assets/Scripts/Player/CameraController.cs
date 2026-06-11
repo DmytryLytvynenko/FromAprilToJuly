@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _cameraObstacleOffset;
     [SerializeField] private float _aimFocusPointDistance;
     [SerializeField] private float _aimFocusPointDistanceChangeDuration = .5f;
-    [SerializeField] private float _cameraYDamping = .5f;
+    [SerializeField] private float _cameraYDamping = 4f;
     [SerializeField] private float _checkObstaclesTime = .2f;
     [SerializeField] private LayerMask _cameraRayIgnoreObjectsMask;
     [SerializeField] private Vector3 AimAnchorPos;
@@ -35,16 +35,18 @@ public class CameraController : MonoBehaviour
     private GroundDetector _groundDetector;
     private RaycastHit _hit;
     private float _debugHitSphereRadius = .2f;
-    private float _aimModeLerpRateMultiplier = 2f;
+    private float _aimModeLerpRateMultiplier = 5f;
     private float _checkObstaclesTimer = 0f;
     private float _defaultPositionLerpRate;
     private float _currentCameraY;
+    private float _defaultCameraYDamping;
     private bool _invertCameraRotation = false;
     private CancellationTokenSource _aimRoutineCTS;
     
 
     public void Initialize(Transform player, GroundDetector groundDetector)
     {
+        _defaultCameraYDamping = _cameraYDamping;
         _currentCameraY = _camera.transform.position.y;
         _defaultPositionLerpRate = _positionLerpRate;
         _currentFucusPoint = _focusPoint;
@@ -93,6 +95,7 @@ public class CameraController : MonoBehaviour
             _moveableCameraAnchor.localPosition = AimAnchorPos;
             _currentCameraAnchor = _moveableCameraAnchor;
             _positionLerpRate = _positionLerpRateAimMode;
+            _cameraYDamping = 0f;
 
             _aimRoutineCTS = new CancellationTokenSource();
             FocusPointToAim(_aimRoutineCTS.Token);
@@ -105,6 +108,7 @@ public class CameraController : MonoBehaviour
             CameraMode = CameraMode.Default;
             _currentCameraAnchor = _cameraAnchor;
             _positionLerpRate = _defaultPositionLerpRate;
+            _cameraYDamping = _defaultCameraYDamping;
 
             _aimRoutineCTS = new CancellationTokenSource();
             FocusPointToDefault(_aimRoutineCTS.Token);
@@ -134,22 +138,12 @@ public class CameraController : MonoBehaviour
     }
     private void MoveCameraToAnchor()
     {
-        /*        if (!_groundDetector.Grounded && (transform.position.y - _camera.transform.position.y) < _cameraYDamping)
-                {
-                    Vector3 newPosition = new Vector3(_currentCameraAnchor.position.x, _camera.transform.position.y, _currentCameraAnchor.position.z);
-                    _camera.transform.position = Vector3.Lerp(_camera.transform.position, newPosition, Time.deltaTime * _positionLerpRate);
-                    return;
-                }
-                _camera.transform.position = Vector3.Lerp(_camera.transform.position, _currentCameraAnchor.position, Time.deltaTime * _positionLerpRate);*/
-
         float anchorY = _currentCameraAnchor.position.y;
 
-        // Dead zone: если игрок недалеко ушёл по Y — не двигаем камеру вертикально
         if (_groundDetector.Grounded || Mathf.Abs(transform.position.y - _currentCameraY) > _cameraYDamping)
         {
             _currentCameraY = _currentCameraAnchor.position.y;
         }
-        //_currentCameraY = Mathf.Lerp(_currentCameraY, _currentCameraAnchor.position.y, Time.deltaTime * _positionLerpRate);
 
         Vector3 target = new Vector3(
             _currentCameraAnchor.position.x,
