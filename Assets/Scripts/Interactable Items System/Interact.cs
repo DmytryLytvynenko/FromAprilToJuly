@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Rendering.ShadowCascadeGUI;
 
 public class Interact : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class Interact : MonoBehaviour
     public void HandleDisable()
     {
         InputManager.Instance.OnInteract.RemoveListener(HandleInteract);
-        InputManager.Instance.OnRotateRight.RemoveListener(HandleInteract);
+        InputManager.Instance.OnRotateRight.RemoveListener(HandleRotateRight);
         InputManager.Instance.OnRotateLeft.RemoveListener(HandleRotateLeft);
     }
     private void HandleInteract(InputAction.CallbackContext ctx)

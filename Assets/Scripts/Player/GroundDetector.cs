@@ -4,6 +4,7 @@ using UnityEngine;
 public class GroundDetector : MonoBehaviour
 {
     public bool Grounded {get; private set;} = true;
+    public Transform GroundedOn {get; private set;} = null;
 
     [SerializeField] private LayerMask _groundedLayers;
     [SerializeField] private float _jumpRayCheckDistance = 1.05f;
@@ -32,10 +33,12 @@ public class GroundDetector : MonoBehaviour
         if(_normalProjector.SlopeIsWalkable)
         {
             Grounded = true;
+            GroundedOn = other.transform;
         }
         else
         {
             Grounded = CheckGround();
+            GroundedOn = Grounded ? other.transform : null;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -43,11 +46,27 @@ public class GroundDetector : MonoBehaviour
         if (!Grounded && IsGroundLayer(other.gameObject))
         {
             Grounded = false;
+            GroundedOn = null;
             return;
         }
         else if(!CheckGround())
         {
             Grounded = false;
+            GroundedOn = null;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (!IsGroundLayer(other.gameObject)) return;
+        if (_normalProjector.SlopeIsWalkable)
+        {
+            Grounded = true;
+            GroundedOn = other.transform;
+        }
+        else
+        {
+            Grounded = CheckGround();
+            GroundedOn = Grounded ? other.transform : null;
         }
     }
     private bool IsGroundLayer(GameObject obj)

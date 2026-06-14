@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _slopeHorizontalDamping = 0.9f;
     [SerializeField] private LayerMask _groundedLayers;
     [SerializeField] private Transform _visual;
+    [SerializeField] private PhysicsMaterial _materialHighFriction;
+    [SerializeField] private PhysicsMaterial _materialZeroFriction;
+    [SerializeField] private Collider _collider;
     
     private GroundDetector _groundedDetector;
     private NormalProjector _normalProjector;
@@ -22,8 +27,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 _moveDirection;
     private Vector3 _lastMoveDirection;
+    private CancellationTokenSource _source;
     public void Initialize(Camera camera, GroundDetector groundDetector, NormalProjector normalProjector, Rigidbody rigidbody)
     {
+        _collider.material = _materialZeroFriction;
+        _collider.material = _materialHighFriction; 
+        _collider.material = _materialZeroFriction;
         _camera = camera;
         _groundedDetector = groundDetector;
         _normalProjector = normalProjector;
@@ -65,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         _visual.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
     }
+
     private void HandleMove()
     {
         if (_camera == null) { Debug.LogWarning("PlayerMovement camera ref is null"); return; };
@@ -76,7 +86,9 @@ public class PlayerMovement : MonoBehaviour
             Vector3 desiredVelocity = _rigidbody.linearVelocity * _horizontalDamping;
             desiredVelocity.y = _rigidbody.linearVelocity.y;
             _rigidbody.linearVelocity = desiredVelocity;
+
             HandleGravity();
+
             return;
         }
 
@@ -110,11 +122,26 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HandleMoveInput(InputAction.CallbackContext ctx)
     {
-/*        if (ctx.canceled && _groundedDetector.Grounded)
+        if (ctx.canceled)
         {
-            _rigidbody.linearVelocity = new Vector3();
-            _rigidbody.angularVelocity = Vector3.zero;
-        }*/
+            _source?.Cancel();
+            _source?.Dispose();
+
+            _source = new CancellationTokenSource();
+            WaitThenChangePhysicMaterial(_source.Token).Forget();
+        }
+        if (ctx.performed)
+        {
+            _source?.Cancel();
+            _source?.Dispose();
+            _source = null;
+            _collider.material = _materialZeroFriction;
+        }
+    }
+    private async UniTaskVoid WaitThenChangePhysicMaterial(CancellationToken ct)
+    {
+        await UniTask.Delay(300, cancellationToken: ct);
+        _collider.material = _materialHighFriction;
     }
     private void HandleJump(InputAction.CallbackContext ctx)
     {
@@ -128,9 +155,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleGravity()
     {
         float currentVerticalSpeed = _rigidbody.linearVelocity.y;
-
         currentVerticalSpeed -= _gravity * Time.fixedDeltaTime;
-
         _rigidbody.linearVelocity = new Vector3(_rigidbody.linearVelocity.x, currentVerticalSpeed, _rigidbody.linearVelocity.z);
     }
 }

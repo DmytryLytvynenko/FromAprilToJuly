@@ -37,29 +37,6 @@ public class NormalProjector : MonoBehaviour
 
         return projectedMovement.normalized * moveVector.magnitude;
     }
-    public Vector3 Project(Vector3 moveVector)
-    {
-        if (moveVector.magnitude < 0.01f)
-            return moveVector;
-
-        float slopeAngle = Vector3.Angle(normal, Vector3.up);
-
-        if ((int)slopeAngle >= _ignoreSlopeHigherThan)
-            return moveVector;
-
-        if (slopeAngle > _acceptableVerticalAngle)
-        {
-            Vector3 projectedMove = moveVector - Vector3.Dot(moveVector, normal) * normal;
-
-            if (Vector3.Dot(moveVector, -normal) > 0)
-            {
-                return Vector3.zero;
-            }
-        }
-        Vector3 projectedMovement = moveVector - Vector3.Dot(moveVector, normal) * normal;
-
-        return projectedMovement.normalized * moveVector.magnitude;
-    }
     private void OnCollisionEnter(Collision collision)
     {
         UpdateNormal(collision);
@@ -69,10 +46,6 @@ public class NormalProjector : MonoBehaviour
     {
         UpdateNormal(collision);
     }
-/*    private void OnCollisionExit(Collision collision)
-    {
-        UpdateNormal(collision);
-    }*/
 
     private void UpdateNormal(Collision collision)
     {
@@ -103,7 +76,7 @@ public class NormalProjector : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + normal * 2);
 
         Gizmos.color = Color.green;
-        Vector3 projected = Project(_visual.forward);
+        Vector3 projected = Project(_visual.forward, out _);
         if (projected.magnitude > 0.01f)
         {
             Gizmos.DrawLine(transform.position, transform.position + projected * 2);
