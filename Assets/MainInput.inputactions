@@ -106,18 +106,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RotateRight",
-                    "type": "Button",
+                    "name": "RotateHorizontal",
+                    "type": "Value",
                     "id": "0a28d58f-8e19-4c42-be95-ab5c80b30ec3",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "RotateLeft",
+                    "name": "RotateVertical",
+                    "type": "Value",
+                    "id": "48667e43-03ac-451b-98a8-fee73f278b4b",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "StabilizeRotation",
                     "type": "Button",
-                    "id": "993cef5a-84aa-4878-91ec-5dc74ab52368",
+                    "id": "30a91847-36c7-4b84-b1f3-99443ca33584",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -533,24 +542,79 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d9fbf587-c6b0-4d06-a8ed-f57982e455dd",
-                    "path": "<Keyboard>/e",
+                    "name": "1D Axis",
+                    "id": "83fe7e2d-c15b-4287-b8ac-b45c14d66509",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "RotateRight",
-                    "isComposite": false,
+                    "groups": "",
+                    "action": "RotateHorizontal",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "bc967682-d596-43a9-a91e-80df90c6d1d4",
+                    "name": "negative",
+                    "id": "594ac117-631c-42e1-b3af-921a3937d8ae",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "RotateLeft",
+                    "action": "RotateHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "f4006dae-274a-4e8e-853f-eb3744897317",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RotateHorizontal",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "5e25a757-58b4-4983-84d8-a42ef8a74c3d",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateVertical",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "eace2d2b-bac6-4b16-b95f-9260358b7f72",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RotateVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "6062849a-6048-4107-b29a-e7241457f793",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RotateVertical",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "cf88ca7c-898c-4c8e-a35a-b90378626995",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "StabilizeRotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -8,6 +8,7 @@ public class Interact : MonoBehaviour
     [SerializeField] private LayerMask _pickUpObjects;
     [SerializeField] private Transform _followPoint;
     [SerializeField] private float _interactScanRate = .2f;
+    [SerializeField] private float _rotateStep = 45f;
 
     private Camera _camera;
     private Transform _cameraTransform;
@@ -23,14 +24,16 @@ public class Interact : MonoBehaviour
         _camera = camera;
         _cameraTransform = camera.transform;
         InputManager.Instance.OnInteract.AddListener(HandleInteract);
-        InputManager.Instance.OnRotateRight.AddListener(HandleRotateRight);
-        InputManager.Instance.OnRotateLeft.AddListener(HandleRotateLeft);
+        InputManager.Instance.OnRotateHorizontal.AddListener(HandleRotateHorizontal);
+        InputManager.Instance.OnRotateVertical.AddListener(HandleRotateVertical);
+        InputManager.Instance.OnStabilizeRotation.AddListener(HandleStabilizeRotation);
     }
     public void HandleDisable()
     {
         InputManager.Instance.OnInteract.RemoveListener(HandleInteract);
-        InputManager.Instance.OnRotateRight.RemoveListener(HandleRotateRight);
-        InputManager.Instance.OnRotateLeft.RemoveListener(HandleRotateLeft);
+        InputManager.Instance.OnRotateHorizontal.RemoveListener(HandleRotateHorizontal);
+        InputManager.Instance.OnRotateVertical.RemoveListener(HandleRotateVertical);
+        InputManager.Instance.OnStabilizeRotation.RemoveListener(HandleStabilizeRotation);
     }
     private void HandleInteract(InputAction.CallbackContext ctx)
     {
@@ -86,15 +89,27 @@ public class Interact : MonoBehaviour
         }
 
     }
-    private void HandleRotateRight(InputAction.CallbackContext ctx)
+    private void HandleRotateHorizontal(InputAction.CallbackContext ctx)
+    {
+        sbyte sign = (sbyte)Mathf.Sign(ctx.ReadValue<float>());
+        if (_currentItem)
+        {
+            _currentItem.ChangeTargetRotation(0, _rotateStep * sign);
+        }
+    }
+    private void HandleRotateVertical(InputAction.CallbackContext ctx)
+    {
+        sbyte sign = (sbyte)Mathf.Sign(ctx.ReadValue<float>());
+        if (_currentItem)
+        {
+            _currentItem.ChangeTargetRotation(_rotateStep * sign, 0);
+        }
+    }
+    private void HandleStabilizeRotation(InputAction.CallbackContext ctx)
     {
         if (_currentItem)
         {
-            _currentItem.AdjustTargetRotation(45, 0);
+            _currentItem.Stabilize();
         }
-    }
-    private void HandleRotateLeft(InputAction.CallbackContext ctx)
-    {
-
     }
 }

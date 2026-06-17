@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
 {
     public static CameraMode CameraMode { get; private set; } = CameraMode.Default;
 
+    [Header("Refs")]
     [SerializeField] private Camera _camera;
     [SerializeField] private Transform _cameraAnchor;
     [SerializeField] private Transform _moveableCameraAnchor;
@@ -15,18 +16,22 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform _focusPoint;
     [SerializeField] private Transform _aimFocusPoint;
     [SerializeField] private Transform _obstacleChecker;
+    [Header("Min Max Angle")]
     [SerializeField] private float _minXAngle;
     [SerializeField] private float _maxXAngle;
+    [Header("Default Mode")]
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _positionLerpRate;
-    [SerializeField] private float _positionLerpRateAimMode;
+    [SerializeField] private float _positionLerpRateY;
     [SerializeField] private float _cameraObstacleOffset;
-    [SerializeField] private float _aimFocusPointDistance;
-    [SerializeField] private float _aimFocusPointDistanceChangeDuration = .5f;
     [SerializeField] private float _cameraYDamping = 4f;
     [SerializeField] private float _checkObstaclesTime = .2f;
     [SerializeField] private float _controllerYOffset = 1.5f;
     [SerializeField] private LayerMask _cameraRayIgnoreObjectsMask;
+    [Header("Aim Mode")]
+    [SerializeField] private float _positionLerpRateAimMode;
+    [SerializeField] private float _aimFocusPointDistance;
+    [SerializeField] private float _aimFocusPointDistanceChangeDuration = .5f;
     [SerializeField] private Vector3 AimAnchorPos;
 
     private Quaternion _targetControllerRotation;
@@ -41,7 +46,6 @@ public class CameraController : MonoBehaviour
     private float _aimModeLerpRateMultiplier = 5f;
     private float _checkObstaclesTimer = 0f;
     private float _defaultPositionLerpRate;
-    private float _currentCameraY;
     private float _currentControllerY;
     private float _defaultCameraYDamping;
     private bool _invertCameraRotation = false;
@@ -52,7 +56,6 @@ public class CameraController : MonoBehaviour
     public void Initialize(Transform player, GroundDetector groundDetector)
     {
         _defaultCameraYDamping = _cameraYDamping;
-        _currentCameraY = _camera.transform.position.y;
         _defaultPositionLerpRate = _positionLerpRate;
         _currentFucusPoint = _focusPoint;
         _currentControllerRotation = transform.rotation;
@@ -132,7 +135,7 @@ public class CameraController : MonoBehaviour
             _isFollowingY = false;
 
         if (_isFollowingY || _groundDetector.Grounded)
-            _currentControllerY = Mathf.Lerp(_currentControllerY, targetY, Time.deltaTime * _positionLerpRate );
+            _currentControllerY = Mathf.Lerp(_currentControllerY, targetY, Time.deltaTime * _positionLerpRateY);
 
         transform.position = new Vector3(_player.position.x, _currentControllerY, _player.position.z);
     }
@@ -152,7 +155,7 @@ public class CameraController : MonoBehaviour
     }
     private void RotateCamera()
     {
-            _camera.transform.rotation = Quaternion.LookRotation(_currentFucusPoint.transform.position - _camera.transform.position);
+        _camera.transform.rotation = Quaternion.LookRotation(_currentFucusPoint.transform.position - _camera.transform.position);
     }
     private void MoveCameraToAnchor()
     {
@@ -219,9 +222,6 @@ public class CameraController : MonoBehaviour
         float currentPosLerpRate = _positionLerpRate;
         float expiredTime = 0f;
         float progress = 0;
-        float middlePoint = _aimFocusPointDistance / 2;
-        Vector3 startPodition = _moveableAnchorFocusPoint.position;
-        Vector3 newFocusPosition = new Vector3(0, 0, _aimFocusPointDistance);
         while (progress < 1f)
         {
             if (ct.IsCancellationRequested) return;

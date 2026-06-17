@@ -17,8 +17,9 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public InputEvent OnInteract = new InputEvent();
     [HideInInspector] public InputEvent OnLook = new InputEvent();
     [HideInInspector] public InputEvent OnAim = new InputEvent();
-    [HideInInspector] public InputEvent OnRotateRight = new InputEvent();
-    [HideInInspector] public InputEvent OnRotateLeft = new InputEvent();
+    [HideInInspector] public InputEvent OnRotateHorizontal = new InputEvent();
+    [HideInInspector] public InputEvent OnRotateVertical = new InputEvent();
+    [HideInInspector] public InputEvent OnStabilizeRotation = new InputEvent();
     [HideInInspector] public event Action OnDebug;
 
     public Vector2 CurrentMoveInput => _currentMoveInput;
@@ -51,8 +52,9 @@ public class InputManager : MonoBehaviour
         var interactAction = _mainInput.Player.Interact;
         var lookAction = _mainInput.Player.Look;
         var aimAction = _mainInput.Player.Aim;
-        var rotateRightAction = _mainInput.Player.RotateRight;
-        var rotateLeftAction = _mainInput.Player.RotateLeft;
+        var rotateHorizontal = _mainInput.Player.RotateHorizontal;
+        var rotateVertical = _mainInput.Player.RotateVertical;
+        var stabilizeRotation = _mainInput.Player.StabilizeRotation;
         var debugAction = _mainInput.Player.Debug;
 
 
@@ -71,11 +73,11 @@ public class InputManager : MonoBehaviour
         aimAction.performed += OnAimInput;
         aimAction.canceled += OnAimInput;
 
-        rotateRightAction.performed += OnRotateRightInput;
-        rotateRightAction.canceled += OnRotateRightInput;
+        rotateHorizontal.performed += OnRotateHorizontalInput;
 
-        rotateLeftAction.performed += OnRotateLeftInput;
-        rotateLeftAction.canceled += OnRotateLeftInput;
+        rotateVertical.performed += OnRotateVerticalInput;
+
+        stabilizeRotation.performed += OnStabilizeRotationInput;
 
         debugAction.performed += OnDebugInput;
     }
@@ -86,8 +88,9 @@ public class InputManager : MonoBehaviour
         var interactAction = _mainInput.Player.Interact;
         var lookAction = _mainInput.Player.Look;
         var aimAction = _mainInput.Player.Aim;
-        var rotateRightAction = _mainInput.Player.RotateRight;
-        var rotateLeftAction = _mainInput.Player.RotateLeft;
+        var rotateHorizontal = _mainInput.Player.RotateHorizontal;
+        var rotateVertical = _mainInput.Player.RotateVertical;
+        var stabilizeRotation = _mainInput.Player.StabilizeRotation;
         var debugAction = _mainInput.Player.Debug;
 
         moveAction.performed -= OnMoveInput;
@@ -105,11 +108,11 @@ public class InputManager : MonoBehaviour
         aimAction.performed -= OnAimInput;
         aimAction.canceled -= OnAimInput;
 
-        rotateRightAction.performed -= OnRotateRightInput;
-        rotateRightAction.canceled -= OnRotateRightInput;
+        rotateHorizontal.performed -= OnRotateHorizontalInput;
 
-        rotateLeftAction.performed -= OnRotateLeftInput;
-        rotateLeftAction.canceled -= OnRotateLeftInput;
+        rotateVertical.performed -= OnRotateVerticalInput;
+
+        stabilizeRotation.performed -= OnStabilizeRotationInput;
 
         debugAction.performed -= OnDebugInput;
 
@@ -130,38 +133,42 @@ public class InputManager : MonoBehaviour
     {
         _currentMoveInput = ctx.ReadValue<Vector2>();
         if (ctx.canceled) _currentMoveInput = Vector2.zero;
-        OnMove.Invoke(ctx);
+        OnMove?.Invoke(ctx);
     }
 
     private void OnJumpInput(InputAction.CallbackContext ctx)
     {
         _jumpPressed = ctx.performed;
-        OnJump.Invoke(ctx);
+        OnJump?.Invoke(ctx);
     }
 
     private void OnInteractInput(InputAction.CallbackContext ctx)
     {
         _interactPressed = ctx.performed;
-        OnInteract.Invoke(ctx);
+        OnInteract?.Invoke(ctx);
     }
     private void OnLookInput(InputAction.CallbackContext ctx)
     {
         _currentLookInput = ctx.ReadValue<Vector2>();
         if (ctx.canceled) _currentLookInput = Vector2.zero;
-        OnLook.Invoke(ctx);
+        OnLook?.Invoke(ctx);
     }
     private void OnAimInput(InputAction.CallbackContext ctx)
     {
         _aimPressed = ctx.performed;
-        OnAim.Invoke(ctx);
+        OnAim?.Invoke(ctx);
     }
-    private void OnRotateRightInput(InputAction.CallbackContext ctx)
+    private void OnRotateHorizontalInput(InputAction.CallbackContext ctx)
     {
-        OnRotateRight.Invoke(ctx);
+        OnRotateHorizontal?.Invoke(ctx);
     }
-    private void OnRotateLeftInput(InputAction.CallbackContext ctx)
+    private void OnRotateVerticalInput(InputAction.CallbackContext ctx)
     {
-        OnRotateLeft.Invoke(ctx);
+        OnRotateVertical?.Invoke(ctx);
+    }
+    private void OnStabilizeRotationInput(InputAction.CallbackContext ctx)
+    {
+        OnStabilizeRotation?.Invoke(ctx);
     }
     private void OnDebugInput(InputAction.CallbackContext ctx)
     {

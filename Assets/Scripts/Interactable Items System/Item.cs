@@ -10,12 +10,14 @@ public class Item : MonoBehaviour
     public static event Action ItemReleased;
     [SerializeField] protected float _followForce = 1f;
     [SerializeField] protected float _rotationForce = 5f;
+    [SerializeField] protected float _dampingFactor = 10f;
 
     protected Transform _followTarget = null;
     protected Rigidbody _rigidbody;
     protected Material _material;
     protected Quaternion _currentRotation = Quaternion.identity;
     protected Vector3 _targetRotation = Vector3.zero;
+    protected bool _rotate = false;
 
     protected virtual void Start()
     {
@@ -31,6 +33,7 @@ public class Item : MonoBehaviour
     public virtual void PickUp(Transform target, float followForce) 
     {
         Picked = true;
+        _rotate = true;
         _followTarget = target;
         _followForce = followForce;
         ItemPicked?.Invoke();
@@ -39,6 +42,7 @@ public class Item : MonoBehaviour
     public virtual void Release() 
     {
         ItemReleased?.Invoke();
+        _rotate = false;
         Picked = false;
     }
     public virtual void Highlight() 
@@ -56,23 +60,44 @@ public class Item : MonoBehaviour
     }
     protected virtual void Rotate()
     {
-        //_rigidbody.AddForce((_followTarget.position - transform.position) * _followForce, ForceMode.Impulse);
-        Vector3 currentRotation = transform.rotation.eulerAngles;
-        float deltaX = AngleClamp.MinAngleBetween(currentRotation.x, _targetRotation.x);
-        float deltaY = AngleClamp.MinAngleBetween(currentRotation.y, _targetRotation.y);
-        Vector3 desiredVelocity = new Vector3(deltaX * _rotationForce, deltaY * _rotationForce, 0);
-        _rigidbody.angularVelocity = desiredVelocity;
+        Quaternion targetRotation = Quaternion.Euler(_targetRotation);
+
+        Quaternion deltaRotation = targetRotation * Quaternion.Inverse(transform.rotation);
+        deltaRotation.ToAngleAxis(out float angle, out Vector3 axis);
+
+        if (angle > 180f) angle -= 360f;
+
+        if (Mathf.Abs(angle) < 0.5f)
+        {
+            _rigidbody.angularVelocity = Vector3.zero;
+            _rotate = false;
+            return;
+        }
+
+        Vector3 targetAngularVelocity = axis * (angle * Mathf.Deg2Rad * _rotationForce);
+        Vector3 correction = targetAngularVelocity - _rigidbody.angularVelocity;
+
+        _rigidbody.angularVelocity += correction * _dampingFactor * Time.fixedDeltaTime;
     }
-    public virtual void AdjustTargetRotation(float X, float Y)
+    public virtual void ChangeTargetRotation(float deltaX, float deltaY)
     {
-        _targetRotation = new Vector3(X, Y, 0);
+        _targetRotation = new Vector3(_targetRotation.x + deltaX, _targetRotation.y + deltaY, 0);
+        _rotate = true;
+    }
+    public virtual void Stabilize()
+    {
+        _targetRotation = Vector2.zero;
+        _rotate = true;
     }
     protected virtual void FixedUpdate()
     {
         if (Picked)
         {
             Follow();
-            Rotate();
         }
+        if (_rotate)
+        {
+            Rotate();
+        }    
     }
 }

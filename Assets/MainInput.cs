@@ -192,18 +192,27 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotateRight"",
-                    ""type"": ""Button"",
+                    ""name"": ""RotateHorizontal"",
+                    ""type"": ""Value"",
                     ""id"": ""0a28d58f-8e19-4c42-be95-ab5c80b30ec3"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""RotateLeft"",
+                    ""name"": ""RotateVertical"",
+                    ""type"": ""Value"",
+                    ""id"": ""48667e43-03ac-451b-98a8-fee73f278b4b"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""StabilizeRotation"",
                     ""type"": ""Button"",
-                    ""id"": ""993cef5a-84aa-4878-91ec-5dc74ab52368"",
+                    ""id"": ""30a91847-36c7-4b84-b1f3-99443ca33584"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -619,24 +628,79 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""d9fbf587-c6b0-4d06-a8ed-f57982e455dd"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""83fe7e2d-c15b-4287-b8ac-b45c14d66509"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RotateRight"",
-                    ""isComposite"": false,
+                    ""groups"": """",
+                    ""action"": ""RotateHorizontal"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""bc967682-d596-43a9-a91e-80df90c6d1d4"",
+                    ""name"": ""negative"",
+                    ""id"": ""594ac117-631c-42e1-b3af-921a3937d8ae"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RotateLeft"",
+                    ""action"": ""RotateHorizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""f4006dae-274a-4e8e-853f-eb3744897317"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RotateHorizontal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""5e25a757-58b4-4983-84d8-a42ef8a74c3d"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateVertical"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""eace2d2b-bac6-4b16-b95f-9260358b7f72"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RotateVertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""6062849a-6048-4107-b29a-e7241457f793"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RotateVertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cf88ca7c-898c-4c8e-a35a-b90378626995"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""StabilizeRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1235,8 +1299,9 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
-        m_Player_RotateRight = m_Player.FindAction("RotateRight", throwIfNotFound: true);
-        m_Player_RotateLeft = m_Player.FindAction("RotateLeft", throwIfNotFound: true);
+        m_Player_RotateHorizontal = m_Player.FindAction("RotateHorizontal", throwIfNotFound: true);
+        m_Player_RotateVertical = m_Player.FindAction("RotateVertical", throwIfNotFound: true);
+        m_Player_StabilizeRotation = m_Player.FindAction("StabilizeRotation", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1341,8 +1406,9 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Debug;
     private readonly InputAction m_Player_Aim;
-    private readonly InputAction m_Player_RotateRight;
-    private readonly InputAction m_Player_RotateLeft;
+    private readonly InputAction m_Player_RotateHorizontal;
+    private readonly InputAction m_Player_RotateVertical;
+    private readonly InputAction m_Player_StabilizeRotation;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1399,13 +1465,17 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         /// <summary>
-        /// Provides access to the underlying input action "Player/RotateRight".
+        /// Provides access to the underlying input action "Player/RotateHorizontal".
         /// </summary>
-        public InputAction @RotateRight => m_Wrapper.m_Player_RotateRight;
+        public InputAction @RotateHorizontal => m_Wrapper.m_Player_RotateHorizontal;
         /// <summary>
-        /// Provides access to the underlying input action "Player/RotateLeft".
+        /// Provides access to the underlying input action "Player/RotateVertical".
         /// </summary>
-        public InputAction @RotateLeft => m_Wrapper.m_Player_RotateLeft;
+        public InputAction @RotateVertical => m_Wrapper.m_Player_RotateVertical;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/StabilizeRotation".
+        /// </summary>
+        public InputAction @StabilizeRotation => m_Wrapper.m_Player_StabilizeRotation;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1465,12 +1535,15 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
-            @RotateRight.started += instance.OnRotateRight;
-            @RotateRight.performed += instance.OnRotateRight;
-            @RotateRight.canceled += instance.OnRotateRight;
-            @RotateLeft.started += instance.OnRotateLeft;
-            @RotateLeft.performed += instance.OnRotateLeft;
-            @RotateLeft.canceled += instance.OnRotateLeft;
+            @RotateHorizontal.started += instance.OnRotateHorizontal;
+            @RotateHorizontal.performed += instance.OnRotateHorizontal;
+            @RotateHorizontal.canceled += instance.OnRotateHorizontal;
+            @RotateVertical.started += instance.OnRotateVertical;
+            @RotateVertical.performed += instance.OnRotateVertical;
+            @RotateVertical.canceled += instance.OnRotateVertical;
+            @StabilizeRotation.started += instance.OnStabilizeRotation;
+            @StabilizeRotation.performed += instance.OnStabilizeRotation;
+            @StabilizeRotation.canceled += instance.OnStabilizeRotation;
         }
 
         /// <summary>
@@ -1515,12 +1588,15 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
-            @RotateRight.started -= instance.OnRotateRight;
-            @RotateRight.performed -= instance.OnRotateRight;
-            @RotateRight.canceled -= instance.OnRotateRight;
-            @RotateLeft.started -= instance.OnRotateLeft;
-            @RotateLeft.performed -= instance.OnRotateLeft;
-            @RotateLeft.canceled -= instance.OnRotateLeft;
+            @RotateHorizontal.started -= instance.OnRotateHorizontal;
+            @RotateHorizontal.performed -= instance.OnRotateHorizontal;
+            @RotateHorizontal.canceled -= instance.OnRotateHorizontal;
+            @RotateVertical.started -= instance.OnRotateVertical;
+            @RotateVertical.performed -= instance.OnRotateVertical;
+            @RotateVertical.canceled -= instance.OnRotateVertical;
+            @StabilizeRotation.started -= instance.OnStabilizeRotation;
+            @StabilizeRotation.performed -= instance.OnStabilizeRotation;
+            @StabilizeRotation.canceled -= instance.OnStabilizeRotation;
         }
 
         /// <summary>
@@ -1899,19 +1975,26 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnAim(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "RotateRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "RotateHorizontal" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateRight(InputAction.CallbackContext context);
+        void OnRotateHorizontal(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "RotateLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "RotateVertical" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateLeft(InputAction.CallbackContext context);
+        void OnRotateVertical(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "StabilizeRotation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStabilizeRotation(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
