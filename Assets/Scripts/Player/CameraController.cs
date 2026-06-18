@@ -1,12 +1,14 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
     public static CameraMode CameraMode { get; private set; } = CameraMode.Default;
+    public static event Action AimModeEntered;
+    public static event Action DefaultModeEntered;
 
     [Header("Refs")]
     [SerializeField] private Camera _camera;
@@ -79,7 +81,6 @@ public class CameraController : MonoBehaviour
         CheckObstacles();
         MoveCameraToAnchor();
         RotateCamera();
-        //_playerMovement.RotateTowardsMoveDirection();
     }
     private void HandleLook(InputAction.CallbackContext context)
     {
@@ -97,7 +98,6 @@ public class CameraController : MonoBehaviour
     {
         if (context.performed)
         {
-            //Debug.Break();
             _aimRoutineCTS?.Cancel();
             _aimRoutineCTS?.Dispose();
 
@@ -106,6 +106,7 @@ public class CameraController : MonoBehaviour
             _currentCameraAnchor = _moveableCameraAnchor;
             _positionLerpRate = _positionLerpRateAimMode;
             _cameraYDamping = 0f;
+            AimModeEntered?.Invoke();
 
             _aimRoutineCTS = new CancellationTokenSource();
             FocusPointToAim(_aimRoutineCTS.Token).Forget();
@@ -119,6 +120,7 @@ public class CameraController : MonoBehaviour
             _currentCameraAnchor = _cameraAnchor;
             _positionLerpRate = _defaultPositionLerpRate;
             _cameraYDamping = _defaultCameraYDamping;
+            DefaultModeEntered?.Invoke();
 
             _aimRoutineCTS = new CancellationTokenSource();
             FocusPointToDefault(_aimRoutineCTS.Token).Forget();

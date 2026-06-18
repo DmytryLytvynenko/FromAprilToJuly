@@ -9,50 +9,103 @@ public class Interact : MonoBehaviour
     [SerializeField] private Transform _followPoint;
     [SerializeField] private float _interactScanRate = .2f;
     [SerializeField] private float _rotateStep = 45f;
+    [SerializeField] private float _moveFollowPointStep = .5f;
+    [SerializeField] private Vector2 _followPointClamp;
+    [SerializeField] private float _followPointAimPositionZ = 3.75f;
+    [SerializeField] private float _throwChargeTime = 3f;
 
     private Camera _camera;
     private Transform _cameraTransform;
     private Item _currentItem = null;
     private Item _currentHighlightedItem = null;
     private float _interactScanTimer;
+    private Vector2 _currentFollowPointClamp;
+    private Vector3 _followPointDefaultPosition;
+    private bool _rotateItemOnScroll = true;
+    private bool _justPickedUp = true;
+    private bool _chargeForThrow = false;
+    private float _throwTimer = 0f;
     private void Update()
     {
         ScanForItem();
+        ChargeForThrow();
     }
     public void Initialize(Camera camera)
     {
+        _currentFollowPointClamp = _followPointClamp + Vector2.one * _followPoint.localPosition.z;
+        _followPointDefaultPosition = _followPoint.localPosition;
         _camera = camera;
         _cameraTransform = camera.transform;
         InputManager.Instance.OnInteract.AddListener(HandleInteract);
         InputManager.Instance.OnRotateHorizontal.AddListener(HandleRotateHorizontal);
-        InputManager.Instance.OnRotateVertical.AddListener(HandleRotateVertical);
+        InputManager.Instance.OnScroll.AddListener(HandleScroll);
         InputManager.Instance.OnStabilizeRotation.AddListener(HandleStabilizeRotation);
+        InputManager.Instance.OnToggleScroll.AddListener(HandleToggleScroll);
+        CameraController.AimModeEntered += OnCameraAimModeEntered;
+        CameraController.DefaultModeEntered += OnCameraDefaultModeEntered;
     }
     public void HandleDisable()
     {
         InputManager.Instance.OnInteract.RemoveListener(HandleInteract);
         InputManager.Instance.OnRotateHorizontal.RemoveListener(HandleRotateHorizontal);
-        InputManager.Instance.OnRotateVertical.RemoveListener(HandleRotateVertical);
+        InputManager.Instance.OnScroll.RemoveListener(HandleScroll);
         InputManager.Instance.OnStabilizeRotation.RemoveListener(HandleStabilizeRotation);
+        InputManager.Instance.OnToggleScroll.RemoveListener(HandleToggleScroll);
+        CameraController.AimModeEntered -= OnCameraAimModeEntered;
+        CameraController.DefaultModeEntered -= OnCameraDefaultModeEntered;
     }
     private void HandleInteract(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) return;
-        if (_currentItem)
+        /*        if (!ctx.performed) return;
+                if (_currentItem)
+                {
+                    _currentItem.Release();
+                    _currentItem = null;
+                }
+                else
+                {
+                    Vector3 dir = _camera.transform.forward;
+                    Debug.DrawRay(_cameraTransform.position, dir * _pickUpDistance, Color.yellow, 5f);
+                    if (Physics.Raycast(_cameraTransform.position, dir,out RaycastHit hitInfo, _pickUpDistance, _pickUpObjects))
+                    {
+                        if (hitInfo.rigidbody.TryGetComponent(out Item item))
+                        {
+                            item.PickUp(_followPoint, _pickUpForce);
+                            _currentItem = item;
+                        }
+                    }
+                }*/
+        Vector3 dir = _camera.transform.forward;
+        if (ctx.performed)
         {
-            _currentItem.Release();
-            _currentItem = null;
-        }
-        else
-        {
-            Vector3 dir = _camera.transform.forward;
+            if (_currentItem) 
+            {
+                _chargeForThrow = true;
+                _justPickedUp = false;
+                return;
+            }
+
             Debug.DrawRay(_cameraTransform.position, dir * _pickUpDistance, Color.yellow, 5f);
-            if (Physics.Raycast(_cameraTransform.position, dir,out RaycastHit hitInfo, _pickUpDistance, _pickUpObjects))
+            if (Physics.Raycast(_cameraTransform.position, dir, out RaycastHit hitInfo, _pickUpDistance, _pickUpObjects))
             {
                 if (hitInfo.rigidbody.TryGetComponent(out Item item))
                 {
                     item.PickUp(_followPoint, _pickUpForce);
+                    _justPickedUp = true;
                     _currentItem = item;
+                }
+            }
+        }
+        else
+        {
+            if (!_justPickedUp)
+            {
+                if (_currentItem)
+                {
+                    _currentItem.Release(dir * _throwTimer * 100);
+                    _throwTimer = 0;
+                    _chargeForThrow = false;
+                    _currentItem = null;
                 }
             }
         }
@@ -89,6 +142,21 @@ public class Interact : MonoBehaviour
         }
 
     }
+    private void ChargeForThrow()
+    {
+        if (!_chargeForThrow) return;
+
+        if (_throwTimer < _throwChargeTime)
+        {
+            _throwTimer += Time.deltaTime;
+        }
+        else
+        {
+            _throwTimer = _throwChargeTime;
+            _chargeForThrow = false;
+        }
+
+    }
     private void HandleRotateHorizontal(InputAction.CallbackContext ctx)
     {
         sbyte sign = (sbyte)Mathf.Sign(ctx.ReadValue<float>());
@@ -97,12 +165,18 @@ public class Interact : MonoBehaviour
             _currentItem.ChangeTargetRotation(0, _rotateStep * sign);
         }
     }
-    private void HandleRotateVertical(InputAction.CallbackContext ctx)
+    private void HandleScroll(InputAction.CallbackContext ctx)
     {
+        if (!_currentItem) return;
+
         sbyte sign = (sbyte)Mathf.Sign(ctx.ReadValue<float>());
-        if (_currentItem)
+        if (_rotateItemOnScroll)
         {
             _currentItem.ChangeTargetRotation(_rotateStep * sign, 0);
+        }
+        else
+        {
+            MoveFollowPoint(sign * _moveFollowPointStep);
         }
     }
     private void HandleStabilizeRotation(InputAction.CallbackContext ctx)
@@ -111,5 +185,26 @@ public class Interact : MonoBehaviour
         {
             _currentItem.Stabilize();
         }
+    }
+    private void HandleToggleScroll(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed) _rotateItemOnScroll = false;
+        else _rotateItemOnScroll = true;
+    }
+    private void OnCameraAimModeEntered()
+    {
+        _followPoint.localPosition = new Vector3(_followPoint.localPosition.x, _followPoint.localPosition.y, _followPoint.localPosition.z - _followPointAimPositionZ);
+        _currentFollowPointClamp = _followPointClamp + Vector2.one * (_followPointDefaultPosition.z - _followPointAimPositionZ);
+    }
+    private void OnCameraDefaultModeEntered()
+    {
+        _followPoint.localPosition = new Vector3(_followPoint.localPosition.x, _followPoint.localPosition.y, _followPoint.localPosition.z + _followPointAimPositionZ);
+        _currentFollowPointClamp = _followPointClamp + Vector2.one * _followPointDefaultPosition.z;
+    }
+    private void MoveFollowPoint(float step)
+    {
+        float newPos = _followPoint.localPosition.z + step;
+        newPos = Mathf.Clamp(newPos, _currentFollowPointClamp.x, _currentFollowPointClamp.y);
+        _followPoint.localPosition = new Vector3(0, 0, newPos);
     }
 }

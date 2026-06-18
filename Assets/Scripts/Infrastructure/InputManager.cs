@@ -18,8 +18,9 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public InputEvent OnLook = new InputEvent();
     [HideInInspector] public InputEvent OnAim = new InputEvent();
     [HideInInspector] public InputEvent OnRotateHorizontal = new InputEvent();
-    [HideInInspector] public InputEvent OnRotateVertical = new InputEvent();
+    [HideInInspector] public InputEvent OnScroll = new InputEvent();
     [HideInInspector] public InputEvent OnStabilizeRotation = new InputEvent();
+    [HideInInspector] public InputEvent OnToggleScroll= new InputEvent();
     [HideInInspector] public event Action OnDebug;
 
     public Vector2 CurrentMoveInput => _currentMoveInput;
@@ -53,8 +54,9 @@ public class InputManager : MonoBehaviour
         var lookAction = _mainInput.Player.Look;
         var aimAction = _mainInput.Player.Aim;
         var rotateHorizontal = _mainInput.Player.RotateHorizontal;
-        var rotateVertical = _mainInput.Player.RotateVertical;
+        var scroll = _mainInput.Player.Scroll;
         var stabilizeRotation = _mainInput.Player.StabilizeRotation;
+        var toggleScroll = _mainInput.Player.ToggleScroll;
         var debugAction = _mainInput.Player.Debug;
 
 
@@ -75,9 +77,12 @@ public class InputManager : MonoBehaviour
 
         rotateHorizontal.performed += OnRotateHorizontalInput;
 
-        rotateVertical.performed += OnRotateVerticalInput;
+        scroll.performed += OnScrollInput;
 
         stabilizeRotation.performed += OnStabilizeRotationInput;
+
+        toggleScroll.performed += OnToggleScrollInput;
+        toggleScroll.canceled += OnToggleScrollInput;
 
         debugAction.performed += OnDebugInput;
     }
@@ -89,8 +94,9 @@ public class InputManager : MonoBehaviour
         var lookAction = _mainInput.Player.Look;
         var aimAction = _mainInput.Player.Aim;
         var rotateHorizontal = _mainInput.Player.RotateHorizontal;
-        var rotateVertical = _mainInput.Player.RotateVertical;
+        var scroll = _mainInput.Player.Scroll;
         var stabilizeRotation = _mainInput.Player.StabilizeRotation;
+        var toggleScroll = _mainInput.Player.ToggleScroll;
         var debugAction = _mainInput.Player.Debug;
 
         moveAction.performed -= OnMoveInput;
@@ -110,9 +116,12 @@ public class InputManager : MonoBehaviour
 
         rotateHorizontal.performed -= OnRotateHorizontalInput;
 
-        rotateVertical.performed -= OnRotateVerticalInput;
+        scroll.performed -= OnScrollInput;
 
         stabilizeRotation.performed -= OnStabilizeRotationInput;
+
+        toggleScroll.performed -= OnToggleScrollInput;
+        toggleScroll.canceled -= OnToggleScrollInput;
 
         debugAction.performed -= OnDebugInput;
 
@@ -162,13 +171,17 @@ public class InputManager : MonoBehaviour
     {
         OnRotateHorizontal?.Invoke(ctx);
     }
-    private void OnRotateVerticalInput(InputAction.CallbackContext ctx)
+    private void OnScrollInput(InputAction.CallbackContext ctx)
     {
-        OnRotateVertical?.Invoke(ctx);
+        OnScroll?.Invoke(ctx);
     }
     private void OnStabilizeRotationInput(InputAction.CallbackContext ctx)
     {
         OnStabilizeRotation?.Invoke(ctx);
+    }
+    private void OnToggleScrollInput(InputAction.CallbackContext ctx)
+    {
+        OnToggleScroll?.Invoke(ctx);
     }
     private void OnDebugInput(InputAction.CallbackContext ctx)
     {

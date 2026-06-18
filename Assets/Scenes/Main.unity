@@ -4369,10 +4369,13 @@ MonoBehaviour:
   OnRotateHorizontal:
     m_PersistentCalls:
       m_Calls: []
-  OnRotateVertical:
+  OnScroll:
     m_PersistentCalls:
       m_Calls: []
   OnStabilizeRotation:
+    m_PersistentCalls:
+      m_Calls: []
+  OnToggleScroll:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1489675943
@@ -6093,8 +6096,24 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 215295993881900010, guid: e9e0bd58f27c3a640922c23826e2a01b, type: 3}
+      propertyPath: _throwChargeTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 215295993881900010, guid: e9e0bd58f27c3a640922c23826e2a01b, type: 3}
       propertyPath: _interactScanRate
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 215295993881900010, guid: e9e0bd58f27c3a640922c23826e2a01b, type: 3}
+      propertyPath: _followPointClamp.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215295993881900010, guid: e9e0bd58f27c3a640922c23826e2a01b, type: 3}
+      propertyPath: _followPointClamp.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 215295993881900010, guid: e9e0bd58f27c3a640922c23826e2a01b, type: 3}
+      propertyPath: _followPointAimPosition.z
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 1090907073875625809, guid: e9e0bd58f27c3a640922c23826e2a01b, type: 3}
       propertyPath: m_LocalPosition.x

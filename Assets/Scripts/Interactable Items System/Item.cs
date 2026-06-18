@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Item : MonoBehaviour
@@ -45,6 +44,13 @@ public class Item : MonoBehaviour
         _rotate = false;
         Picked = false;
     }
+    public virtual void Release(Vector3 throwDir) 
+    {
+        ItemReleased?.Invoke();
+        _rotate = false;
+        Picked = false;
+        _rigidbody.AddForce(throwDir, ForceMode.Impulse);
+    }
     public virtual void Highlight() 
     {
         _material.color = Color.black;
@@ -70,7 +76,7 @@ public class Item : MonoBehaviour
         if (Mathf.Abs(angle) < 0.5f)
         {
             _rigidbody.angularVelocity = Vector3.zero;
-            _rotate = false;
+            //_rotate = false;
             return;
         }
 

@@ -115,7 +115,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "RotateVertical",
+                    "name": "Scroll",
                     "type": "Value",
                     "id": "48667e43-03ac-451b-98a8-fee73f278b4b",
                     "expectedControlType": "Axis",
@@ -127,6 +127,15 @@
                     "name": "StabilizeRotation",
                     "type": "Button",
                     "id": "30a91847-36c7-4b84-b1f3-99443ca33584",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ToggleScroll",
+                    "type": "Button",
+                    "id": "b1ffbdcf-9b34-4285-8c40-ada3808ca5e0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -581,7 +590,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateVertical",
+                    "action": "Scroll",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -592,7 +601,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "RotateVertical",
+                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -603,7 +612,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "RotateVertical",
+                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -615,6 +624,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "StabilizeRotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a7aea9c-7e9d-4c20-b803-697ff23fa40a",
+                    "path": "<Keyboard>/alt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ToggleScroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

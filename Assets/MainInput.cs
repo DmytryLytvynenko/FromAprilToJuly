@@ -201,7 +201,7 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""RotateVertical"",
+                    ""name"": ""Scroll"",
                     ""type"": ""Value"",
                     ""id"": ""48667e43-03ac-451b-98a8-fee73f278b4b"",
                     ""expectedControlType"": ""Axis"",
@@ -213,6 +213,15 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""name"": ""StabilizeRotation"",
                     ""type"": ""Button"",
                     ""id"": ""30a91847-36c7-4b84-b1f3-99443ca33584"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleScroll"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1ffbdcf-9b34-4285-8c40-ada3808ca5e0"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -667,7 +676,7 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateVertical"",
+                    ""action"": ""Scroll"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -678,7 +687,7 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RotateVertical"",
+                    ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -689,7 +698,7 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""RotateVertical"",
+                    ""action"": ""Scroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -701,6 +710,17 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""StabilizeRotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3a7aea9c-7e9d-4c20-b803-697ff23fa40a"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""ToggleScroll"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1300,8 +1320,9 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_RotateHorizontal = m_Player.FindAction("RotateHorizontal", throwIfNotFound: true);
-        m_Player_RotateVertical = m_Player.FindAction("RotateVertical", throwIfNotFound: true);
+        m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
         m_Player_StabilizeRotation = m_Player.FindAction("StabilizeRotation", throwIfNotFound: true);
+        m_Player_ToggleScroll = m_Player.FindAction("ToggleScroll", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1407,8 +1428,9 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Debug;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_RotateHorizontal;
-    private readonly InputAction m_Player_RotateVertical;
+    private readonly InputAction m_Player_Scroll;
     private readonly InputAction m_Player_StabilizeRotation;
+    private readonly InputAction m_Player_ToggleScroll;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1469,13 +1491,17 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @RotateHorizontal => m_Wrapper.m_Player_RotateHorizontal;
         /// <summary>
-        /// Provides access to the underlying input action "Player/RotateVertical".
+        /// Provides access to the underlying input action "Player/Scroll".
         /// </summary>
-        public InputAction @RotateVertical => m_Wrapper.m_Player_RotateVertical;
+        public InputAction @Scroll => m_Wrapper.m_Player_Scroll;
         /// <summary>
         /// Provides access to the underlying input action "Player/StabilizeRotation".
         /// </summary>
         public InputAction @StabilizeRotation => m_Wrapper.m_Player_StabilizeRotation;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ToggleScroll".
+        /// </summary>
+        public InputAction @ToggleScroll => m_Wrapper.m_Player_ToggleScroll;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1538,12 +1564,15 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
             @RotateHorizontal.started += instance.OnRotateHorizontal;
             @RotateHorizontal.performed += instance.OnRotateHorizontal;
             @RotateHorizontal.canceled += instance.OnRotateHorizontal;
-            @RotateVertical.started += instance.OnRotateVertical;
-            @RotateVertical.performed += instance.OnRotateVertical;
-            @RotateVertical.canceled += instance.OnRotateVertical;
+            @Scroll.started += instance.OnScroll;
+            @Scroll.performed += instance.OnScroll;
+            @Scroll.canceled += instance.OnScroll;
             @StabilizeRotation.started += instance.OnStabilizeRotation;
             @StabilizeRotation.performed += instance.OnStabilizeRotation;
             @StabilizeRotation.canceled += instance.OnStabilizeRotation;
+            @ToggleScroll.started += instance.OnToggleScroll;
+            @ToggleScroll.performed += instance.OnToggleScroll;
+            @ToggleScroll.canceled += instance.OnToggleScroll;
         }
 
         /// <summary>
@@ -1591,12 +1620,15 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
             @RotateHorizontal.started -= instance.OnRotateHorizontal;
             @RotateHorizontal.performed -= instance.OnRotateHorizontal;
             @RotateHorizontal.canceled -= instance.OnRotateHorizontal;
-            @RotateVertical.started -= instance.OnRotateVertical;
-            @RotateVertical.performed -= instance.OnRotateVertical;
-            @RotateVertical.canceled -= instance.OnRotateVertical;
+            @Scroll.started -= instance.OnScroll;
+            @Scroll.performed -= instance.OnScroll;
+            @Scroll.canceled -= instance.OnScroll;
             @StabilizeRotation.started -= instance.OnStabilizeRotation;
             @StabilizeRotation.performed -= instance.OnStabilizeRotation;
             @StabilizeRotation.canceled -= instance.OnStabilizeRotation;
+            @ToggleScroll.started -= instance.OnToggleScroll;
+            @ToggleScroll.performed -= instance.OnToggleScroll;
+            @ToggleScroll.canceled -= instance.OnToggleScroll;
         }
 
         /// <summary>
@@ -1982,12 +2014,12 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotateHorizontal(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "RotateVertical" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Scroll" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateVertical(InputAction.CallbackContext context);
+        void OnScroll(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "StabilizeRotation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -1995,6 +2027,13 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnStabilizeRotation(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleScroll" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleScroll(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
