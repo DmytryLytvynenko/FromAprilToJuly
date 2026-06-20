@@ -586,7 +586,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6273146302574619198}
-  m_Material: {fileID: 13400000, guid: 1402eb42c066af945b8104146c90970c, type: 2}
+  m_Material: {fileID: 13400000, guid: 43cc024367492524b95a0baabc48619c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -663,6 +663,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 129
   _visual: {fileID: 166152571547644439}
+  _materialHighFriction: {fileID: 13400000, guid: 1402eb42c066af945b8104146c90970c, type: 2}
+  _materialZeroFriction: {fileID: 13400000, guid: 43cc024367492524b95a0baabc48619c, type: 2}
+  _collider: {fileID: 5210858129242557811}
 --- !u!114 &5223854102981403664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,11 +694,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d20c1c0ddf7f04aa93e4fa3bba53b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interact
-  _pickUpDistance: 4
+  _pickUpDistance: 15
+  _pickUpForce: 6
   _pickUpObjects:
     serializedVersion: 2
     m_Bits: 128
   _followPoint: {fileID: 0}
+  _interactScanRate: 0.05
+  _rotateStep: 45
+  _moveFollowPointStep: 0.5
+  _followPointClamp: {x: 0, y: 5}
+  _followPointAimPositionZ: 3.75
+  _throwChargeTime: 3
 --- !u!1 &8551356969914170354
 GameObject:
   m_ObjectHideFlags: 0

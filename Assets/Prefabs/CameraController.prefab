@@ -25,11 +25,42 @@ Transform:
   m_GameObject: {fileID: 1727415614229420177}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.5, z: 10}
+  m_LocalPosition: {x: 1, y: 0, z: -0.5707097}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 21040893460756583}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1809355444437441252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4147394008251182205}
+  m_Layer: 0
+  m_Name: AimFocusPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4147394008251182205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809355444437441252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4454672881922108506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2857240235069730186
 GameObject:
@@ -56,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 2857240235069730186}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.5, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -116,21 +147,24 @@ MonoBehaviour:
   _moveableCameraAnchor: {fileID: 4454672881922108506}
   _moveableAnchorFocusPoint: {fileID: 7062827608800074862}
   _focusPoint: {fileID: 1246360544094425644}
+  _aimFocusPoint: {fileID: 4147394008251182205}
   _obstacleChecker: {fileID: 5764495796026818371}
   _minXAngle: -30
   _maxXAngle: 45
   _rotationSpeed: 0.1
   _positionLerpRate: 6
-  _positionLerpRateAimMode: 10
+  _positionLerpRateY: 2
   _cameraObstacleOffset: 0.1
-  _aimFocusPointDistance: 10
-  _aimFocusPointDistanceChangeDuration: 0.5
-  _cameraYDamping: 4
+  _cameraYDamping: 3
   _checkObstaclesTime: 0.1
+  _controllerYOffset: 0.5
   _cameraRayIgnoreObjectsMask:
     serializedVersion: 2
     m_Bits: 64
-  AimAnchorPos: {x: 1, y: 0.5, z: -1}
+  _positionLerpRateAimMode: 10
+  _aimFocusPointDistance: 10
+  _aimFocusPointDistanceChangeDuration: 1
+  AimAnchorPos: {x: 1, y: 0.25, z: -1.25}
 --- !u!1 &3401113462190474285
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +190,7 @@ Transform:
   m_GameObject: {fileID: 3401113462190474285}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.5, z: -5}
+  m_LocalPosition: {x: 1, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -187,7 +221,7 @@ Transform:
   m_GameObject: {fileID: 6496770549067761120}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.5, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -218,9 +252,10 @@ Transform:
   m_GameObject: {fileID: 8315247413794693274}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4147394008251182205}
   m_Father: {fileID: 21040893460756583}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

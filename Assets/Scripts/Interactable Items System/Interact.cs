@@ -1,10 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Interact : MonoBehaviour
 {
+    public event Action ItemPicked;
+    public event Action ChargeTimerStarted;
+    public event Action ItemThrown;
+
     [SerializeField] private float _pickUpDistance = 4f;
     [SerializeField] private float _pickUpForce = 10f;
+    [SerializeField] private float _throwForce = 50f;
     [SerializeField] private LayerMask _pickUpObjects;
     [SerializeField] private Transform _followPoint;
     [SerializeField] private float _interactScanRate = .2f;
@@ -13,18 +19,20 @@ public class Interact : MonoBehaviour
     [SerializeField] private Vector2 _followPointClamp;
     [SerializeField] private float _followPointAimPositionZ = 3.75f;
     [SerializeField] private float _throwChargeTime = 3f;
+    [SerializeField] private float _startChargeTime = .5f;
 
     private Camera _camera;
     private Transform _cameraTransform;
     private Item _currentItem = null;
     private Item _currentHighlightedItem = null;
-    private float _interactScanTimer;
     private Vector2 _currentFollowPointClamp;
     private Vector3 _followPointDefaultPosition;
     private bool _rotateItemOnScroll = true;
     private bool _justPickedUp = true;
     private bool _chargeForThrow = false;
+    private float _interactScanTimer;
     private float _throwTimer = 0f;
+    private float _rawChargeTime;
     private void Update()
     {
         ScanForItem();
@@ -32,6 +40,7 @@ public class Interact : MonoBehaviour
     }
     public void Initialize(Camera camera)
     {
+        _rawChargeTime = _throwChargeTime - _startChargeTime;
         _currentFollowPointClamp = _followPointClamp + Vector2.one * _followPoint.localPosition.z;
         _followPointDefaultPosition = _followPoint.localPosition;
         _camera = camera;
@@ -54,27 +63,12 @@ public class Interact : MonoBehaviour
         CameraController.AimModeEntered -= OnCameraAimModeEntered;
         CameraController.DefaultModeEntered -= OnCameraDefaultModeEntered;
     }
+    public float GetThrowChargePercentage()
+    {
+        return Mathf.Clamp01((_throwTimer - _startChargeTime) / _rawChargeTime);
+    }
     private void HandleInteract(InputAction.CallbackContext ctx)
     {
-        /*        if (!ctx.performed) return;
-                if (_currentItem)
-                {
-                    _currentItem.Release();
-                    _currentItem = null;
-                }
-                else
-                {
-                    Vector3 dir = _camera.transform.forward;
-                    Debug.DrawRay(_cameraTransform.position, dir * _pickUpDistance, Color.yellow, 5f);
-                    if (Physics.Raycast(_cameraTransform.position, dir,out RaycastHit hitInfo, _pickUpDistance, _pickUpObjects))
-                    {
-                        if (hitInfo.rigidbody.TryGetComponent(out Item item))
-                        {
-                            item.PickUp(_followPoint, _pickUpForce);
-                            _currentItem = item;
-                        }
-                    }
-                }*/
         Vector3 dir = _camera.transform.forward;
         if (ctx.performed)
         {
@@ -82,6 +76,7 @@ public class Interact : MonoBehaviour
             {
                 _chargeForThrow = true;
                 _justPickedUp = false;
+                ChargeTimerStarted?.Invoke();
                 return;
             }
 
@@ -93,6 +88,7 @@ public class Interact : MonoBehaviour
                     item.PickUp(_followPoint, _pickUpForce);
                     _justPickedUp = true;
                     _currentItem = item;
+                    ItemPicked?.Invoke();
                 }
             }
         }
@@ -102,10 +98,13 @@ public class Interact : MonoBehaviour
             {
                 if (_currentItem)
                 {
-                    _currentItem.Release(dir * _throwTimer * 100);
+                    _throwTimer = _throwTimer > _startChargeTime ? _throwTimer : _startChargeTime;
+                    _currentItem.Release((_throwTimer - _startChargeTime) / _rawChargeTime * _throwForce * dir);
+                    Debug.Log("Throwed with force:" + (_throwTimer - _startChargeTime) / _rawChargeTime * _throwForce);
                     _throwTimer = 0;
                     _chargeForThrow = false;
                     _currentItem = null;
+                    ItemThrown?.Invoke();
                 }
             }
         }

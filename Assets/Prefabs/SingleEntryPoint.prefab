@@ -53,6 +53,7 @@ MonoBehaviour:
   <GroundDetector>k__BackingField: {fileID: 0}
   <NormalProjector>k__BackingField: {fileID: 0}
   <DebugPanel>k__BackingField: {fileID: 0}
+  <Interact>k__BackingField: {fileID: 0}
 --- !u!114 &3211317908482073020
 MonoBehaviour:
   m_ObjectHideFlags: 0

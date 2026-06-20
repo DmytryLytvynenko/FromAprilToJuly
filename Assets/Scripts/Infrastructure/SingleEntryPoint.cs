@@ -13,6 +13,7 @@ namespace SimpleDependencyManagement
         [field: SerializeField] public NormalProjector NormalProjector { get; private set; }
         [field: SerializeField] public DebugPanel DebugPanel { get; private set; }
         [field: SerializeField] public Interact Interact { get; private set; }
+        [field: SerializeField] public ChargeIndicator ChargeIndicator { get; private set; }
         private void Awake()
         {
             Cursor.visible = false;
@@ -20,6 +21,7 @@ namespace SimpleDependencyManagement
             InputManager.CreateSingleton();
             InputManager.Initialize();
 
+            ChargeIndicator.Initialize(Interact);
             CameraController.Initialize(Player.transform, GroundDetector);
             PlayerMovement.Initialize(Camera.main, GroundDetector, NormalProjector, PlayerRigidbody);
             GroundDetector.Initialize(PlayerMovement, NormalProjector);
@@ -33,6 +35,7 @@ namespace SimpleDependencyManagement
             GroundDetector.HandleDisable();
             DebugPanel.HandleDisable();
             Interact.HandleDisable();
+            ChargeIndicator.HandleDisable();
 
             InputManager.HandleDisable();
         }
