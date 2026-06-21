@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DragonPart : MonoBehaviour
 {
-    public float FollowSpeed;
+    public float MoveSpeed;
     public float RotationSpeed;
     public float FollowOffset;
     [SerializeField] protected Transform _visual;
@@ -12,13 +12,13 @@ public class DragonPart : MonoBehaviour
     protected Vector3 _followPosition;
     protected Quaternion _targetRotation;
     protected bool copyPreviousVisualZRotation = true;
+    protected bool _customTargetRotation = false;
+    protected Transform thisTransform;
 
-    private Transform thisTransform;
-
-    public void SetUp(float followSpeed, float rotationSpeed, float followOffset, DragonPart previousPart, DragonController controller)
+    public virtual void SetUp(float followSpeed, float rotationSpeed, float followOffset, DragonPart previousPart, DragonController controller)
     {
         thisTransform = transform;
-        FollowSpeed = followSpeed;
+        MoveSpeed = followSpeed;
         RotationSpeed = rotationSpeed;
         this.FollowOffset = followOffset;
         _controller = controller;
@@ -30,12 +30,12 @@ public class DragonPart : MonoBehaviour
         {
             _followPosition = -_previousPart._visual.forward * FollowOffset + _previousPart._visual.position;
             Vector3 currentPos = thisTransform.position;
-            thisTransform.position = Vector3.Lerp(currentPos, _followPosition, Time.fixedDeltaTime * FollowSpeed);
+            thisTransform.position = Vector3.Lerp(currentPos, _followPosition, Time.fixedDeltaTime * MoveSpeed);
         }
         else
         {
             Vector3 currentPos = thisTransform.position;
-            thisTransform.position = Vector3.Lerp(currentPos, _followPosition, Time.fixedDeltaTime * FollowSpeed);
+            thisTransform.position = Vector3.Lerp(currentPos, _followPosition, Time.fixedDeltaTime * MoveSpeed);
         }
     }
     protected virtual void Rotate()
@@ -49,6 +49,7 @@ public class DragonPart : MonoBehaviour
         }
         else
         {
+
             Quaternion currentRotation = thisTransform.rotation;
             Quaternion rot = Quaternion.Lerp(currentRotation, _targetRotation, RotationSpeed * Time.fixedDeltaTime);
             thisTransform.rotation = rot;
@@ -63,6 +64,11 @@ public class DragonPart : MonoBehaviour
             currentRotation.z = Mathf.LerpAngle(_visual.localEulerAngles.z, targetRotation.z, Time.fixedDeltaTime * RotationSpeed);
             _visual.localRotation = Quaternion.Euler(currentRotation);
         }
+    }
+    protected void SetTargetRotation(Vector3 Euler)
+    {
+        //_customTargetRotation = true;
+        _targetRotation = Quaternion.Euler(Euler);
     }
     protected virtual void FixedUpdate()
     {

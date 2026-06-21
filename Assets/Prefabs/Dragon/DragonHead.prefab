@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1332441477583644095}
   - component: {fileID: 8282104305615762529}
   - component: {fileID: 3762682110287708949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DragonHeadVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2239783092322660192}
   - component: {fileID: 5846888551693851907}
   - component: {fileID: 7982590777802754484}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DragonHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e31ef75d6cc7dfa49afeb9f688e60939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragonHead
-  FollowSpeed: 0
+  MoveSpeed: 0
   RotationSpeed: 0
   FollowOffset: 0
   _visual: {fileID: 1332441477583644095}

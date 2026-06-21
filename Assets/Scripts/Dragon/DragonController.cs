@@ -8,6 +8,7 @@ public class DragonController : MonoBehaviour
     [field:SerializeField] public bool CopyFirstPart { get; set; } = true;
     [field:SerializeField] public bool LookAtPlayer { get; set; } = true;
     [field:SerializeField] public bool Move { get; set; } = false;
+    public bool LastWaypoint { get { return _currentWaypointIndex == _wayPoints.Count - 1; } }
 
     [SerializeField] private DragonHead _head;
     [SerializeField] private DragonPart _firstPart;
@@ -17,59 +18,84 @@ public class DragonController : MonoBehaviour
     [SerializeField] private Transform _testSpawnPosition;
     [SerializeField] private float _bodyPartsCount;
     [SerializeField] private float _bodyPartsStep;
-    [SerializeField] private float _followSpeed;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private float _moveSpeedLastWaypoint;
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private List<DragonWaypoint> _wayPoints;
+    [SerializeField] private List<DragonWaypoint> _wayPoints = new List<DragonWaypoint>();
 
     private List<DragonPart> _dragonParts = new List<DragonPart>();
+    public DragonWaypoint CurrentWaypoint { get; private set; }
+    private int _currentWaypointIndex = 0;
+    private bool _moveOnStart;
 
     private void Start()
     {
         Spawn(_testSpawnPosition.position);
+    }
+    private void OnEnable()
+    {
+        DragonWaypoint.WayPointReached += OnWayPointReached;
+    }
+    private void OnDisable()
+    {
+        DragonWaypoint.WayPointReached -= OnWayPointReached;
     }
     private void OnValidate()
     {
         foreach (DragonPart DragonPart in _dragonParts)
         {
             DragonPart.FollowOffset = _bodyPartsStep;
-            DragonPart.FollowSpeed = _followSpeed;
+            DragonPart.MoveSpeed = _moveSpeed;
             DragonPart.RotationSpeed = _rotationSpeed;
         }
     }
     private void SetWayPoints(List<DragonWaypoint> wayPoints)
     {
         _wayPoints = wayPoints;
+        if (_wayPoints.Count == 0)
+            Move = false;
+        else
+            CurrentWaypoint = _wayPoints[_currentWaypointIndex];
+        foreach (DragonWaypoint dragonWaypoint in _wayPoints)
+        {
+            dragonWaypoint.Controller = this;
+        }
     }
     private void Spawn(Vector3 headPosition)
     {
+        SetWayPoints(_wayPoints);
+        
+        _moveOnStart = Move;
+        Move = false;
         _head =  Instantiate(_headPrefab, headPosition, Quaternion.identity, transform).GetComponent<DragonHead>();
+        _head.SetUp(_moveSpeed, _rotationSpeed, _bodyPartsStep, this);
         _dragonParts.Add(_head);
         float step = _bodyPartsStep;
         for (int i = 0; i < _bodyPartsCount; i++)
         {
             Vector3 newPartPos = -_head.transform.forward * step * (i + 1) + _head.transform.position;
             DragonPart part = Instantiate(_partPrefab, newPartPos, Quaternion.identity, transform).GetComponent<DragonPart>();
-            part.SetUp(_followSpeed, _rotationSpeed, _bodyPartsStep, _dragonParts[i], this);
+            part.SetUp(_moveSpeed, _rotationSpeed, _bodyPartsStep, _dragonParts[i], this);
             _dragonParts.Add(part);
         }
+
+        Move = _moveOnStart;
+    }
+    public void SetHeadSpeed(float _moveSpeed)
+    {
+        _head.MoveSpeed = _moveSpeed;
     }
     public void Go()
     {
         Move = true;
     }
-    private void FollowWay()
+    private void OnWayPointReached()
     {
-        //Head -> go forward
-    }
-    private void Rotate()
-    {
-        //Head -> rotate towards next waypoint
-    }
-    private void FixedUpdate()
-    {
-        if (!Move) return;
+        if (Loop) _currentWaypointIndex = (_currentWaypointIndex + 1) % _wayPoints.Count;
+        else _currentWaypointIndex++;
 
-        FollowWay();
-        Rotate();
+        CurrentWaypoint = _wayPoints[_currentWaypointIndex];
+        if (!Loop && LastWaypoint) SetHeadSpeed(_moveSpeedLastWaypoint);
     }
+
 }
