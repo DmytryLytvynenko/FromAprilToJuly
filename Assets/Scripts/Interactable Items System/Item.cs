@@ -1,15 +1,21 @@
 using System;
+using UnityEditor.Sprites;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Item : MonoBehaviour
 {
     public bool Picked { get; private set; } = false;
+    public float Mass { get { return _rigidbody.mass; } }
     public static event Action ItemPicked;
     public static event Action ItemReleased;
     [SerializeField] protected float _followForce = 1f;
     [SerializeField] protected float _rotationForce = 5f;
     [SerializeField] protected float _dampingFactor = 10f;
+    [SerializeField] protected float _gravity = -9.81f;
+    [SerializeField] protected float _upMaxSpeed = 3f;
+    [SerializeField] protected float _downMaxSpeed = 6f;
+    [SerializeField] protected float _ySpeedMultiplier = .1f;
 
     protected Transform _followTarget = null;
     protected Rigidbody _rigidbody;
@@ -61,11 +67,27 @@ public class Item : MonoBehaviour
     }
     protected virtual void Follow()
     {
-        //_rigidbody.AddForce((_followTarget.position - transform.position) * _followForce, ForceMode.Impulse);
-        _rigidbody.linearVelocity = (_followTarget.position - transform.position) * _followForce;
+        if (!Picked) return;
+
+        Vector3 targetVel = (_followTarget.position - transform.position) * _followForce;
+        Vector3 v = _rigidbody.linearVelocity;
+        v.x = targetVel.x;
+        v.z = targetVel.z;
+        if (transform.position.y > _followTarget.position.y) 
+        {
+            v.y += v.y > _downMaxSpeed ? targetVel.y * _ySpeedMultiplier : 0;
+        }
+        else
+        {
+            v.y += v.y < _upMaxSpeed ? targetVel.y * _ySpeedMultiplier : 0;
+        }
+
+        _rigidbody.linearVelocity = v;
     }
     protected virtual void Rotate()
     {
+        if (!_rotate) return;
+
         Quaternion targetRotation = Quaternion.Euler(_targetRotation);
 
         Quaternion deltaRotation = targetRotation * Quaternion.Inverse(transform.rotation);
@@ -76,7 +98,6 @@ public class Item : MonoBehaviour
         if (Mathf.Abs(angle) < 0.5f)
         {
             _rigidbody.angularVelocity = Vector3.zero;
-            //_rotate = false;
             return;
         }
 
@@ -95,15 +116,18 @@ public class Item : MonoBehaviour
         _targetRotation = Vector2.zero;
         _rotate = true;
     }
+    protected virtual void Gravity()
+    {
+        //if (Picked && transform.position.y > _followTarget.position.y) return;
+
+        Vector3 v = _rigidbody.linearVelocity;
+        v.y = v.y + _gravity * Time.fixedDeltaTime;
+        _rigidbody.linearVelocity = v;
+    }
     protected virtual void FixedUpdate()
     {
-        if (Picked)
-        {
-            Follow();
-        }
-        if (_rotate)
-        {
-            Rotate();
-        }    
+        Gravity();
+        Follow();
+        Rotate();
     }
 }

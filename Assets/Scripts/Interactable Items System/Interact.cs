@@ -8,18 +8,23 @@ public class Interact : MonoBehaviour
     public event Action ChargeTimerStarted;
     public event Action ItemThrown;
 
+    [Header("Interact")]
+    [SerializeField] private Transform _followPoint;
     [SerializeField] private float _pickUpDistance = 4f;
-    [SerializeField] private float _pickUpForce = 10f;
+    [SerializeField] private float _followSpeed = 10f;
     [SerializeField] private float _throwForce = 50f;
     [SerializeField] private LayerMask _pickUpObjects;
-    [SerializeField] private Transform _followPoint;
-    [SerializeField] private float _interactScanRate = .2f;
     [SerializeField] private float _rotateStep = 45f;
     [SerializeField] private float _moveFollowPointStep = .5f;
-    [SerializeField] private Vector2 _followPointClamp;
     [SerializeField] private float _followPointAimPositionZ = 3.75f;
+    [SerializeField] private Vector2 _followPointClamp;
+    [SerializeField] private float _interactScanRate = .2f;
+    [Header("Charge")]
     [SerializeField] private float _throwChargeTime = 3f;
     [SerializeField] private float _startChargeTime = .5f;
+    [Header("Aditional")]
+    [SerializeField] private float _maxCarryWeight = 200f;
+    [SerializeField] private float _minimalMultiplierValue = .05f;
 
     private Camera _camera;
     private Transform _cameraTransform;
@@ -85,9 +90,9 @@ public class Interact : MonoBehaviour
             {
                 if (hitInfo.rigidbody.TryGetComponent(out Item item))
                 {
-                    item.PickUp(_followPoint, _pickUpForce);
-                    _justPickedUp = true;
                     _currentItem = item;
+                    _justPickedUp = true;
+                    item.PickUp(_followPoint, CalculateFollowSpeed());
                     ItemPicked?.Invoke();
                 }
             }
@@ -108,6 +113,15 @@ public class Interact : MonoBehaviour
                 }
             }
         }
+    }
+    private float CalculateFollowSpeed()
+    {
+        float maxCoefficient = 0.001f * _maxCarryWeight * _maxCarryWeight;
+        float currentCoefficient = 0.001f * _currentItem.Mass * _currentItem.Mass;
+        float weightRatio = currentCoefficient / maxCoefficient;
+        float multiplier = 1f - weightRatio;
+        multiplier = Mathf.Clamp(multiplier, _minimalMultiplierValue, 1f);
+        return multiplier * _followSpeed;
     }
     private void ScanForItem()
     {
