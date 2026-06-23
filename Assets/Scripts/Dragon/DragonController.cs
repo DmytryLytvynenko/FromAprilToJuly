@@ -8,6 +8,9 @@ public class DragonController : MonoBehaviour
     [field:SerializeField] public bool CopyFirstPart { get; set; } = true;
     [field:SerializeField] public bool LookAtPlayer { get; set; } = true;
     [field:SerializeField] public bool Move { get; set; } = false;
+    [field:SerializeField] public bool Rotate { get; set; } = false;
+    [field:SerializeField] public bool RotationModeCopy { get; set; } = false;
+    [field:SerializeField] public bool CopyRotationX { get; set; } = false;
     public bool LastWaypoint { get { return _currentWaypointIndex == _wayPoints.Count - 1; } }
 
     [SerializeField] private DragonHead _head;
@@ -27,6 +30,7 @@ public class DragonController : MonoBehaviour
     public DragonWaypoint CurrentWaypoint { get; private set; }
     private int _currentWaypointIndex = 0;
     private bool _moveOnStart;
+    private bool _rotateOnStart;
 
     private void Start()
     {
@@ -66,7 +70,9 @@ public class DragonController : MonoBehaviour
         SetWayPoints(_wayPoints);
         
         _moveOnStart = Move;
+        _rotateOnStart = Rotate;
         Move = false;
+        Rotate = false;
         _head =  Instantiate(_headPrefab, headPosition, Quaternion.identity, transform).GetComponent<DragonHead>();
         _head.SetUp(_moveSpeed, _rotationSpeed, _bodyPartsStep, this);
         _dragonParts.Add(_head);
@@ -78,8 +84,10 @@ public class DragonController : MonoBehaviour
             part.SetUp(_moveSpeed, _rotationSpeed, _bodyPartsStep, _dragonParts[i], this);
             _dragonParts.Add(part);
         }
-
+        _firstPart = _dragonParts[1];
+        _tail = _dragonParts[_dragonParts.Count - 1];
         Move = _moveOnStart;
+        Rotate = _rotateOnStart;
     }
     public void SetHeadSpeed(float _moveSpeed)
     {
@@ -88,6 +96,18 @@ public class DragonController : MonoBehaviour
     public void Go()
     {
         Move = true;
+        Rotate = true;
+        RotationModeCopy = false;
+        _firstPart.IgnorePreviousPart = false;
+        _tail.IgnorePreviousPart = false;
+    }
+    public void SetFirstPartRotation(Vector3 Euler, bool RotateAroundX) 
+    {
+        _firstPart.SetTargetRotation(Euler);
+        _firstPart.IgnorePreviousPart = true;
+        RotationModeCopy = true;
+        CopyRotationX = RotateAroundX;
+        Move = false;
     }
     private void OnWayPointReached()
     {

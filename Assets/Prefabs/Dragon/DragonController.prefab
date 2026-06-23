@@ -49,14 +49,32 @@ MonoBehaviour:
   <CopyFirstPart>k__BackingField: 1
   <LookAtPlayer>k__BackingField: 0
   <Move>k__BackingField: 1
+  <Rotate>k__BackingField: 1
+  <RotationModeCopy>k__BackingField: 0
+  <CopyRotationX>k__BackingField: 0
   _head: {fileID: 0}
   _firstPart: {fileID: 0}
   _tail: {fileID: 0}
   _headPrefab: {fileID: 5524296227311175335, guid: e5ade2634f5250e4f9a021a1d5d76895, type: 3}
   _partPrefab: {fileID: 2759864712524504416, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
   _testSpawnPosition: {fileID: 2291500470016407841}
-  _bodyPartsCount: 20
+  _bodyPartsCount: 30
   _bodyPartsStep: 2
-  _followSpeed: 6
-  _rotationSpeed: 5
-  _wayPoints: []
+  _moveSpeed: 10
+  _moveSpeedLastWaypoint: 0.5
+  _rotationSpeed: 3
+  _wayPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
