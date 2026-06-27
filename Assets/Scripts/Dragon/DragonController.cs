@@ -1,16 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using System.Threading.Tasks;
 
 public class DragonController : MonoBehaviour
 {
     [field:SerializeField] public bool Loop { get; set; } = false;
-    [field:SerializeField] public bool CopyTail { get; set; } = false;
     [field:SerializeField] public bool CopyFirstPart { get; set; } = true;
     [field:SerializeField] public bool LookAtPlayer { get; set; } = true;
     [field:SerializeField] public bool Move { get; set; } = false;
     [field:SerializeField] public bool Rotate { get; set; } = false;
     [field:SerializeField] public bool RotationModeCopy { get; set; } = false;
     [field:SerializeField] public bool CopyRotationX { get; set; } = false;
+    [field:SerializeField] public bool CopyScale { get; set; } = false;
     public bool LastWaypoint { get { return _currentWaypointIndex == _wayPoints.Count - 1; } }
 
     [SerializeField] private DragonHead _head;
@@ -29,8 +31,6 @@ public class DragonController : MonoBehaviour
     private List<DragonPart> _dragonParts = new List<DragonPart>();
     public DragonWaypoint CurrentWaypoint { get; private set; }
     private int _currentWaypointIndex = 0;
-    private bool _moveOnStart;
-    private bool _rotateOnStart;
 
     private void Start()
     {
@@ -67,10 +67,8 @@ public class DragonController : MonoBehaviour
     }
     private void Spawn(Vector3 headPosition)
     {
-        SetWayPoints(_wayPoints);
-        
-        _moveOnStart = Move;
-        _rotateOnStart = Rotate;
+        bool moveOnStart = Move;
+        bool rotateOnStart = Rotate;
         Move = false;
         Rotate = false;
         _head =  Instantiate(_headPrefab, headPosition, Quaternion.identity, transform).GetComponent<DragonHead>();
@@ -86,8 +84,11 @@ public class DragonController : MonoBehaviour
         }
         _firstPart = _dragonParts[1];
         _tail = _dragonParts[_dragonParts.Count - 1];
-        Move = _moveOnStart;
-        Rotate = _rotateOnStart;
+        _firstPart.IgnorePreviousPartScale = true;
+        Move = moveOnStart;
+        Rotate = rotateOnStart;
+
+        SetWayPoints(_wayPoints);
     }
     public void SetHeadSpeed(float _moveSpeed)
     {
@@ -97,17 +98,57 @@ public class DragonController : MonoBehaviour
     {
         Move = true;
         Rotate = true;
+        CopyScale = true;
         RotationModeCopy = false;
         _firstPart.IgnorePreviousPart = false;
         _tail.IgnorePreviousPart = false;
+        SetFirstPartDefaulScale();
     }
-    public void SetFirstPartRotation(Vector3 Euler, bool RotateAroundX) 
+    public void SetFirstPartRotationX(float x) 
     {
-        _firstPart.SetTargetRotation(Euler);
         _firstPart.IgnorePreviousPart = true;
         RotationModeCopy = true;
-        CopyRotationX = RotateAroundX;
+        CopyRotationX = true;
         Move = false;
+        _firstPart.SetTargetRotationX(x);
+        
+    }
+    public void SetFirstPartRotation(Vector3 Euler) 
+    {
+        _firstPart.IgnorePreviousPart = true;
+        RotationModeCopy = true;
+        CopyRotationX = false;
+        Move = false;
+        _firstPart.SetTargetRotation(Euler);
+        
+    }
+    public void SetFirstPartScale(Vector3 TargetScale) 
+    {
+        _firstPart.IgnorePreviousPart = true;
+        Move = false;
+        CopyScale = true;
+        _firstPart.SetTargetScale(TargetScale);
+    }
+    public void SetFirstPartDefaulScale() 
+    {
+        _firstPart.SetDefaultScale();
+    }
+    public void EnableColliders()
+    {
+        foreach (DragonPart part in _dragonParts)
+        {
+            part.BoxCollider.enabled = true;
+            part.ResetColliderSize();
+        }
+    }
+    public async UniTaskVoid EnableColliders(int delayMS)
+    {
+        await UniTask.Delay(delayMS);
+        foreach (DragonPart part in _dragonParts)
+        {
+            part.BoxCollider.enabled = true;
+            part.ResetColliderSize();
+        }
     }
     private void OnWayPointReached()
     {

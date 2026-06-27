@@ -6,11 +6,17 @@ public class DragonPart : MonoBehaviour
     public float RotationSpeed;
     public float FollowOffset;
     public bool IgnorePreviousPart = false;
+    public bool IgnorePreviousPartScale = false;
+    public Rigidbody Rigidbody { get; protected set; }
+    public BoxCollider BoxCollider { get; protected set; }
+
     [SerializeField] protected Transform _visual;
 
     protected DragonController _controller;
     protected DragonPart _previousPart;
     protected Vector3 _followPosition;
+    protected Vector3 _targetScale;
+    protected Vector3 _defaultScale;
     protected bool copyPreviousVisualZRotation = true;
     protected Transform thisTransform;
 
@@ -25,6 +31,10 @@ public class DragonPart : MonoBehaviour
 
     public virtual void SetUp(float followSpeed, float rotationSpeed, float followOffset, DragonPart previousPart, DragonController controller)
     {
+        Rigidbody = GetComponent<Rigidbody>();
+        BoxCollider = GetComponent<BoxCollider>();
+        _defaultScale = _visual.localScale;
+        _targetScale = _visual.localScale;
         thisTransform = transform;
         MoveSpeed = followSpeed;
         RotationSpeed = rotationSpeed;
@@ -49,6 +59,20 @@ public class DragonPart : MonoBehaviour
             thisTransform.position = Vector3.Lerp(currentPos, _followPosition, Time.fixedDeltaTime * MoveSpeed);
         }
     }
+    protected virtual void Scale()
+    {
+        if (_controller.CopyScale && !IgnorePreviousPartScale)
+        {
+            _targetScale = _previousPart._visual.localScale;
+            Vector3 currentScale = _visual.localScale;
+            _visual.localScale = Vector3.Lerp(currentScale, _targetScale, Time.fixedDeltaTime * MoveSpeed);
+        }
+        else
+        {
+            Vector3 currentScale = _visual.localScale;
+            _visual.localScale = Vector3.Lerp(currentScale, _targetScale, Time.fixedDeltaTime * MoveSpeed);
+        }
+    }
 
     protected virtual void Rotate()
     {
@@ -64,7 +88,9 @@ public class DragonPart : MonoBehaviour
                 }
                 else
                 {
+                    CurrentXAngle = Mathf.LerpAngle(CurrentXAngle, _previousPart.CurrentXAngle, t);
                     CurrentYAngle = Mathf.LerpAngle(CurrentYAngle, _previousPart.CurrentYAngle, t);
+                    CurrentZAngle = Mathf.LerpAngle(CurrentZAngle, _previousPart.CurrentZAngle, t);
                 }
             }
             else
@@ -111,12 +137,32 @@ public class DragonPart : MonoBehaviour
         }
     }
 
-    public void SetTargetRotation(Vector3 Euler)
+    public void SetTargetRotationX(float x)
+    {
+        _targetXAngle = x;
+    }
+    public void SetTargetRotationY(float y)
+    {
+        _targetYAngle = y;
+    }
+    public void SetTargetRotationZ(float z)
+    {
+        _targetZAngle = z;
+    }
+    public void AddTargetRotation(Vector3 Euler)
     {
         _targetXAngle += Euler.x;
         _targetYAngle += Euler.y;
         _targetZAngle += Euler.z;
     }
+    public void SetTargetRotation(Vector3 Euler)
+    {
+        _targetXAngle = Euler.x;
+        _targetYAngle = Euler.y;
+        _targetZAngle = Euler.z;
+    }
+    public void SetTargetScale(Vector3 targetScale) => _targetScale = targetScale;
+    public void SetDefaultScale() => _targetScale = _defaultScale;
 
     private static float NormalizeAngle(float angle)
     {
@@ -125,12 +171,17 @@ public class DragonPart : MonoBehaviour
         if (angle < -180f) angle += 360f;
         return angle;
     }
-
+    public void SetColliderSize(Vector3 size) => BoxCollider.size = size;
+    public void ResetColliderSize()
+    {
+        BoxCollider.size = _visual.localScale;
+    }
     protected virtual void FixedUpdate()
     {
         if (!_controller) return;
         Move();
         Rotate();
+        Scale();
         RotateLocalZ();
     }
 }
