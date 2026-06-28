@@ -5,6 +5,7 @@ public class DragonHead : DragonPart
     private Quaternion _targetRotation;
     public void SetUp(float followSpeed, float rotationSpeed, float followOffset, DragonController controller)
     {
+        Item = GetComponent<Item>();
         Rigidbody = GetComponent<Rigidbody>();
         BoxCollider = GetComponent<BoxCollider>();
         thisTransform = transform;

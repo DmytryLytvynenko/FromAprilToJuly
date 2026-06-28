@@ -9,6 +9,7 @@ public class DragonPart : MonoBehaviour
     public bool IgnorePreviousPartScale = false;
     public Rigidbody Rigidbody { get; protected set; }
     public BoxCollider BoxCollider { get; protected set; }
+    public Item Item { get; protected set; }
 
     [SerializeField] protected Transform _visual;
 
@@ -31,6 +32,7 @@ public class DragonPart : MonoBehaviour
 
     public virtual void SetUp(float followSpeed, float rotationSpeed, float followOffset, DragonPart previousPart, DragonController controller)
     {
+        Item = GetComponent<Item>();
         Rigidbody = GetComponent<Rigidbody>();
         BoxCollider = GetComponent<BoxCollider>();
         _defaultScale = _visual.localScale;

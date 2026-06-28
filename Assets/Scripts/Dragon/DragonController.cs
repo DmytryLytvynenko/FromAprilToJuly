@@ -1,7 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 public class DragonController : MonoBehaviour
 {
@@ -32,6 +32,11 @@ public class DragonController : MonoBehaviour
     public DragonWaypoint CurrentWaypoint { get; private set; }
     private int _currentWaypointIndex = 0;
 
+    [Header("Ragdoll")]
+    [SerializeField] private float _partRagdollDelay;
+    [SerializeField] private float _partRagdollForce;
+    [SerializeField] private LayerMask _newRagdollLayer;
+
     private void Start()
     {
         Spawn(_testSpawnPosition.position);
@@ -39,10 +44,12 @@ public class DragonController : MonoBehaviour
     private void OnEnable()
     {
         DragonWaypoint.WayPointReached += OnWayPointReached;
+        DragonWaypoint.LastWayPointReached += OnLastWayPointReached;
     }
     private void OnDisable()
     {
         DragonWaypoint.WayPointReached -= OnWayPointReached;
+        DragonWaypoint.LastWayPointReached -= OnLastWayPointReached;
     }
     private void OnValidate()
     {
@@ -141,6 +148,13 @@ public class DragonController : MonoBehaviour
             part.ResetColliderSize();
         }
     }
+    public void DisableColliders()
+    {
+        foreach (DragonPart part in _dragonParts)
+        {
+            part.BoxCollider.enabled = false;
+        }
+    }
     public async UniTaskVoid EnableColliders(int delayMS)
     {
         await UniTask.Delay(delayMS);
@@ -150,6 +164,39 @@ public class DragonController : MonoBehaviour
             part.ResetColliderSize();
         }
     }
+    public async UniTaskVoid EnableRagdoll()
+    {
+        float timer = 0f;
+        for (int i = _dragonParts.Count - 1; i >= 0; i--)
+        {
+            while (timer < _partRagdollDelay)
+            {
+                timer += Time.deltaTime;
+                await UniTask.NextFrame();
+            }
+
+            timer = 0f;
+            Vector3 dir = RandomNormalizedDirection();
+            _dragonParts[i].enabled = false;
+            _dragonParts[i].Rigidbody.constraints = RigidbodyConstraints.None;
+            _dragonParts[i].BoxCollider.enabled = true;
+            _dragonParts[i].ResetColliderSize();
+            int layerIndex = (int)Mathf.Log(_newRagdollLayer.value, 2);
+            _dragonParts[i].gameObject.layer = layerIndex;
+            _dragonParts[i].Item.enabled = true;
+            //_dragonParts[i].Rigidbody.useGravity = true;
+            _dragonParts[i].Rigidbody.isKinematic = false;
+            _dragonParts[i].Rigidbody.AddForce(dir * _partRagdollForce);
+            _dragonParts[i].Rigidbody.AddTorque(dir * _partRagdollForce);
+        }
+    }
+    private Vector3 RandomNormalizedDirection()
+    {
+        return new Vector3(
+                   Random.Range(-1f, 1f),
+                   Random.Range(-1f, 1f),
+                   Random.Range(-1f, 1f));
+    }
     private void OnWayPointReached()
     {
         if (Loop) _currentWaypointIndex = (_currentWaypointIndex + 1) % _wayPoints.Count;
@@ -158,5 +205,8 @@ public class DragonController : MonoBehaviour
         CurrentWaypoint = _wayPoints[_currentWaypointIndex];
         if (!Loop && LastWaypoint) SetHeadSpeed(_moveSpeedLastWaypoint);
     }
-
+    private void OnLastWayPointReached()
+    {
+        EnableRagdoll().Forget();
+    }
 }

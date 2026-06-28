@@ -16,18 +16,23 @@ public class Item : MonoBehaviour
     [SerializeField] protected float _upMaxSpeed = 3f;
     [SerializeField] protected float _downMaxSpeed = 6f;
     [SerializeField] protected float _ySpeedMultiplier = .1f;
+    [SerializeField] protected Rigidbody _rigidbody;
+    [SerializeField] protected Material _material;
+    [SerializeField] protected MeshRenderer _renderer;
 
     protected Transform _followTarget = null;
-    protected Rigidbody _rigidbody;
-    protected Material _material;
     protected Quaternion _currentRotation = Quaternion.identity;
     protected Vector3 _targetRotation = Vector3.zero;
     protected bool _rotate = false;
 
     protected virtual void Start()
     {
-        _material = GetComponent<MeshRenderer>().material;
-        _rigidbody = GetComponent<Rigidbody>();
+        TryGetComponent(out MeshRenderer meshRenderer);
+        TryGetComponent(out Rigidbody rigidbody);
+        if (!_renderer) _renderer = meshRenderer;
+        if (!_rigidbody) _rigidbody = rigidbody;
+
+        _material = _renderer?.material;
     }
     public virtual void PickUp(Transform target) 
     {

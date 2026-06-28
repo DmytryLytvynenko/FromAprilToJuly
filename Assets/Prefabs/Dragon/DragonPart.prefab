@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8296533297988531594}
   - component: {fileID: 7679174419208665837}
   - component: {fileID: 3122054975729927856}
+  - component: {fileID: -5936325215920197151}
   m_Layer: 0
   m_Name: DragonPart
   m_TagString: Untagged
@@ -68,10 +69,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b8b52518b7bfe4c8c16eb73c1d5312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragonPart
-  FollowSpeed: 0
+  MoveSpeed: 0
   RotationSpeed: 0
   FollowOffset: 0
+  IgnorePreviousPart: 0
+  IgnorePreviousPartScale: 0
   _visual: {fileID: 242734481131041124}
+  CurrentXAngle: 0
+  CurrentYAngle: 0
+  CurrentZAngle: 0
 --- !u!54 &3122054975729927856
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -96,9 +102,31 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-5936325215920197151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759864712524504416}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b98b29384aff14396972fe907f4a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  _followForce: 1
+  _rotationForce: 5
+  _dampingFactor: 10
+  _gravity: -15
+  _upMaxSpeed: 7
+  _downMaxSpeed: -5
+  _ySpeedMultiplier: 0.2
+  _rigidbody: {fileID: 3122054975729927856}
+  _material: {fileID: 0}
+  _renderer: {fileID: 5110044411064572217}
 --- !u!1 &6928854039125514099
 GameObject:
   m_ObjectHideFlags: 0
