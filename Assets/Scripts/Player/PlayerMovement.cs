@@ -30,9 +30,9 @@ public class PlayerMovement : MonoBehaviour
     private CancellationTokenSource _source;
     public void Initialize(Camera camera, GroundDetector groundDetector, NormalProjector normalProjector, Rigidbody rigidbody)
     {
-        _collider.material = _materialZeroFriction;
+/*        _collider.material = _materialZeroFriction;
         _collider.material = _materialHighFriction; 
-        _collider.material = _materialZeroFriction;
+        _collider.material = _materialZeroFriction;*/
         _camera = camera;
         _groundedDetector = groundDetector;
         _normalProjector = normalProjector;

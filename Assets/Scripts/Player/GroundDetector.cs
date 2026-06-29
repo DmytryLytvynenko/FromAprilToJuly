@@ -1,3 +1,6 @@
+using Cysharp.Threading.Tasks;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -8,9 +11,12 @@ public class GroundDetector : MonoBehaviour
 
     [SerializeField] private LayerMask _groundedLayers;
     [SerializeField] private float _jumpRayCheckDistance = 1.05f;
+    [SerializeField] private float _disableCheckOnJumpDelay = .2f;
 
     private PlayerMovement _playerMovement;
     private NormalProjector _normalProjector;
+    private CancellationTokenSource _disableCheckSource;
+    private bool _checkOnStay = true;
     public void Initialize(PlayerMovement playerMovement, NormalProjector normalProjector)
     {
         _normalProjector = normalProjector;
@@ -24,10 +30,17 @@ public class GroundDetector : MonoBehaviour
     }
     private void OnJump()
     {
+/*        _disableCheckSource?.Cancel();
+        _disableCheckSource?.Dispose();
+        _disableCheckSource = new CancellationTokenSource();*/
+        DisableCheckOnJump(/*_disableCheckSource.Token*/).Forget();
+
         Grounded = false;
     }
     private void OnTriggerEnter(Collider other)
     {
+/*        _disableCheckSource?.Cancel();
+        _disableCheckSource?.Dispose();*/
         if (!IsGroundLayer(other.gameObject)) return;
         
         if(_normalProjector.SlopeIsWalkable)
@@ -57,6 +70,8 @@ public class GroundDetector : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
+        if (!_checkOnStay) return;
+
         if (!IsGroundLayer(other.gameObject)) return;
         if (_normalProjector.SlopeIsWalkable)
         {
@@ -85,5 +100,21 @@ public class GroundDetector : MonoBehaviour
         {
             return false;
         }
+    }
+    private async UniTaskVoid DisableCheckOnJump(/*CancellationToken token*/)
+    {
+        _checkOnStay = false;
+        float time = 0;
+        while (time < _disableCheckOnJumpDelay)
+        {
+/*            if (token.IsCancellationRequested)
+            {
+                _checkOnStay = true;
+                return;
+            }*/
+            time += Time.deltaTime;
+            await UniTask.NextFrame();
+        }
+        _checkOnStay = true;
     }
 }
