@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: STOakLeaf
-  m_Shader: {fileID: -6465566751694194690, guid: 8a591a23b23d6ea4594db8dd0dcfc66f, type: 3}
+  m_Name: STOakLeafTransparent
+  m_Shader: {fileID: -6465566751694194690, guid: 498cb4c2bffc02841b52a10d3cf31841, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -87,7 +87,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_3BFA8D37: 0.5
+    - Vector1_3BFA8D37: 0.1
     - Vector1_74547B1B: 2
     - Vector1_C766251F: 0.3
     - _AdvancedLighting: 1
@@ -123,6 +123,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _Translucency: 1
+    - _Transparency: 1
     - _VertexDarkening: 0.122
     - _WindAmbientStrength: 0.2
     - _WindGustFreq: 4
@@ -137,7 +138,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_2561972A: {r: 0.056470275, g: 0.254717, b: 0.14025941, a: 1}
-    - Color_BDDC3AD5: {r: 0.013794942, g: 0.5849056, b: 0.12706873, a: 1}
+    - Color_BDDC3AD5: {r: 0.013794943, g: 0.5849056, b: 0.1270687, a: 1}
     - Vector2_F8FCEFAF: {r: 0.5, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
