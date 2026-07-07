@@ -12,10 +12,10 @@ public class Item : MonoBehaviour
     [SerializeField] protected float _followForce = 1f;
     [SerializeField] protected float _rotationForce = 5f;
     [SerializeField] protected float _dampingFactor = 10f;
-    [SerializeField] protected float _gravity = -9.81f;
-    [SerializeField] protected float _upMaxSpeed = 3f;
-    [SerializeField] protected float _downMaxSpeed = 6f;
-    [SerializeField] protected float _ySpeedMultiplier = .1f;
+    [SerializeField] protected float _gravity = -15f;
+    [SerializeField] protected float _upMaxSpeed = 7f;
+    [SerializeField] protected float _downMaxSpeed = -5f;
+    [SerializeField] protected float _ySpeedMultiplier = 0.2f;
     [SerializeField] protected Rigidbody _rigidbody;
     [SerializeField] protected Material _material;
     [SerializeField] protected MeshRenderer _renderer;
@@ -47,7 +47,7 @@ public class Item : MonoBehaviour
         _followTarget = target;
         _followForce = followForce;
         ItemPicked?.Invoke();
-        Highlight();
+        //Highlight();
     }
     public virtual void Release() 
     {
