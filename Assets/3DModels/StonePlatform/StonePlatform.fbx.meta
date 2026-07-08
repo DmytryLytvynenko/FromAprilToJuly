@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 677aed98988735943a77426b3ff517a4
+guid: 852b67e533fa0ad46b9d229037fdb92e
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: StoneEmmition
-    second: {fileID: 2100000, guid: 19dc19a7c6897934ba0e988faba81e06, type: 2}
+      name: StonePlatform
+    second: {fileID: 2100000, guid: 9d2d599e7456a97419ee26e537af0616, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -38,7 +38,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1

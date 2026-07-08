@@ -57,13 +57,14 @@ public class CameraController : MonoBehaviour
 
     public void Initialize(Transform player, GroundDetector groundDetector)
     {
+        _player = player;
+        _groundDetector = groundDetector;
         _defaultCameraYDamping = _cameraYDamping;
         _defaultPositionLerpRate = _positionLerpRate;
         _currentFucusPoint = _focusPoint;
         _currentControllerRotation = transform.rotation;
         _currentCameraAnchor = _cameraAnchor;
-        _player = player;
-        _groundDetector = groundDetector;
+        _currentControllerY = player.position.y;
         transform.position = new Vector3(_player.position.x, _player.position.y + _controllerYOffset, _player.position.z);
         gameObject.SetActive(true);
         InputManager.Instance.OnLook.AddListener(HandleLook);
