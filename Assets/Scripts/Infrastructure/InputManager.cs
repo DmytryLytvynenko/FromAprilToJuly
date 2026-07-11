@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public InputEvent OnStabilizeRotation = new InputEvent();
     [HideInInspector] public InputEvent OnToggleScroll= new InputEvent();
     [HideInInspector] public event Action OnDebug;
+    [HideInInspector] public event Action OnPauseEditor;
 
     public Vector2 CurrentMoveInput => _currentMoveInput;
     public bool JumpPressed => _jumpPressed;
@@ -58,6 +59,7 @@ public class InputManager : MonoBehaviour
         var stabilizeRotation = _mainInput.Player.StabilizeRotation;
         var toggleScroll = _mainInput.Player.ToggleScroll;
         var debugAction = _mainInput.Player.Debug;
+        var pauseEditor = _mainInput.Player.PauseEditor;
 
 
         moveAction.performed += OnMoveInput;
@@ -85,6 +87,7 @@ public class InputManager : MonoBehaviour
         toggleScroll.canceled += OnToggleScrollInput;
 
         debugAction.performed += OnDebugInput;
+        pauseEditor.performed += OnPauseEditorInput;
     }
     private void DisableInputActions()
     {
@@ -98,6 +101,7 @@ public class InputManager : MonoBehaviour
         var stabilizeRotation = _mainInput.Player.StabilizeRotation;
         var toggleScroll = _mainInput.Player.ToggleScroll;
         var debugAction = _mainInput.Player.Debug;
+        var pauseEditor = _mainInput.Player.PauseEditor;
 
         moveAction.performed -= OnMoveInput;
         moveAction.canceled -= OnMoveInput;
@@ -124,6 +128,7 @@ public class InputManager : MonoBehaviour
         toggleScroll.canceled -= OnToggleScrollInput;
 
         debugAction.performed -= OnDebugInput;
+        pauseEditor.performed -= OnPauseEditorInput;
 
         _mainInput.Player.Disable();
     }
@@ -186,6 +191,10 @@ public class InputManager : MonoBehaviour
     private void OnDebugInput(InputAction.CallbackContext ctx)
     {
         OnDebug?.Invoke();
+    }
+    private void OnPauseEditorInput(InputAction.CallbackContext ctx)
+    {
+        OnPauseEditor?.Invoke();
     }
 }
 

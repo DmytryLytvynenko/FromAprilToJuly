@@ -477,8 +477,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _groundedLayers:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 641
   _jumpRayCheckDistance: 1.2
+  _disableCheckOnJumpDelay: 0.2
 --- !u!1 &6273146302574619198
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,7 +587,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6273146302574619198}
-  m_Material: {fileID: 13400000, guid: 43cc024367492524b95a0baabc48619c, type: 2}
+  m_Material: {fileID: 13400000, guid: 1402eb42c066af945b8104146c90970c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -661,7 +662,7 @@ MonoBehaviour:
   _slopeHorizontalDamping: 0.97
   _groundedLayers:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 641
   _visual: {fileID: 166152571547644439}
   _materialHighFriction: {fileID: 13400000, guid: 1402eb42c066af945b8104146c90970c, type: 2}
   _materialZeroFriction: {fileID: 13400000, guid: 43cc024367492524b95a0baabc48619c, type: 2}
@@ -696,7 +697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Interact
   _followPoint: {fileID: 0}
   _pickUpDistance: 15
-  _followSpeed: 10
+  _followSpeed: 6
   _throwForce: 200
   _pickUpObjects:
     serializedVersion: 2
@@ -708,7 +709,8 @@ MonoBehaviour:
   _interactScanRate: 0.05
   _throwChargeTime: 1.25
   _startChargeTime: 0.25
-  _maxCarryWeight: 200
+  _maxCarryWeight: 100
+  _minimalMultiplierValue: 0.1
 --- !u!1 &8551356969914170354
 GameObject:
   m_ObjectHideFlags: 0

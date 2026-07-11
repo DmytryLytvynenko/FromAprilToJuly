@@ -97,6 +97,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PauseEditor",
+                    "type": "Button",
+                    "id": "713b79a5-3cff-4ace-9d72-b425b1a40aae",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Aim",
                     "type": "Button",
                     "id": "2cbdeefe-1dd6-465e-bf2d-bc6bc43eb054",
@@ -536,6 +545,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02a271b2-cc65-4de2-af3a-4631aaeeab04",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "PauseEditor",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -183,6 +183,15 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""PauseEditor"",
+                    ""type"": ""Button"",
+                    ""id"": ""713b79a5-3cff-4ace-9d72-b425b1a40aae"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""2cbdeefe-1dd6-465e-bf2d-bc6bc43eb054"",
@@ -622,6 +631,17 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02a271b2-cc65-4de2-af3a-4631aaeeab04"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PauseEditor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1318,6 +1338,7 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Debug = m_Player.FindAction("Debug", throwIfNotFound: true);
+        m_Player_PauseEditor = m_Player.FindAction("PauseEditor", throwIfNotFound: true);
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_RotateHorizontal = m_Player.FindAction("RotateHorizontal", throwIfNotFound: true);
         m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
@@ -1426,6 +1447,7 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Debug;
+    private readonly InputAction m_Player_PauseEditor;
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_RotateHorizontal;
     private readonly InputAction m_Player_Scroll;
@@ -1482,6 +1504,10 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Debug".
         /// </summary>
         public InputAction @Debug => m_Wrapper.m_Player_Debug;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/PauseEditor".
+        /// </summary>
+        public InputAction @PauseEditor => m_Wrapper.m_Player_PauseEditor;
         /// <summary>
         /// Provides access to the underlying input action "Player/Aim".
         /// </summary>
@@ -1558,6 +1584,9 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
             @Debug.started += instance.OnDebug;
             @Debug.performed += instance.OnDebug;
             @Debug.canceled += instance.OnDebug;
+            @PauseEditor.started += instance.OnPauseEditor;
+            @PauseEditor.performed += instance.OnPauseEditor;
+            @PauseEditor.canceled += instance.OnPauseEditor;
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
@@ -1614,6 +1643,9 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
             @Debug.started -= instance.OnDebug;
             @Debug.performed -= instance.OnDebug;
             @Debug.canceled -= instance.OnDebug;
+            @PauseEditor.started -= instance.OnPauseEditor;
+            @PauseEditor.performed -= instance.OnPauseEditor;
+            @PauseEditor.canceled -= instance.OnPauseEditor;
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
@@ -1999,6 +2031,13 @@ public partial class @MainInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDebug(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "PauseEditor" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPauseEditor(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Aim" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
