@@ -11,7 +11,6 @@ public class ItemEmit : Item
     [SerializeField] private float _patternShowTime = 1f;
     [SerializeField] private AnimationCurve _patternAnimCurve;
 
-    private Renderer m_renderer;
     private MaterialPropertyBlock _propBlock;
     private CancellationTokenSource _cancellationTokenSource;
 
@@ -19,20 +18,19 @@ public class ItemEmit : Item
     {
         _cancellationTokenSource = new CancellationTokenSource();
         base.Start();
-        m_renderer = GetComponent<Renderer>();
         _propBlock = new MaterialPropertyBlock();
     }
 
     private void SetPatternValue(float value)
     {
-        m_renderer.GetPropertyBlock(_propBlock);
+        _renderer.GetPropertyBlock(_propBlock);
         _propBlock.SetFloat(PatternTransparencyId, value);
-        m_renderer.SetPropertyBlock(_propBlock);
+        _renderer.SetPropertyBlock(_propBlock);
     }
 
     private async UniTaskVoid ShowPattern(CancellationToken ct)
     {
-        m_renderer.sharedMaterial = patternMaterial;
+        _renderer.sharedMaterial = patternMaterial;
         float expiredTime = 0f;
         float progress = 0f;
         while (progress < 1f)
@@ -61,7 +59,7 @@ public class ItemEmit : Item
             await UniTask.NextFrame(ct);
         }
         SetPatternValue(0f);
-        m_renderer.sharedMaterial = baseMaterial;
+        _renderer.sharedMaterial = baseMaterial;
     }
 
     public override void Highlight()

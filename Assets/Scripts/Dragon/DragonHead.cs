@@ -2,9 +2,14 @@ using UnityEngine;
 
 public class DragonHead : DragonPart
 {
+    [field: SerializeField] public MeshCollider MeshCollider { get; protected set; }
     private Quaternion _targetRotation;
     public void SetUp(float followSpeed, float rotationSpeed, float followOffset, DragonController controller)
     {
+        if (TryGetComponent(out MeshCollider meshCollider))
+        {
+            MeshCollider = meshCollider;
+        }
         Item = GetComponent<Item>();
         Rigidbody = GetComponent<Rigidbody>();
         BoxCollider = GetComponent<BoxCollider>();
@@ -14,6 +19,9 @@ public class DragonHead : DragonPart
         this.FollowOffset = followOffset;
         _controller = controller;
     }
+    public override void DisableCollider() => MeshCollider.enabled = false;
+    public override void EnableCollider() => MeshCollider.enabled = true;
+    public override void ResetColliderSize() { }
     protected override void Move()
     {
         if (!_controller.Move) return;

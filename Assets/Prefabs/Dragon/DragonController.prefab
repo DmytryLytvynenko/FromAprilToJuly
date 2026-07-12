@@ -45,20 +45,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragonController
   <Loop>k__BackingField: 0
-  <CopyTail>k__BackingField: 0
   <CopyFirstPart>k__BackingField: 1
   <LookAtPlayer>k__BackingField: 0
   <Move>k__BackingField: 1
   <Rotate>k__BackingField: 1
   <RotationModeCopy>k__BackingField: 0
   <CopyRotationX>k__BackingField: 0
+  <CopyScale>k__BackingField: 0
   _head: {fileID: 0}
   _firstPart: {fileID: 0}
   _tail: {fileID: 0}
   _headPrefab: {fileID: 5524296227311175335, guid: e5ade2634f5250e4f9a021a1d5d76895, type: 3}
   _partPrefab: {fileID: 2759864712524504416, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
   _testSpawnPosition: {fileID: 2291500470016407841}
-  _bodyPartsCount: 30
+  _bodyPartsCount: 20
   _bodyPartsStep: 2
   _moveSpeed: 10
   _moveSpeedLastWaypoint: 0.5
@@ -70,11 +70,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _partRagdollDelay: 0.1
+  _partRagdollForce: 900
+  _newRagdollLayer:
+    serializedVersion: 2
+    m_Bits: 128

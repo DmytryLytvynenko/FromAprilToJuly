@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7679174419208665837}
   - component: {fileID: 3122054975729927856}
   - component: {fileID: -5936325215920197151}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DragonPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 242734481131041124}
   - component: {fileID: 6621490232227837576}
   - component: {fileID: 5110044411064572217}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DragonPartVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

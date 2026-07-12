@@ -8,7 +8,7 @@ public class DragonPart : MonoBehaviour
     public bool IgnorePreviousPart = false;
     public bool IgnorePreviousPartScale = false;
     public Rigidbody Rigidbody { get; protected set; }
-    public BoxCollider BoxCollider { get; protected set; }
+    [field: SerializeField]public BoxCollider BoxCollider { get; protected set; }
     public Item Item { get; protected set; }
 
     [SerializeField] protected Transform _visual;
@@ -34,7 +34,10 @@ public class DragonPart : MonoBehaviour
     {
         Item = GetComponent<Item>();
         Rigidbody = GetComponent<Rigidbody>();
-        BoxCollider = GetComponent<BoxCollider>();
+        if (TryGetComponent(out BoxCollider boxCollider))
+        {
+            BoxCollider = boxCollider;
+        }
         _defaultScale = _visual.localScale;
         _targetScale = _visual.localScale;
         thisTransform = transform;
@@ -174,7 +177,9 @@ public class DragonPart : MonoBehaviour
         return angle;
     }
     public void SetColliderSize(Vector3 size) => BoxCollider.size = size;
-    public void ResetColliderSize()
+    public virtual void EnableCollider() => BoxCollider.enabled = true;
+    public virtual void DisableCollider() => BoxCollider.enabled = false;
+    public virtual void ResetColliderSize()
     {
         BoxCollider.size = _visual.localScale;
     }

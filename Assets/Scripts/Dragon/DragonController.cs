@@ -144,7 +144,7 @@ public class DragonController : MonoBehaviour
     {
         foreach (DragonPart part in _dragonParts)
         {
-            part.BoxCollider.enabled = true;
+            part.EnableCollider();
             part.ResetColliderSize();
         }
     }
@@ -152,7 +152,7 @@ public class DragonController : MonoBehaviour
     {
         foreach (DragonPart part in _dragonParts)
         {
-            part.BoxCollider.enabled = false;
+            part.DisableCollider();
         }
     }
     public async UniTaskVoid EnableColliders(int delayMS)
@@ -160,7 +160,7 @@ public class DragonController : MonoBehaviour
         await UniTask.Delay(delayMS);
         foreach (DragonPart part in _dragonParts)
         {
-            part.BoxCollider.enabled = true;
+            part.EnableCollider();
             part.ResetColliderSize();
         }
     }
@@ -179,7 +179,7 @@ public class DragonController : MonoBehaviour
             Vector3 dir = RandomNormalizedDirection();
             _dragonParts[i].enabled = false;
             _dragonParts[i].Rigidbody.constraints = RigidbodyConstraints.None;
-            _dragonParts[i].BoxCollider.enabled = true;
+            _dragonParts[i].EnableCollider();
             _dragonParts[i].ResetColliderSize();
             int layerIndex = (int)Mathf.Log(_newRagdollLayer.value, 2);
             _dragonParts[i].gameObject.layer = layerIndex;
@@ -207,6 +207,7 @@ public class DragonController : MonoBehaviour
     }
     private void OnLastWayPointReached()
     {
-        EnableRagdoll().Forget();
+        //EnableRagdoll().Forget();
+        Move = false;
     }
 }

@@ -674,17 +674,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 104799494}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &104799496 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 104799494}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &116246435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1109,17 +1098,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 134477572}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &134477574 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 134477572}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &155807829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,17 +1412,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 167670669}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &167670671 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 167670669}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &167869906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1507,17 +1474,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 167869906}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &167869908 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 167869906}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!4 &168146456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 123039546658971796, guid: 0d7054b5b488bb14cb598578559eca48, type: 3}
@@ -1865,17 +1821,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 206539050}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &206539052 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 206539050}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &284468990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1938,17 +1883,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 284468990}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &284468992 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 284468990}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &285374342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2011,6 +1945,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 285374342}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &285374344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 285374342}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &305656320
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,17 +2650,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!114 &412165230 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8642791782927489020, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
-  m_PrefabInstance: {fileID: 501435833}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &501435833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2886,17 +2820,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 517086340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &517086342 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 517086340}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &518785098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2959,17 +2882,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 518785098}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &518785100 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 518785098}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &519129152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3094,17 +3006,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 528619909}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &528619911 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 528619909}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &545913978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3229,6 +3130,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 569218664}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &569218666 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 569218664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &594270379
 GameObject:
   m_ObjectHideFlags: 0
@@ -3431,17 +3343,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 595287720}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &607475908 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 358856109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &609713221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3504,6 +3405,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 609713221}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &609713223 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 609713221}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &616394249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3566,6 +3478,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 616394249}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &616394251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 616394249}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &649372065
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,17 +3893,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 798165530}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &798165532 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 798165530}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &812579874
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4105,6 +4017,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 823029787}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &823029789 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 823029787}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &827425055
 GameObject:
   m_ObjectHideFlags: 0
@@ -4295,6 +4218,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 858744459}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &858744461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 858744459}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!114 &867825256 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8347002003148971901, guid: c526da97d3f5c49459e0123d645b7b7b, type: 3}
@@ -5224,6 +5158,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 991402895}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &991402897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 991402895}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1013972532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5907,17 +5852,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1073215802}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1073215804 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 1073215802}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1126463780
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6054,7 +5988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461500099442678952, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7987318728252476425, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
       propertyPath: m_IsActive
@@ -6112,6 +6046,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2577128171041984997, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
   m_PrefabInstance: {fileID: 1149341589}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1149341591 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8642791782927489020, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
+  m_PrefabInstance: {fileID: 1149341589}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1151766619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6484,6 +6429,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1461448193}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1461448195 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 1461448193}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &1462474860
 GameObject:
   m_ObjectHideFlags: 0
@@ -6943,6 +6899,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1532902447}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1532902449 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 1532902447}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1571593204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7207,17 +7174,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1591290344}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1591290346 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 1591290344}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1614267868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7632,17 +7588,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1867849856}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1896147250 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 1126463780}
+--- !u!1001 &1876588850
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 242734481131041124, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 242734481131041124, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759864712524504416, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_Name
+      value: DragonPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -99.07423
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.32264
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619612708842166090, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+--- !u!1 &1876588851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2759864712524504416, guid: 0d9c4cc4f9e2e3c4d82c22369c27de28, type: 3}
+  m_PrefabInstance: {fileID: 1876588850}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &1907381592
 GameObject:
   m_ObjectHideFlags: 0
@@ -7868,6 +7883,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1915360433}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1915360435 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 1915360433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1919312520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8199,17 +8225,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1985474166}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1985474168 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 1985474166}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &2004941453
 GameObject:
   m_ObjectHideFlags: 0
@@ -8303,17 +8318,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2028989395}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2028989397 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 2028989395}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!114 &2036162847 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1723455639820994907, guid: b9abb86d35094b949a2772db2284496f, type: 3}
@@ -8387,6 +8391,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2044545685}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2044545687 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 2044545685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &2058895621
 GameObject:
   m_ObjectHideFlags: 0
@@ -8589,10 +8604,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2069998648}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2080550851 stripped
+--- !u!114 &2069998650 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 1614267868}
+  m_PrefabInstance: {fileID: 2069998648}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -8662,6 +8677,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2091752385}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2091752387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 2091752385}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &2110927245
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8724,17 +8750,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2110927245}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2110927247 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 2110927245}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &2145816960
 GameObject:
   m_ObjectHideFlags: 0
@@ -8768,17 +8783,6 @@ Transform:
   - {fileID: 116246436}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2147046734 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 1264743224}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &99248372244129433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9328,156 +9332,76 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: _bodyPartsCount
-      value: 20
-      objectReference: {fileID: 0}
+      propertyPath: _partPrefab
+      value: 
+      objectReference: {fileID: 1876588851}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: _partRagdollDelay
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: _partRagdollForce
-      value: 900
+      propertyPath: <Loop>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: _wayPoints.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: _newRagdollLayer.m_Bits
-      value: 128
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[0]'
       value: 
-      objectReference: {fileID: 412165230}
+      objectReference: {fileID: 1149341591}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[1]'
       value: 
-      objectReference: {fileID: 1896147250}
+      objectReference: {fileID: 1461448195}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[2]'
       value: 
-      objectReference: {fileID: 2147046734}
+      objectReference: {fileID: 569218666}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[3]'
       value: 
-      objectReference: {fileID: 2110927247}
+      objectReference: {fileID: 823029789}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[4]'
       value: 
-      objectReference: {fileID: 2080550851}
+      objectReference: {fileID: 2044545687}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[5]'
       value: 
-      objectReference: {fileID: 607475908}
+      objectReference: {fileID: 2069998650}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[6]'
       value: 
-      objectReference: {fileID: 104799496}
+      objectReference: {fileID: 2091752387}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[7]'
       value: 
-      objectReference: {fileID: 167670671}
+      objectReference: {fileID: 858744461}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[8]'
       value: 
-      objectReference: {fileID: 517086342}
+      objectReference: {fileID: 285374344}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[9]'
       value: 
-      objectReference: {fileID: 518785100}
+      objectReference: {fileID: 991402897}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[10]'
       value: 
-      objectReference: {fileID: 528619911}
+      objectReference: {fileID: 616394251}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[11]'
       value: 
-      objectReference: {fileID: 134477574}
+      objectReference: {fileID: 1915360435}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[12]'
       value: 
-      objectReference: {fileID: 1073215804}
+      objectReference: {fileID: 1532902449}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[13]'
       value: 
-      objectReference: {fileID: 167869908}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[14]'
-      value: 
-      objectReference: {fileID: 1591290346}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[15]'
-      value: 
-      objectReference: {fileID: 798165532}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[16]'
-      value: 
-      objectReference: {fileID: 284468992}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[17]'
-      value: 
-      objectReference: {fileID: 206539052}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[18]'
-      value: 
-      objectReference: {fileID: 1985474168}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[19]'
-      value: 
-      objectReference: {fileID: 2028989397}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[20]'
-      value: 
-      objectReference: {fileID: 104799496}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[21]'
-      value: 
-      objectReference: {fileID: 167670671}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[22]'
-      value: 
-      objectReference: {fileID: 517086342}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[23]'
-      value: 
-      objectReference: {fileID: 518785100}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[24]'
-      value: 
-      objectReference: {fileID: 528619911}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[25]'
-      value: 
-      objectReference: {fileID: 134477574}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[26]'
-      value: 
-      objectReference: {fileID: 1073215804}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[27]'
-      value: 
-      objectReference: {fileID: 167869908}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[28]'
-      value: 
-      objectReference: {fileID: 1591290346}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[29]'
-      value: 
-      objectReference: {fileID: 798165532}
-    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: '_wayPoints.Array.data[30]'
-      value: 
-      objectReference: {fileID: 284468992}
+      objectReference: {fileID: 609713223}
     - target: {fileID: 8778510303201578648, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: m_Name
       value: DragonController
-      objectReference: {fileID: 0}
-    - target: {fileID: 8778510303201578648, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9834,4 +9758,5 @@ SceneRoots:
   - {fileID: 1149341589}
   - {fileID: 1019075318}
   - {fileID: 501435833}
+  - {fileID: 1876588850}
   - {fileID: 3770401877660756749}
