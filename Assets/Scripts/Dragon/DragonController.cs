@@ -1,10 +1,12 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class DragonController : MonoBehaviour
 {
+    public event Action DragonReachedLastWayPoint;
+
     [field:SerializeField] public bool Loop { get; set; } = false;
     [field:SerializeField] public bool CopyFirstPart { get; set; } = true;
     [field:SerializeField] public bool LookAtPlayer { get; set; } = true;
@@ -60,7 +62,7 @@ public class DragonController : MonoBehaviour
             DragonPart.RotationSpeed = _rotationSpeed;
         }
     }
-    private void SetWayPoints(List<DragonWaypoint> wayPoints)
+    public void SetWayPoints(List<DragonWaypoint> wayPoints)
     {
         _wayPoints = wayPoints;
         if (_wayPoints.Count == 0)
@@ -100,6 +102,13 @@ public class DragonController : MonoBehaviour
     public void SetHeadSpeed(float _moveSpeed)
     {
         _head.MoveSpeed = _moveSpeed;
+    }
+    public void SetBodyPartStep(float _step)
+    {
+        foreach (DragonPart DragonPart in _dragonParts)
+        {
+            DragonPart.FollowOffset = _step;
+        }
     }
     public void Go()
     {
@@ -193,12 +202,13 @@ public class DragonController : MonoBehaviour
     private Vector3 RandomNormalizedDirection()
     {
         return new Vector3(
-                   Random.Range(-1f, 1f),
-                   Random.Range(-1f, 1f),
-                   Random.Range(-1f, 1f));
+                   UnityEngine.Random.Range(-1f, 1f),
+                   UnityEngine.Random.Range(-1f, 1f),
+                   UnityEngine.Random.Range(-1f, 1f));
     }
     private void OnWayPointReached()
     {
+        DragonReachedLastWayPoint?.Invoke();
         if (Loop) _currentWaypointIndex = (_currentWaypointIndex + 1) % _wayPoints.Count;
         else _currentWaypointIndex++;
 
