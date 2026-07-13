@@ -13,12 +13,14 @@ public class ItemEmit : Item
 
     private MaterialPropertyBlock _propBlock;
     private CancellationTokenSource _cancellationTokenSource;
-
+    private void Awake()
+    {
+        _propBlock = new MaterialPropertyBlock();
+    }
     protected override void Start()
     {
         _cancellationTokenSource = new CancellationTokenSource();
         base.Start();
-        _propBlock = new MaterialPropertyBlock();
     }
 
     private void SetPatternValue(float value)
@@ -64,6 +66,8 @@ public class ItemEmit : Item
 
     public override void Highlight()
     {
+        if (!enabled) return;
+
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = new CancellationTokenSource();
@@ -72,6 +76,8 @@ public class ItemEmit : Item
 
     public override void RemoveHighlight()
     {
+        if (!enabled) return;
+
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = new CancellationTokenSource();

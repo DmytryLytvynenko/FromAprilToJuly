@@ -8,21 +8,14 @@ public class DragonTrigger : MonoBehaviour
     [SerializeField] protected Vector3 _newScale;
     [SerializeField] protected LayerMask _interactMask;
 
+    protected bool _triggered = false;
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & _interactMask.value) != 0)
         {
-            //_dragonController.SetFirstPartRotationX(_testRotation.x);
-            _dragonController.SetFirstPartRotation(_newRotation);
-            _dragonController.SetFirstPartScale(_newScale);
-            _dragonController.EnableColliders(3000).Forget();
+            _triggered = true;
         }
     }
-    protected virtual void OnTriggerExit(Collider other)
-    {
-        if (((1 << other.gameObject.layer) & _interactMask.value) != 0)
-        {
-            _dragonController.Go();
-        }
-    }
+    protected virtual void OnTriggerExit(Collider other) { }
 }

@@ -15,7 +15,7 @@ public class DragonController : MonoBehaviour
     [field:SerializeField] public bool RotationModeCopy { get; set; } = false;
     [field:SerializeField] public bool CopyRotationX { get; set; } = false;
     [field:SerializeField] public bool CopyScale { get; set; } = false;
-    public bool LastWaypoint { get { return _currentWaypointIndex == _wayPoints.Count - 1; } }
+    public bool LastWaypoint { get { return CurrentWaypointIndex == _wayPoints.Count - 1; } }
 
     [SerializeField] private DragonHead _head;
     [SerializeField] private DragonPart _firstPart;
@@ -26,13 +26,14 @@ public class DragonController : MonoBehaviour
     [SerializeField] private float _bodyPartsCount;
     [SerializeField] private float _bodyPartsStep;
     [SerializeField] private float _moveSpeed;
+    private float _defaultMoveSpeed;
     [SerializeField] private float _moveSpeedLastWaypoint;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private List<DragonWaypoint> _wayPoints = new List<DragonWaypoint>();
 
     private List<DragonPart> _dragonParts = new List<DragonPart>();
     public DragonWaypoint CurrentWaypoint { get; private set; }
-    private int _currentWaypointIndex = 0;
+    public int CurrentWaypointIndex = 0;
 
     [Header("Ragdoll")]
     [SerializeField] private float _partRagdollDelay;
@@ -64,15 +65,21 @@ public class DragonController : MonoBehaviour
     }
     public void SetWayPoints(List<DragonWaypoint> wayPoints)
     {
+        CurrentWaypointIndex = 0;
         _wayPoints = wayPoints;
         if (_wayPoints.Count == 0)
             Move = false;
         else
-            CurrentWaypoint = _wayPoints[_currentWaypointIndex];
+            CurrentWaypoint = _wayPoints[CurrentWaypointIndex];
         foreach (DragonWaypoint dragonWaypoint in _wayPoints)
         {
             dragonWaypoint.Controller = this;
+            dragonWaypoint.gameObject.SetActive(true);
         }
+    }
+    public DragonWaypoint GetWaypointByIndex(int index)
+    {
+        return _wayPoints[index];
     }
     private void Spawn(Vector3 headPosition)
     {
@@ -80,6 +87,7 @@ public class DragonController : MonoBehaviour
         bool rotateOnStart = Rotate;
         Move = false;
         Rotate = false;
+        _defaultMoveSpeed = _moveSpeed;
         _head =  Instantiate(_headPrefab, headPosition, Quaternion.identity, transform).GetComponent<DragonHead>();
         _head.SetUp(_moveSpeed, _rotationSpeed, _bodyPartsStep, this);
         _dragonParts.Add(_head);
@@ -103,6 +111,10 @@ public class DragonController : MonoBehaviour
     {
         _head.MoveSpeed = _moveSpeed;
     }
+    public void ResetHeadSpeed()
+    {
+        _head.MoveSpeed = _defaultMoveSpeed;
+    }
     public void SetBodyPartStep(float _step)
     {
         foreach (DragonPart DragonPart in _dragonParts)
@@ -119,6 +131,7 @@ public class DragonController : MonoBehaviour
         _firstPart.IgnorePreviousPart = false;
         _tail.IgnorePreviousPart = false;
         SetFirstPartDefaulScale();
+        ResetHeadSpeed();
     }
     public void SetFirstPartRotationX(float x) 
     {
@@ -208,16 +221,17 @@ public class DragonController : MonoBehaviour
     }
     private void OnWayPointReached()
     {
-        DragonReachedLastWayPoint?.Invoke();
-        if (Loop) _currentWaypointIndex = (_currentWaypointIndex + 1) % _wayPoints.Count;
-        else _currentWaypointIndex++;
+        if (Loop) CurrentWaypointIndex = (CurrentWaypointIndex + 1) % _wayPoints.Count;
+        else CurrentWaypointIndex++;
 
-        CurrentWaypoint = _wayPoints[_currentWaypointIndex];
+        CurrentWaypoint = _wayPoints[CurrentWaypointIndex];
         if (!Loop && LastWaypoint) SetHeadSpeed(_moveSpeedLastWaypoint);
+
     }
     private void OnLastWayPointReached()
     {
+        DragonReachedLastWayPoint?.Invoke();
         //EnableRagdoll().Forget();
-        Move = false;
+        //Move = false;
     }
 }

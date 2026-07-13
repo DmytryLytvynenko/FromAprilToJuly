@@ -2523,6 +2523,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 358856109}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &358856111 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 358856109}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2758,6 +2769,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2577128171041984997, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
   m_PrefabInstance: {fileID: 501435833}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &501435835 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8642791782927489020, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
+  m_PrefabInstance: {fileID: 501435833}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &517086340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3130,17 +3152,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 569218664}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &569218666 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 569218664}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &594270379
 GameObject:
   m_ObjectHideFlags: 0
@@ -4017,17 +4028,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 823029787}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &823029789 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 823029787}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &827425055
 GameObject:
   m_ObjectHideFlags: 0
@@ -5914,6 +5914,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1126463780}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1126463782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 1126463780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1149341589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5988,7 +5999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6461500099442678952, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987318728252476425, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
       propertyPath: m_IsActive
@@ -6046,17 +6057,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2577128171041984997, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
   m_PrefabInstance: {fileID: 1149341589}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1149341591 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8642791782927489020, guid: 1025f592e817da44a993a4d4e0f8d46f, type: 3}
-  m_PrefabInstance: {fileID: 1149341589}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1151766619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6367,6 +6367,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1264743224}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1264743226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 1264743224}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &1461448193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6429,17 +6440,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1461448193}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1461448195 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 1461448193}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &1462474860
 GameObject:
   m_ObjectHideFlags: 0
@@ -7236,6 +7236,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1614267868}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1614267870 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 1614267868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!114 &1720905908 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7074421440723705481, guid: e9e0bd58f27c3a640922c23826e2a01b, type: 3}
@@ -8391,17 +8402,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2044545685}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2044545687 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 2044545685}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &2058895621
 GameObject:
   m_ObjectHideFlags: 0
@@ -8604,17 +8604,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2069998648}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2069998650 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
-  m_PrefabInstance: {fileID: 2069998648}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1001 &2091752385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8750,6 +8739,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 2110927245}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2110927247 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548704815508207694, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
+  m_PrefabInstance: {fileID: 2110927245}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd5df499a5d0dd94eb9ea5cb0557d34c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DragonWaypoint
 --- !u!1 &2145816960
 GameObject:
   m_ObjectHideFlags: 0
@@ -9293,15 +9293,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2291500470016407841, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.4
+      value: -40.3
       objectReference: {fileID: 0}
     - target: {fileID: 2291500470016407841, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 15.6
       objectReference: {fileID: 0}
     - target: {fileID: 2291500470016407841, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.76824
+      value: -37.9
       objectReference: {fileID: 0}
     - target: {fileID: 2291500470016407841, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9337,36 +9337,40 @@ PrefabInstance:
       objectReference: {fileID: 1876588851}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: <Loop>k__BackingField
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: _wayPoints.Array.size
-      value: 14
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
+      propertyPath: _moveSpeedLastWaypoint
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[0]'
       value: 
-      objectReference: {fileID: 1149341591}
+      objectReference: {fileID: 501435835}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[1]'
       value: 
-      objectReference: {fileID: 1461448195}
+      objectReference: {fileID: 1126463782}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[2]'
       value: 
-      objectReference: {fileID: 569218666}
+      objectReference: {fileID: 1264743226}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[3]'
       value: 
-      objectReference: {fileID: 823029789}
+      objectReference: {fileID: 2110927247}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[4]'
       value: 
-      objectReference: {fileID: 2044545687}
+      objectReference: {fileID: 1614267870}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[5]'
       value: 
-      objectReference: {fileID: 2069998650}
+      objectReference: {fileID: 358856111}
     - target: {fileID: 4036647396121714685, guid: 6c4e19f3108ec6247977b70bc67533bc, type: 3}
       propertyPath: '_wayPoints.Array.data[6]'
       value: 
