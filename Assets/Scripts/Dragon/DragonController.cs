@@ -22,7 +22,7 @@ public class DragonController : MonoBehaviour
     [SerializeField] private DragonPart _tail;
     [SerializeField] private GameObject _headPrefab;
     [SerializeField] private GameObject _partPrefab;
-    [SerializeField] private Transform _testSpawnPosition;
+    [SerializeField] private Transform _spawnPosition;
     [SerializeField] private float _bodyPartsCount;
     [SerializeField] private float _bodyPartsStep;
     [SerializeField] private float _moveSpeed;
@@ -40,10 +40,10 @@ public class DragonController : MonoBehaviour
     [SerializeField] private float _partRagdollForce;
     [SerializeField] private LayerMask _newRagdollLayer;
 
-    private void Start()
-    {
-        Spawn(_testSpawnPosition.position);
-    }
+    /*    private void Start()
+        {
+            Spawn(_spawnPosition.position);
+        }*/
     private void OnEnable()
     {
         DragonWaypoint.WayPointReached += OnWayPointReached;
@@ -81,14 +81,15 @@ public class DragonController : MonoBehaviour
     {
         return _wayPoints[index];
     }
-    private void Spawn(Vector3 headPosition)
+    public async UniTask Spawn(/*Vector3 headPosition*/)
     {
+        if (!_spawnPosition) _spawnPosition = transform;
         bool moveOnStart = Move;
         bool rotateOnStart = Rotate;
         Move = false;
         Rotate = false;
         _defaultMoveSpeed = _moveSpeed;
-        _head =  Instantiate(_headPrefab, headPosition, Quaternion.identity, transform).GetComponent<DragonHead>();
+        _head =  Instantiate(_headPrefab, _spawnPosition.position, Quaternion.identity, transform).GetComponent<DragonHead>();
         _head.SetUp(_moveSpeed, _rotationSpeed, _bodyPartsStep, this);
         _dragonParts.Add(_head);
         float step = _bodyPartsStep;

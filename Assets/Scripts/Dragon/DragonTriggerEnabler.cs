@@ -10,10 +10,17 @@ public class DragonTriggerEnabler : DragonTrigger
 
         if (((1 << other.gameObject.layer) & _interactMask.value) != 0)
         {
-            _dragonController.Go();
-            _dragonController.DragonReachedLastWayPoint += OnDragonReachedLastWayPoint;
+            OnTriggerEnterRoutine();
         }
     }
+
+    private async void OnTriggerEnterRoutine()
+    {
+        await _dragonController.Spawn();
+        _dragonController.Go();
+        _dragonController.DragonReachedLastWayPoint += OnDragonReachedLastWayPoint;
+    }
+
     private void OnDragonReachedLastWayPoint()
     {
         _dragonController.DragonReachedLastWayPoint -= OnDragonReachedLastWayPoint;

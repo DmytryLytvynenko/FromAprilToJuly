@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5998350719290642981}
   - component: {fileID: 7246775205778431360}
   - component: {fileID: 4860862765802776906}
-  - component: {fileID: 3104555901332121186}
+  - component: {fileID: 6165685681157448816}
   m_Layer: 0
   m_Name: STPine4
   m_TagString: Untagged
@@ -92,8 +92,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3104555901332121186
-BoxCollider:
+--- !u!136 &6165685681157448816
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -110,6 +110,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0078091067, y: 0.009544341, z: 0.12469513}
-  m_Center: {x: 0.000110621746, y: 0.0001413852, z: 0.061554678}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 15
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 5}

@@ -14,7 +14,9 @@ Material:
   m_ValidKeywords:
   - _GRADIENT_ON
   m_InvalidKeywords:
+  - _CULLATFADEEND_ON
   - _USECOLOURMAP_ON
+  - _USEDISTANCEFADE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -127,14 +129,14 @@ Material:
     - _ColourmapBlendToBase: 0.3
     - _ColourmapStrength: 1
     - _Cull: 2
-    - _CullAtFadeEnd: 0
+    - _CullAtFadeEnd: 1
     - _CullMode: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DistanceFadeEnd: 90
+    - _DistanceFadeEnd: 60
     - _DistanceFadeMode: 0
-    - _DistanceFadeStart: 60
+    - _DistanceFadeStart: 40
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -166,7 +168,7 @@ Material:
     - _Surface: 0
     - _TrailTintStrength: 0.5
     - _UseColourmap: 1
-    - _UseDistanceFade: 0
+    - _UseDistanceFade: 1
     - _UseGradient: 1
     - _UsePerspectiveCorrection: 0
     - _WindBlend: 0.324

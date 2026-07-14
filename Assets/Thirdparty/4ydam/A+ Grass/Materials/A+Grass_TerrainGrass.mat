@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _GRADIENT_ON
   m_InvalidKeywords:
+  - _CULLATFADEEND_ON
   - _USECOLOURMAP_ON
   - _USEDISTANCEFADE_ON
   m_LightmapFlags: 4
@@ -128,14 +129,14 @@ Material:
     - _ColourmapBlendToBase: 0.3
     - _ColourmapStrength: 1
     - _Cull: 2
-    - _CullAtFadeEnd: 0
+    - _CullAtFadeEnd: 1
     - _CullMode: 0
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DistanceFadeEnd: 60
+    - _DistanceFadeEnd: 50
     - _DistanceFadeMode: 1
-    - _DistanceFadeStart: 40
+    - _DistanceFadeStart: 30
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -191,7 +192,7 @@ Material:
     - _GradientTopColor: {r: 0.6717055, g: 1, b: 0.23137254, a: 1}
     - _InteractorPosition: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TrailTintColor: {r: 0, g: 0, b: 0, a: 1}
+    - _TrailTintColor: {r: 0.046639178, g: 0.12452829, b: 0.016682092, a: 1}
     - _TrailTintTopColor: {r: 0.36158726, g: 0.5568628, b: 0.27058825, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
