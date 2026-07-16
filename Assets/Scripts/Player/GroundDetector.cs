@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class GroundDetector : MonoBehaviour
 {
+    public event Action<bool> GroundedChanged;
     public bool Grounded {get; private set;} = true;
     public Transform GroundedOn {get; private set;} = null;
 
@@ -36,6 +38,7 @@ public class GroundDetector : MonoBehaviour
         DisableCheckOnJump(/*_disableCheckSource.Token*/).Forget();
 
         Grounded = false;
+        GroundedChanged?.Invoke(Grounded);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -46,11 +49,13 @@ public class GroundDetector : MonoBehaviour
         if(_normalProjector.SlopeIsWalkable)
         {
             Grounded = true;
+            GroundedChanged?.Invoke(Grounded);
             GroundedOn = other.transform;
         }
         else
         {
             Grounded = CheckGround();
+            GroundedChanged?.Invoke(Grounded);
             GroundedOn = Grounded ? other.transform : null;
         }
     }
@@ -59,12 +64,14 @@ public class GroundDetector : MonoBehaviour
         if (!Grounded && IsGroundLayer(other.gameObject))
         {
             Grounded = false;
+            GroundedChanged?.Invoke(Grounded);
             GroundedOn = null;
             return;
         }
         else if(!CheckGround())
         {
             Grounded = false;
+            GroundedChanged?.Invoke(Grounded);
             GroundedOn = null;
         }
     }
@@ -76,11 +83,13 @@ public class GroundDetector : MonoBehaviour
         if (_normalProjector.SlopeIsWalkable)
         {
             Grounded = true;
+            GroundedChanged?.Invoke(Grounded);
             GroundedOn = other.transform;
         }
         else
         {
             Grounded = CheckGround();
+            GroundedChanged?.Invoke(Grounded);
             GroundedOn = Grounded ? other.transform : null;
         }
     }

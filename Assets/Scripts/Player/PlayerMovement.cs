@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [field: SerializeField] public float Speed { get; set; }
 
     public event Action PlayerJumped;
+    public event Action MovementStarted;
+    public event Action MovementEnded;
 
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _jumpForce;
@@ -55,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
     }
     public void RotateTowardsMoveDirection()
     {
-
         float currentAngle = _visual.eulerAngles.y;
         float targetAngle;
         float smoothedAngle;
@@ -124,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (ctx.canceled)
         {
+            MovementEnded?.Invoke();
             _source?.Cancel();
             _source?.Dispose();
 
@@ -132,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (ctx.performed)
         {
+            MovementStarted?.Invoke();
             _source?.Cancel();
             _source?.Dispose();
             _source = null;

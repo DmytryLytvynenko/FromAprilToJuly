@@ -9,41 +9,41 @@ public class Interact : MonoBehaviour
     public event Action ItemThrown;
 
     [Header("Interact")]
-    [SerializeField] private Transform _followPoint;
-    [SerializeField] private float _pickUpDistance = 4f;
-    [SerializeField] private float _followSpeed = 10f;
-    [SerializeField] private float _throwForce = 50f;
-    [SerializeField] private LayerMask _pickUpObjects;
-    [SerializeField] private float _rotateStep = 45f;
-    [SerializeField] private float _moveFollowPointStep = .5f;
-    [SerializeField] private float _followPointAimPositionZ = 3.75f;
-    [SerializeField] private Vector2 _followPointClamp;
-    [SerializeField] private float _interactScanRate = .2f;
+    [SerializeField] protected Transform _followPoint;
+    [SerializeField] protected float _pickUpDistance = 4f;
+    [SerializeField] protected float _followSpeed = 10f;
+    [SerializeField] protected float _throwForce = 50f;
+    [SerializeField] protected LayerMask _pickUpObjects;
+    [SerializeField] protected float _rotateStep = 45f;
+    [SerializeField] protected float _moveFollowPointStep = .5f;
+    [SerializeField] protected float _followPointAimPositionZ = 3.75f;
+    [SerializeField] protected Vector2 _followPointClamp;
+    [SerializeField] protected float _interactScanRate = .2f;
     [Header("Charge")]
-    [SerializeField] private float _throwChargeTime = 3f;
-    [SerializeField] private float _startChargeTime = .5f;
+    [SerializeField] protected float _throwChargeTime = 3f;
+    [SerializeField] protected float _startChargeTime = .5f;
     [Header("Aditional")]
-    [SerializeField] private float _maxCarryWeight = 200f;
-    [SerializeField] private float _minimalMultiplierValue = .05f;
+    [SerializeField] protected float _maxCarryWeight = 200f;
+    [SerializeField] protected float _minimalMultiplierValue = .05f;
 
-    private Camera _camera;
-    private Transform _cameraTransform;
-    private Item _currentItem = null;
-    private Item _currentHighlightedItem = null;
-    private Vector2 _currentFollowPointClamp;
-    private Vector3 _followPointDefaultPosition;
-    private bool _rotateItemOnScroll = true;
-    private bool _justPickedUp = true;
-    private bool _chargeForThrow = false;
-    private float _interactScanTimer;
-    private float _throwTimer = 0f;
-    private float _rawChargeTime;
-    private void Update()
+    protected Camera _camera;
+    protected Transform _cameraTransform;
+    protected Item _currentItem = null;
+    protected Item _currentHighlightedItem = null;
+    protected Vector2 _currentFollowPointClamp;
+    protected Vector3 _followPointDefaultPosition;
+    protected bool _rotateItemOnScroll = true;
+    protected bool _justPickedUp = true;
+    protected bool _chargeForThrow = false;
+    protected float _interactScanTimer;
+    protected float _throwTimer = 0f;
+    protected float _rawChargeTime;
+    protected virtual void Update()
     {
         ScanForItem();
         ChargeForThrow();
     }
-    public void Initialize(Camera camera)
+    public virtual void Initialize(Camera camera)
     {
         _rawChargeTime = _throwChargeTime - _startChargeTime;
         _currentFollowPointClamp = _followPointClamp + Vector2.one * _followPoint.localPosition.z;
@@ -58,7 +58,7 @@ public class Interact : MonoBehaviour
         CameraController.AimModeEntered += OnCameraAimModeEntered;
         CameraController.DefaultModeEntered += OnCameraDefaultModeEntered;
     }
-    public void HandleDisable()
+    public virtual void HandleDisable()
     {
         InputManager.Instance.OnInteract.RemoveListener(HandleInteract);
         InputManager.Instance.OnRotateHorizontal.RemoveListener(HandleRotateHorizontal);
@@ -72,7 +72,7 @@ public class Interact : MonoBehaviour
     {
         return Mathf.Clamp01((_throwTimer - _startChargeTime) / _rawChargeTime);
     }
-    private void HandleInteract(InputAction.CallbackContext ctx)
+    protected virtual void HandleInteract(InputAction.CallbackContext ctx)
     {
         Vector3 dir = _camera.transform.forward;
         if (ctx.performed)
@@ -114,7 +114,7 @@ public class Interact : MonoBehaviour
             }
         }
     }
-    private float CalculateFollowSpeed()
+    protected float CalculateFollowSpeed()
     {
         float maxCoefficient = 0.001f * _maxCarryWeight * _maxCarryWeight;
         float currentCoefficient = 0.001f * _currentItem.Mass * _currentItem.Mass;
@@ -123,7 +123,7 @@ public class Interact : MonoBehaviour
         multiplier = Mathf.Clamp(multiplier, _minimalMultiplierValue, 1f);
         return multiplier * _followSpeed;
     }
-    private void ScanForItem()
+    protected virtual void ScanForItem()
     {
         if (_currentItem) return;
         _interactScanTimer += Time.deltaTime;
@@ -155,7 +155,7 @@ public class Interact : MonoBehaviour
         }
 
     }
-    private void ChargeForThrow()
+    protected void ChargeForThrow()
     {
         if (!_chargeForThrow) return;
 
@@ -170,7 +170,7 @@ public class Interact : MonoBehaviour
         }
 
     }
-    private void HandleRotateHorizontal(InputAction.CallbackContext ctx)
+    protected void HandleRotateHorizontal(InputAction.CallbackContext ctx)
     {
         sbyte sign = (sbyte)Mathf.Sign(ctx.ReadValue<float>());
         if (_currentItem)
@@ -178,7 +178,7 @@ public class Interact : MonoBehaviour
             _currentItem.ChangeTargetRotation(0, _rotateStep * sign);
         }
     }
-    private void HandleScroll(InputAction.CallbackContext ctx)
+    protected void HandleScroll(InputAction.CallbackContext ctx)
     {
         if (!_currentItem) return;
 
@@ -192,32 +192,44 @@ public class Interact : MonoBehaviour
             MoveFollowPoint(sign * _moveFollowPointStep);
         }
     }
-    private void HandleStabilizeRotation(InputAction.CallbackContext ctx)
+    protected void HandleStabilizeRotation(InputAction.CallbackContext ctx)
     {
         if (_currentItem)
         {
             _currentItem.Stabilize();
         }
     }
-    private void HandleToggleScroll(InputAction.CallbackContext ctx)
+    protected void HandleToggleScroll(InputAction.CallbackContext ctx)
     {
         if (ctx.performed) _rotateItemOnScroll = false;
         else _rotateItemOnScroll = true;
     }
-    private void OnCameraAimModeEntered()
+    protected void OnCameraAimModeEntered()
     {
         _followPoint.localPosition = new Vector3(_followPoint.localPosition.x, _followPoint.localPosition.y, _followPoint.localPosition.z - _followPointAimPositionZ);
         _currentFollowPointClamp = _followPointClamp + Vector2.one * (_followPointDefaultPosition.z - _followPointAimPositionZ);
     }
-    private void OnCameraDefaultModeEntered()
+    protected void OnCameraDefaultModeEntered()
     {
         _followPoint.localPosition = new Vector3(_followPoint.localPosition.x, _followPoint.localPosition.y, _followPoint.localPosition.z + _followPointAimPositionZ);
         _currentFollowPointClamp = _followPointClamp + Vector2.one * _followPointDefaultPosition.z;
     }
-    private void MoveFollowPoint(float step)
+    protected virtual void MoveFollowPoint(float step)
     {
         float newPos = _followPoint.localPosition.z + step;
         newPos = Mathf.Clamp(newPos, _currentFollowPointClamp.x, _currentFollowPointClamp.y);
         _followPoint.localPosition = new Vector3(0, 0, newPos);
+    }
+    protected void ItemPickedEventForwarder()
+    {
+        ItemPicked?.Invoke();
+    }
+    protected void ItemThrownForwarder()
+    {
+        ItemThrown?.Invoke();
+    }
+    protected void ChargeTimerStartedEventForwarder()
+    {
+        ChargeTimerStarted?.Invoke();
     }
 }

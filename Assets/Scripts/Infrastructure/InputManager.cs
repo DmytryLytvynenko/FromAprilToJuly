@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public InputEvent OnScroll = new InputEvent();
     [HideInInspector] public InputEvent OnStabilizeRotation = new InputEvent();
     [HideInInspector] public InputEvent OnToggleScroll= new InputEvent();
+    [HideInInspector] public InputEvent OnMousePosition= new InputEvent();
     [HideInInspector] public event Action OnDebug;
     [HideInInspector] public event Action OnPauseEditor;
 
@@ -60,6 +61,7 @@ public class InputManager : MonoBehaviour
         var toggleScroll = _mainInput.Player.ToggleScroll;
         var debugAction = _mainInput.Player.Debug;
         var pauseEditor = _mainInput.Player.PauseEditor;
+        var mousePosition = _mainInput.Player.MousePosition;
 
 
         moveAction.performed += OnMoveInput;
@@ -88,6 +90,7 @@ public class InputManager : MonoBehaviour
 
         debugAction.performed += OnDebugInput;
         pauseEditor.performed += OnPauseEditorInput;
+        mousePosition.performed += OnMousePositionInput;
     }
     private void DisableInputActions()
     {
@@ -102,6 +105,7 @@ public class InputManager : MonoBehaviour
         var toggleScroll = _mainInput.Player.ToggleScroll;
         var debugAction = _mainInput.Player.Debug;
         var pauseEditor = _mainInput.Player.PauseEditor;
+        var mousePosition = _mainInput.Player.MousePosition;
 
         moveAction.performed -= OnMoveInput;
         moveAction.canceled -= OnMoveInput;
@@ -129,6 +133,7 @@ public class InputManager : MonoBehaviour
 
         debugAction.performed -= OnDebugInput;
         pauseEditor.performed -= OnPauseEditorInput;
+        mousePosition.performed -= OnMousePositionInput;
 
         _mainInput.Player.Disable();
     }
@@ -195,6 +200,10 @@ public class InputManager : MonoBehaviour
     private void OnPauseEditorInput(InputAction.CallbackContext ctx)
     {
         OnPauseEditor?.Invoke();
+    }
+    private void OnMousePositionInput(InputAction.CallbackContext ctx)
+    {
+        OnMousePosition?.Invoke(ctx);
     }
 }
 
