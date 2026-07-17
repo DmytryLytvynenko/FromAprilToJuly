@@ -8,6 +8,7 @@ using UnityEngine;
 public class GroundDetector : MonoBehaviour
 {
     public event Action<bool> GroundedChanged;
+    public event Action GroundedPositive;
     public bool Grounded {get; private set;} = true;
     public Transform GroundedOn {get; private set;} = null;
 
@@ -42,6 +43,7 @@ public class GroundDetector : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        bool GroundedBefore = Grounded;
 /*        _disableCheckSource?.Cancel();
         _disableCheckSource?.Dispose();*/
         if (!IsGroundLayer(other.gameObject)) return;
@@ -50,12 +52,14 @@ public class GroundDetector : MonoBehaviour
         {
             Grounded = true;
             GroundedChanged?.Invoke(Grounded);
+            if (GroundedBefore != Grounded) GroundedPositive?.Invoke();
             GroundedOn = other.transform;
         }
         else
         {
             Grounded = CheckGround();
             GroundedChanged?.Invoke(Grounded);
+            if (GroundedBefore != Grounded) GroundedPositive?.Invoke();
             GroundedOn = Grounded ? other.transform : null;
         }
     }

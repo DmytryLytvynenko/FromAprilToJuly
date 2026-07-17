@@ -39,6 +39,7 @@ public class MouseScreenInteract : Interact
                     _currentItem = item;
                     _justPickedUp = true;
                     item.PickUp(_followPoint, CalculateFollowSpeed());
+                    PlayPickupSound();
                     ItemPickedEventForwarder();
                 }
             }
@@ -55,6 +56,7 @@ public class MouseScreenInteract : Interact
                     _throwTimer = 0;
                     _chargeForThrow = false;
                     _currentItem = null;
+                    PlayReleaseSound();
                     ItemThrownForwarder();
                 }
             }

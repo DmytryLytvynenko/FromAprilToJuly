@@ -57,6 +57,7 @@ public class CameraController : MonoBehaviour
 
     public void Initialize(Transform player, GroundDetector groundDetector)
     {
+        _targetControllerRotation = transform.rotation;
         _player = player;
         _groundDetector = groundDetector;
         _defaultCameraYDamping = _cameraYDamping;

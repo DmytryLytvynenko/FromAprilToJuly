@@ -19,6 +19,7 @@ public class Item : MonoBehaviour
     [SerializeField] protected Rigidbody _rigidbody;
     [SerializeField] protected Material _material;
     [SerializeField] protected MeshRenderer _renderer;
+    [SerializeField] protected SFXActor _SFXActor;
 
     protected Transform _followTarget = null;
     protected Quaternion _currentRotation = Quaternion.identity;
@@ -46,6 +47,7 @@ public class Item : MonoBehaviour
         _rotate = true;
         _followTarget = target;
         _followForce = followForce;
+        //PlayPickupSound();
         ItemPicked?.Invoke();
         //Highlight();
     }
@@ -57,6 +59,7 @@ public class Item : MonoBehaviour
     }
     public virtual void Release(Vector3 throwDir) 
     {
+        //PlayReleaseSound();
         ItemReleased?.Invoke();
         _rotate = false;
         Picked = false;
@@ -128,6 +131,14 @@ public class Item : MonoBehaviour
         Vector3 v = _rigidbody.linearVelocity;
         v.y = v.y + _gravity * Time.fixedDeltaTime;
         _rigidbody.linearVelocity = v;
+    }
+    protected virtual void PlayPickupSound()
+    {
+        _SFXActor.PlaySound(SFX.ItemPickup);
+    }
+    protected virtual void PlayReleaseSound()
+    {
+        _SFXActor.PlaySound(SFX.ItemRelease);
     }
     protected virtual void FixedUpdate()
     {

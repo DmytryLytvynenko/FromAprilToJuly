@@ -25,6 +25,7 @@ public class Interact : MonoBehaviour
     [Header("Aditional")]
     [SerializeField] protected float _maxCarryWeight = 200f;
     [SerializeField] protected float _minimalMultiplierValue = .05f;
+    [SerializeField] protected SFXActor _SFXActor;
 
     protected Camera _camera;
     protected Transform _cameraTransform;
@@ -93,6 +94,7 @@ public class Interact : MonoBehaviour
                     _currentItem = item;
                     _justPickedUp = true;
                     item.PickUp(_followPoint, CalculateFollowSpeed());
+                    PlayPickupSound();
                     ItemPicked?.Invoke();
                 }
             }
@@ -109,6 +111,7 @@ public class Interact : MonoBehaviour
                     _throwTimer = 0;
                     _chargeForThrow = false;
                     _currentItem = null;
+                    PlayReleaseSound();
                     ItemThrown?.Invoke();
                 }
             }
@@ -231,5 +234,13 @@ public class Interact : MonoBehaviour
     protected void ChargeTimerStartedEventForwarder()
     {
         ChargeTimerStarted?.Invoke();
+    }
+    protected virtual void PlayPickupSound()
+    {
+        _SFXActor.PlaySound(SFX.ItemPickup);
+    }
+    protected virtual void PlayReleaseSound()
+    {
+        _SFXActor.PlaySound(SFX.ItemRelease);
     }
 }

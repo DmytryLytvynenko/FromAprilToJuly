@@ -73,7 +73,6 @@ public class ItemEmit : Item
         _cancellationTokenSource = new CancellationTokenSource();
         ShowPattern(_cancellationTokenSource.Token).Forget();
     }
-
     public override void RemoveHighlight()
     {
         if (!enabled) return;
