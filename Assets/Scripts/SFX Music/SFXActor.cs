@@ -29,6 +29,13 @@ public class SFXActor : MonoBehaviour
         else
             LogMissing(sfx.ToString());
     }
+    public virtual void PlaySound(SFX sfx, float pitch)
+    {
+        if (_dClips.TryGetValue(sfx, out var clip))
+            Play(clip, pitch);
+        else
+            LogMissing(sfx.ToString());
+    }
 
     public virtual void PlaySound_BUTTON(string sfx)
     {
@@ -41,6 +48,11 @@ public class SFXActor : MonoBehaviour
     private void Play(AudioClip clip)
     {
         if (RandomizePitch) _source.pitch = RandomPitch;
+        _source.PlayOneShot(clip);
+    }
+    private void Play(AudioClip clip, float pitch)
+    {
+        _source.pitch = pitch;
         _source.PlayOneShot(clip);
     }
 

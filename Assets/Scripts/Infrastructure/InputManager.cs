@@ -146,7 +146,7 @@ public class InputManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     private void OnMoveInput(InputAction.CallbackContext ctx)
     {

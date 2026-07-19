@@ -47,3 +47,8 @@ public enum PlayerAnimatorParams
     Jump,
     Grounded
 }
+public enum AnimatorParams
+{
+    SceneLoaded
+}
+

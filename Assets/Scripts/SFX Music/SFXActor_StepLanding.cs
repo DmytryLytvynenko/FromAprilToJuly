@@ -21,8 +21,7 @@ public class SFXActor_StepLanding : SFXActor
     }
     private void OnPlayerJumped()
     {
-        _source.pitch = 1f;
-        PlaySound(SFX.Jump);
+        PlaySound(SFX.Jump, 1f);
     }
     private void OnGrounded()
     {

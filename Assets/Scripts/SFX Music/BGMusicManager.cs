@@ -6,6 +6,7 @@ public class BGMusicManager : MonoBehaviour
     [field: SerializeField] public AudioSource BGMusic { get; private set; }
     [field: SerializeField] public AudioSource BGWind { get; private set; }
     [field: SerializeField] public AudioSource SFX { get; private set; }
+    [field: SerializeField] public SFXActor SFXActor { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
