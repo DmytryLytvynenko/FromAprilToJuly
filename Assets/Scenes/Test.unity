@@ -5539,6 +5539,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 0}
   _material: {fileID: 0}
   _renderer: {fileID: 0}
+  _SFXActor: {fileID: 0}
 --- !u!1001 &1055171572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6698,6 +6699,12 @@ MonoBehaviour:
   OnToggleScroll:
     m_PersistentCalls:
       m_Calls: []
+  OnMousePosition:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMenu:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1489675943
 Transform:
   m_ObjectHideFlags: 0
@@ -7174,6 +7181,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610570339702466281, guid: ebc0e456448313b48a5809019a794ec1, type: 3}
   m_PrefabInstance: {fileID: 1591290344}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1598925614
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2755073949659521973, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -20.977867
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.87463427
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -59.25523
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9656996
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.2596619
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -30.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993859797140880132, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572965218729687636, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: m_Name
+      value: StoneCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 5629425524956594668, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fbfa1d0b9f3254f449f6d80264c82ca9, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c82a09d581d44a848b0df03dc4b971a2, type: 3}
 --- !u!1001 &1614267868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7727,6 +7799,7 @@ MonoBehaviour:
   _rigidbody: {fileID: 0}
   _material: {fileID: 0}
   _renderer: {fileID: 0}
+  _SFXActor: {fileID: 0}
 --- !u!54 &1907381595
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9764,3 +9837,4 @@ SceneRoots:
   - {fileID: 501435833}
   - {fileID: 1876588850}
   - {fileID: 3770401877660756749}
+  - {fileID: 1598925614}

@@ -16,6 +16,7 @@ namespace SimpleDependencyManagement
         [field: SerializeField] public Interact Interact { get; private set; }
         [field: SerializeField] public ChargeIndicator ChargeIndicator { get; private set; }
         [field: SerializeField] public PlayerAnimator PlayerAnimator { get; private set; }
+        [field: SerializeField] public PauseMenu PauseMenu { get; private set; }
         private void Awake()
         {
             if (LockCursor)
@@ -38,6 +39,7 @@ namespace SimpleDependencyManagement
             Interact?.Initialize(Camera.main);
             ChargeIndicator?.Initialize(Interact);
             PlayerAnimator?.Initialize(PlayerMovement, GroundDetector);
+            PauseMenu?.Initialize();
         }
         private void OnDisable()
         {
@@ -48,6 +50,7 @@ namespace SimpleDependencyManagement
             Interact?.HandleDisable();
             ChargeIndicator?.HandleDisable();
             PlayerAnimator?.HandleDisable();
+            PauseMenu?.HandleDisable();
 
             InputManager.HandleDisable();
         }

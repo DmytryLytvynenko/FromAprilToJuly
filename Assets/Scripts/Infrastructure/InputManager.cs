@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     [HideInInspector] public InputEvent OnStabilizeRotation = new InputEvent();
     [HideInInspector] public InputEvent OnToggleScroll= new InputEvent();
     [HideInInspector] public InputEvent OnMousePosition= new InputEvent();
+    [HideInInspector] public InputEvent OnMenu= new InputEvent();
     [HideInInspector] public event Action OnDebug;
     [HideInInspector] public event Action OnPauseEditor;
 
@@ -49,6 +50,7 @@ public class InputManager : MonoBehaviour
         _mainInput = new MainInput();
 
         _mainInput.Player.Enable();
+        _mainInput.UI.Enable();
 
         var moveAction = _mainInput.Player.Move;
         var jumpAction = _mainInput.Player.Jump;
@@ -62,6 +64,7 @@ public class InputManager : MonoBehaviour
         var debugAction = _mainInput.Player.Debug;
         var pauseEditor = _mainInput.Player.PauseEditor;
         var mousePosition = _mainInput.Player.MousePosition;
+        var menu = _mainInput.UI.Menu;
 
 
         moveAction.performed += OnMoveInput;
@@ -89,8 +92,9 @@ public class InputManager : MonoBehaviour
         toggleScroll.canceled += OnToggleScrollInput;
 
         debugAction.performed += OnDebugInput;
-        pauseEditor.performed += OnPauseEditorInput;
+        //pauseEditor.performed += OnPauseEditorInput;
         mousePosition.performed += OnMousePositionInput;
+        menu.performed += OnMenuInput;
     }
     private void DisableInputActions()
     {
@@ -106,6 +110,7 @@ public class InputManager : MonoBehaviour
         var debugAction = _mainInput.Player.Debug;
         var pauseEditor = _mainInput.Player.PauseEditor;
         var mousePosition = _mainInput.Player.MousePosition;
+        var menu = _mainInput.UI.Menu;
 
         moveAction.performed -= OnMoveInput;
         moveAction.canceled -= OnMoveInput;
@@ -132,10 +137,12 @@ public class InputManager : MonoBehaviour
         toggleScroll.canceled -= OnToggleScrollInput;
 
         debugAction.performed -= OnDebugInput;
-        pauseEditor.performed -= OnPauseEditorInput;
+        //pauseEditor.performed -= OnPauseEditorInput;
         mousePosition.performed -= OnMousePositionInput;
+        menu.performed -= OnMenuInput;
 
         _mainInput.Player.Disable();
+        _mainInput.UI.Disable();
     }
     public void CreateSingleton()
     {
@@ -146,13 +153,52 @@ public class InputManager : MonoBehaviour
         }
 
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
+    }
+    public void DisableMovement()
+    {
+        if (_mainInput == null) return;
+
+        _mainInput.Player.Move.Disable();
+        _mainInput.Player.Jump.Disable();
+
+        _currentMoveInput = Vector2.zero;
+        _jumpPressed = false;
+    }
+    public void EnableMovement()
+    {
+        if (_mainInput == null) return;
+
+        _mainInput.Player.Move.Enable();
+        _mainInput.Player.Jump.Enable();
     }
     private void OnMoveInput(InputAction.CallbackContext ctx)
     {
         _currentMoveInput = ctx.ReadValue<Vector2>();
         if (ctx.canceled) _currentMoveInput = Vector2.zero;
         OnMove?.Invoke(ctx);
+    }
+    public void DisableCamera()
+    {
+        if (_mainInput == null) return;
+
+        _mainInput.Player.Look.Disable();
+        _mainInput.Player.Aim.Disable();
+        _mainInput.Player.RotateHorizontal.Disable();
+        _mainInput.Player.Scroll.Disable();
+        _mainInput.Player.StabilizeRotation.Disable();
+
+        _currentLookInput = Vector2.zero;
+        _aimPressed = false;
+    }
+    public void EnableCamera()
+    {
+        if (_mainInput == null) return;
+
+        _mainInput.Player.Look.Enable();
+        _mainInput.Player.Aim.Enable();
+        _mainInput.Player.RotateHorizontal.Enable();
+        _mainInput.Player.Scroll.Enable();
+        _mainInput.Player.StabilizeRotation.Enable();
     }
 
     private void OnJumpInput(InputAction.CallbackContext ctx)
@@ -204,6 +250,10 @@ public class InputManager : MonoBehaviour
     private void OnMousePositionInput(InputAction.CallbackContext ctx)
     {
         OnMousePosition?.Invoke(ctx);
+    }
+    private void OnMenuInput(InputAction.CallbackContext ctx)
+    {
+        OnMenu?.Invoke(ctx);
     }
 }
 
