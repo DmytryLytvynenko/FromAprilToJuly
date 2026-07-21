@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
+using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -103,7 +103,7 @@ public class GroundDetector : MonoBehaviour
     }
     private bool CheckGround()
     {
-        Debug.DrawRay(_playerMovement.transform.position, Vector3.down * _jumpRayCheckDistance, Color.blue, 5f);
+        CheckGroundRay();
         if (Physics.Raycast(_playerMovement.transform.position, Vector3.down, out RaycastHit hit, _jumpRayCheckDistance, _groundedLayers))
         {
             return true;
@@ -114,6 +114,13 @@ public class GroundDetector : MonoBehaviour
             return false;
         }
     }
+
+    [Conditional("DEVELOPMENT_BUILD"), Conditional("UNITY_EDITOR")]
+    private void CheckGroundRay()
+    {
+        UnityEngine.Debug.DrawRay(_playerMovement.transform.position, Vector3.down * _jumpRayCheckDistance, Color.blue, 5f);
+    }
+
     private async UniTaskVoid DisableCheckOnJump(/*CancellationToken token*/)
     {
         _checkOnStay = false;

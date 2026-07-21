@@ -41,8 +41,8 @@ public class SceneHandler : MonoBehaviour
 
     private IEnumerator LoadSceneCoroutine(SceneName name)
     {
-        _loadIconAnimator.SetBool(AnimatorParams.SceneLoaded.ToString(), false);
         yield return Instance.StartCoroutine(Instance.ShowBanner());
+        _loadIconAnimator.SetBool(AnimatorParams.SceneLoaded.ToString(), false);
 
         if (_menuRocks)
         {
@@ -58,7 +58,7 @@ public class SceneHandler : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(2.1f);
 
         SceneLoaded?.Invoke(name);
         _loadIconAnimator.SetBool(AnimatorParams.SceneLoaded.ToString(), true);
@@ -124,9 +124,9 @@ public class SceneHandler : MonoBehaviour
         }
         else
         {
-#if UNITY_EDITOR
-            Debug.LogError("Invalid scene name");
-#endif
+            #if UNITY_EDITOR
+                Debug.LogError("Invalid scene name");
+            #endif
         }
     }
     private void OnSpacebarPressed(InputAction.CallbackContext ctx)

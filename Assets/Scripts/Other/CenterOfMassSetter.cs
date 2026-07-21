@@ -21,7 +21,7 @@ public class CenterOfMassSetter : MonoBehaviour
         else
         {
             #if UNITY_EDITOR
-            Debug.LogError("Cannot set centerOfMass, Rigidbody is null");
+                Debug.LogError("Cannot set centerOfMass, Rigidbody is null");
             #endif
         }
     }

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,8 +52,7 @@ public class MouseScreenInteract : Interact
                 if (_currentItem)
                 {
                     _throwTimer = _throwTimer > _startChargeTime ? _throwTimer : _startChargeTime;
-                    _currentItem.Release((_throwTimer - _startChargeTime) / _rawChargeTime * _throwForce * ray.direction.normalized);
-                    Debug.Log("Throwed with force:" + (_throwTimer - _startChargeTime) / _rawChargeTime * _throwForce);
+                    _currentItem.Release((_throwTimer - _startChargeTime) / _rawChargeTime * _throwForce * ray.direction.normalized);               
                     _throwTimer = 0;
                     _chargeForThrow = false;
                     _currentItem = null;
@@ -70,7 +70,7 @@ public class MouseScreenInteract : Interact
 
         _interactScanTimer = 0;
         Ray ray = _camera.ScreenPointToRay(_mousePos);
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, .2f);
+        ScenForItemDebugRay(ray);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, _pickUpDistance, _pickUpObjects))
         {
             if (hitInfo.rigidbody.TryGetComponent(out Item item))
@@ -94,6 +94,13 @@ public class MouseScreenInteract : Interact
         }
 
     }
+
+    [Conditional("DEVELOPMENT_BUILD"), Conditional("UNITY_EDITOR")]
+    private static void ScenForItemDebugRay(Ray ray)
+    {
+        UnityEngine.Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, .2f);
+    }
+
     private void HandleMousePosition(InputAction.CallbackContext ctx)
     {
         _mousePos = ctx.ReadValue<Vector2>();

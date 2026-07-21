@@ -52,7 +52,11 @@ public class GrassInteractor : MonoBehaviour
     private void Start()
     {
         if (GrassManager.Instance == null)
-            Debug.LogWarning("[GrassInteractor] No GrassManager found in scene! Add one to enable grass interaction.");
+        {
+            #if UNITY_EDITOR
+                Debug.LogWarning("[GrassInteractor] No GrassManager found in scene! Add one to enable grass interaction.");
+            #endif
+        }
     }
 
     private void Update()

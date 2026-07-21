@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -78,7 +79,7 @@ public class Interact : MonoBehaviour
         Vector3 dir = _camera.transform.forward;
         if (ctx.performed)
         {
-            if (_currentItem) 
+            if (_currentItem)
             {
                 _chargeForThrow = true;
                 _justPickedUp = false;
@@ -86,7 +87,7 @@ public class Interact : MonoBehaviour
                 return;
             }
 
-            Debug.DrawRay(_cameraTransform.position, dir * _pickUpDistance, Color.yellow, 5f);
+            DebugPickUpRay(dir);
             if (Physics.Raycast(_cameraTransform.position, dir, out RaycastHit hitInfo, _pickUpDistance, _pickUpObjects))
             {
                 if (hitInfo.rigidbody.TryGetComponent(out Item item))
@@ -107,7 +108,6 @@ public class Interact : MonoBehaviour
                 {
                     _throwTimer = _throwTimer > _startChargeTime ? _throwTimer : _startChargeTime;
                     _currentItem.Release((_throwTimer - _startChargeTime) / _rawChargeTime * _throwForce * dir);
-                    Debug.Log("Throwed with force:" + (_throwTimer - _startChargeTime) / _rawChargeTime * _throwForce);
                     _throwTimer = 0;
                     _chargeForThrow = false;
                     _currentItem = null;
@@ -117,6 +117,13 @@ public class Interact : MonoBehaviour
             }
         }
     }
+
+    [Conditional("DEVELOPMENT_BUILD"), Conditional("UNITY_EDITOR")]
+    private void DebugPickUpRay(Vector3 dir)
+    {
+        UnityEngine.Debug.DrawRay(_cameraTransform.position, dir * _pickUpDistance, Color.yellow, 5f);
+    }
+
     protected float CalculateFollowSpeed()
     {
         float maxCoefficient = 0.001f * _maxCarryWeight * _maxCarryWeight;

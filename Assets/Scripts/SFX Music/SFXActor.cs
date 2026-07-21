@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class SFXActor : MonoBehaviour
@@ -16,9 +17,16 @@ public class SFXActor : MonoBehaviour
         foreach (var clip in _clips)
         {
             if (Enum.TryParse(clip.name, out SFX key))
+            { 
                 _dClips[key] = clip;
+            }
             else
-                Debug.LogError($"Clip name '{clip.name}' doesn't match SFX enum", this);
+            {
+                #if UNITY_EDITOR
+                    UnityEngine.Debug.LogError($"Clip name '{clip.name}' doesn't match SFX enum", this);
+                #endif
+            }
+            
         }
         Invoke(nameof(UnmuteSource), 3f);
     }
@@ -56,10 +64,11 @@ public class SFXActor : MonoBehaviour
         _source.PlayOneShot(clip);
     }
 
+    [Conditional("DEVELOPMENT_BUILD"), Conditional("UNITY_EDITOR")]
     protected virtual void LogMissing(string name)
     {
         #if UNITY_EDITOR
-                Debug.LogError($"Clip {name} not found", this);
+                UnityEngine.Debug.LogError($"Clip {name} not found", this);
         #endif
     }
     protected virtual void UnmuteSource()

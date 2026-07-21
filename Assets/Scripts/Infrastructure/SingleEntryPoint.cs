@@ -54,6 +54,10 @@ namespace SimpleDependencyManagement
 
             InputManager.HandleDisable();
         }
+        public static void CloseGame()
+        {
+            Application.Quit();
+        }
     }
 }
 

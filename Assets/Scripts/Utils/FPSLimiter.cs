@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class FpsLimiter : MonoBehaviour
 {
@@ -10,14 +9,14 @@ public class FpsLimiter : MonoBehaviour
     {
         Application.targetFrameRate = _targetFps;
     }
-    private void OnEnable()
+/*    private void OnEnable()
     {
         InputManager.Instance.OnPauseEditor += PauseEditor;
     }
     private void OnDisable()
     {
         InputManager.Instance.OnPauseEditor -= PauseEditor;
-    }
+    }*/
 
     private void OnValidate()
     {
@@ -27,6 +26,7 @@ public class FpsLimiter : MonoBehaviour
             Application.targetFrameRate = _targetFps;
         }
     }
+
     private void PauseEditor()
     {
         Debug.Break();

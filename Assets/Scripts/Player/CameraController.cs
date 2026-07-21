@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -184,7 +185,7 @@ public class CameraController : MonoBehaviour
 
         _checkObstaclesTimer = 0;
         Vector3 dir = _cameraAnchor.transform.position - _obstacleChecker.transform.position;
-        Debug.DrawRay(_obstacleChecker.transform.position, dir, Color.red, .1f);
+        CheckObstacleseDebugRay(dir);
         if (Physics.Raycast(_obstacleChecker.transform.position, dir, out _hit, dir.magnitude, ~_cameraRayIgnoreObjectsMask))
         {
             _moveableCameraAnchor.position = _hit.point - dir * _cameraObstacleOffset;
@@ -194,8 +195,15 @@ public class CameraController : MonoBehaviour
         {
             _currentCameraAnchor = _cameraAnchor;
         }
-        
+
     }
+
+    [Conditional("DEVELOPMENT_BUILD"), Conditional("UNITY_EDITOR")]
+    private void CheckObstacleseDebugRay(Vector3 dir)
+    {
+        UnityEngine.Debug.DrawRay(_obstacleChecker.transform.position, dir, Color.red, .1f);
+    }
+
     private async UniTaskVoid FocusPointToDefault(CancellationToken ct)
     {
         _currentFucusPoint = _moveableAnchorFocusPoint;

@@ -20,12 +20,6 @@ public class DebugPanel : MonoBehaviour
     {
         InputManager.Instance.OnDebug -= OnDebug;
     }
-    private void OnEnable()
-    {
-    }
-    private void OnDisable()
-    {
-    }
     private void Update()
     {
         UpdateText();
@@ -34,12 +28,19 @@ public class DebugPanel : MonoBehaviour
     private void OnDebug()
     {
         _debugPanel.SetActive(!_debugPanel.activeSelf);
+/*        #if UNITY_EDITOR
+                _debugPanel.SetActive(!_debugPanel.activeSelf);
+        #endif*/
     }
 
     private void UpdateText()
     {
         UpdateGroundedText();
         UpdateLinearVelocityTBText();
+        /*        #if UNITY_EDITOR
+                    UpdateGroundedText();
+                    UpdateLinearVelocityTBText();
+                #endif*/
     }
 
     private void UpdateGroundedText()
