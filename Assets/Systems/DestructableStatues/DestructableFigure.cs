@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace DestructableFigures
 {
@@ -15,12 +16,14 @@ namespace DestructableFigures
         [SerializeField] private float _explosionForce = 50f;
         [SerializeField] private float _explosionRadius = 10f;
         [SerializeField] private float _upwardsModifier = 0f;
+        [SerializeField] private FigureDestructionMethod destructionMethod = FigureDestructionMethod.Explode;
 
         [Header("Assembly")]
         [SerializeField] private float _delayBetweenParts = 0.1f;
         [SerializeField] private bool _sequentialAssembling = true;
         [SerializeField] private bool _topToBottom = true;
         [SerializeField] private bool _bottomToTop = false;
+        [SerializeField] private bool _enableColliders = true;
 
         public bool _destructed;
         public bool _isAssembling;
@@ -50,7 +53,7 @@ namespace DestructableFigures
         public void InitializeParts()
         {
             foreach (var part in parts)
-                part.Initialize(transform);
+                part.Initialize(transform, _enableColliders);
         }
 
         private void Start()
@@ -65,18 +68,44 @@ namespace DestructableFigures
         {
             if (!ctx.performed || _isAssembling) return;
 
-            if (!_destructed) Explode();
+            if (!_destructed) DestroyFigure();
             else AssembleAsync(destroyCancellationToken).Forget();
+        }
+
+        private void DestroyFigure()
+        {
+            _destructed = true;
+
+            switch (destructionMethod)
+            {
+                case FigureDestructionMethod.Explode:
+                    Explode();
+                    break;
+                case FigureDestructionMethod.Drop:
+                    Drop();
+                    break;
+                case FigureDestructionMethod.Disassemble:
+                    break;
+                default:
+                    break;
+            }
+
+
         }
 
         private void Explode()
         {
-            _destructed = true;
-
             foreach (var part in parts)
             {
                 part.Release();
                 part.Rigidbody.AddExplosionForce(_explosionForce, _center.position, _explosionRadius, _upwardsModifier);
+            }
+        }
+        private void Drop()
+        {
+            foreach (var part in parts)
+            {
+                part.Release();
             }
         }
 
@@ -114,5 +143,11 @@ namespace DestructableFigures
 
             await UniTask.WhenAll(tasks);
         }
+    }
+    public enum FigureDestructionMethod
+    {
+        Explode,
+        Drop,
+        Disassemble
     }
 }

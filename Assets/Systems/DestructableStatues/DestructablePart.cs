@@ -6,6 +6,7 @@ namespace DestructableFigures
 {
 
     [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Collider))]
     public class DestructablePart : MonoBehaviour
     {
         [Header("Position")]
@@ -26,14 +27,18 @@ namespace DestructableFigures
         private Transform _root;
         private Vector3 _defaultLocalPos;
         private Quaternion _defaultLocalRot;
+        private bool _enableCollider = true;
 
         public Rigidbody Rigidbody { get; private set; }
+        public Collider Collider { get; private set; }
         [field: SerializeField] public bool IsAssembled { get; set; } = true;
 
-        public void Initialize(Transform root)
+        public void Initialize(Transform root, bool enableCollider)
         {
             Rigidbody = GetComponent<Rigidbody>();
             _root = root;
+            _enableCollider = enableCollider;
+            Collider = GetComponent<Collider>();
 
             _defaultLocalPos = _root.InverseTransformPoint(Rigidbody.position);
             _defaultLocalRot = Quaternion.Inverse(_root.rotation) * Rigidbody.rotation;
@@ -44,6 +49,7 @@ namespace DestructableFigures
         public async UniTask Assemble(CancellationToken ct = default)
         {
             Rigidbody.isKinematic = false;
+            Collider.enabled = _enableCollider;
             IsAssembled = false;
             enabled = true;
             await UniTask.WaitUntil(() => IsAssembled, PlayerLoopTiming.FixedUpdate, ct);
@@ -95,6 +101,7 @@ namespace DestructableFigures
             Rigidbody.isKinematic = true;
             Rigidbody.position = pos;
             Rigidbody.rotation = rot;
+            Collider.enabled = true;
 
             IsAssembled = true;
             enabled = false;

@@ -6,16 +6,16 @@ namespace DestructableFigures
     public class FigureBuilder : MonoBehaviour
     {
         [SerializeField] private FigureType _type = FigureType.Cube;
-        [SerializeField] private GameObject _samplePart;
-        [SerializeField] private Transform _center;
+        [SerializeField] protected GameObject _samplePart;
+        [SerializeField] protected Transform _center;
         private DestructablePart[] _parts;
 
         [SerializeField] private int _cubeSize = 3;
         [SerializeField] private float _cubeStep = 1f;
 
-        private const string PartsRootName = "Parts";
+        protected const string PartsRootName = "Parts";
 
-        public void BuildFigure()
+        public virtual void BuildFigure()
         {
             ClearParts();
 
@@ -65,7 +65,7 @@ namespace DestructableFigures
                     }
         }
 
-        private void ClearParts()
+        protected void ClearParts()
         {
             Transform old = transform.Find(PartsRootName);
             if (old == null) return;
